@@ -1,12 +1,3 @@
---TABLA HISTORIAL DE ESTADOS FARMACIA
-CREATE TABLE historialEstados_farmacia(
-id_estado INT PRIMARY KEY AUTO_INCREMENT,
-NIT_farmacia VARCHAR(12),
-FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
-nombre ENUM('activo','inactivo'),
-fecha_cambio DATE,
-comentario TEXT);
-
 --TABLA FARMACIA
 CREATE TABLE farmacia(
 id_farmacia INT PRIMARY KEY AUTO_INCREMENT,
@@ -15,16 +6,35 @@ direccion VARCHAR(40),
 telefono CHAR(10)
 estado ENUM('activo','inactivo'));
 
---TABLA USUARIO FARMACIA
-CREATE TABLE usiarioFarmacia(
-NIT_farmacia VARCHAR(12) PRIMARY KEY,
-id_usuario INT,
-id_farmacia INT,
-FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-FOREIGN KEY(id_farmacia) REFERENCES farmacia(id_farmacia),
-estado ENUM('activo','inactivo')
-fecha_inicio DATE,
-fecha_termino  DATE);
+--TABLA HISTORIAL DE ESTADOS FARMACIA
+CREATE TABLE historialEstados_farmacia(
+id_estado INT PRIMARY KEY AUTO_INCREMENT,
+NIT_farmacia VARCHAR(12),
+FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
+nombre_estado ENUM('activo','inactivo'),
+fecha_cambio DATE,
+comentario TEXT);
+
+--TRIGGER FARMACIA (para crear el primer estado de una farmacia)
+
+CREATE TRIGGER primerEstado_farmacia AFTER INSERT ON farmacia
+FOR EACH ROW
+    INSERT INTO historialEstados_farmacia VALUES(NEW.NIT_farmacia,'activo',CURDATE(),'estado de creación');
+;
+
+--TRIGGER HISTORIAL DE ESTADOS FARMACIA(para actualizar automaticamente una asignación cuando se desactiva una farmacia)
+
+DELIMITER //
+CREATE TRIGGER farmaciaDesactivada BEFORE INSERT ON historialEstados_farmacia
+FOR EACH ROW 
+    BEGIN
+        IF(NEW.nombre != OLD.name) THEN
+            UPDATE usuarioFarmacia SET estado = NEW.nombre, fecha_termino = CURDATE() WHERE NIT_farmacia = NEW.NIT_farmacia;
+        END IF;
+    END
+// DELIMITER;
+
+
 
 --TABLA USUARIO
 CREATE TABLE usuario(
@@ -35,6 +45,20 @@ rol ENUM('administrador','encargado'),
 estado ENUM('activo','inactivo'),
 fecha_inicio DATE,
 fecha_termino  DATE);
+
+--TABLA USUARIO FARMACIA
+CREATE TABLE usuarioFarmacia(
+NIT_farmacia VARCHAR(12) PRIMARY KEY,
+id_usuario INT,
+id_farmacia INT,
+FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+FOREIGN KEY(id_farmacia) REFERENCES farmacia(id_farmacia),
+estado ENUM('activo','inactivo')
+fecha_inicio DATE,
+fecha_termino  DATE);
+
+
+
 
 --TABLA PRODUCTO
 CREATE TABLE producto(
@@ -131,7 +155,9 @@ FOREIGN KEY(id_producto) REFERENCES producto(id_producto),
 proveedor VARCHAR(12),
 FOREIGN KEY(proveedor) REFERENCES proveedor(NIT),
 cantidad INT,
-estado ENUM('activo','inactivo'));
+estado ENUM('activo','inactivo')
+fecha_registro DATE,
+fecha_descontinuacion DATE);
 
 --INSERTAR PROVEEDORES
 INSERT INTO proveedor (NIT_proveedor, nombre_proveedor, direccion, telefono, correo, persona_contacto, estado)
@@ -176,20 +202,21 @@ VALUES
     ('1009','Cruz verde', 'Carrera 9, Villa', '901-234-5678'),
     ('1010','Drogueria Alemana', 'Calle 10, Ciudad', '123-234-5678');
 
+
 --INSERTAR  STOCK
 
 INSERT INTO stock(NIT_farmacia,id_producto,proveedor,cantidad,estado)
 VALUES
-    ('1003',12,'NIT6',50,'activo'),
-    ('1009',11,'NIT6',100,'activo'),
-    ('1004',14,'NIT4',120,'activo'),
-    ('1001',20,'NIT1',30,'activo'),
-    ('1007',18,'NIT9',10,'activo'),
-    ('1005',20,'NIT3',0,'inactivo'),
-    ('1010',20,'NIT10',90,'activo'),
-    ('1002',13,'NIT5',86,'activo'),
-    ('1009',13,'NIT7',100,'activo'),
-    ('1001',14,'NIT7',0,'inactivo');
+    ('1003',1,'NIT6',50,'activo'),
+    ('1009',2,'NIT6',100,'activo'),
+    ('1004',3,'NIT4',120,'activo'),
+    ('1001',4,'NIT1',30,'activo'),
+    ('1007',5,'NIT9',10,'activo'),
+    ('1005',6,'NIT3',0,'inactivo'),
+    ('1010',7,'NIT10',90,'activo'),
+    ('1002',8,'NIT5',86,'activo'),
+    ('1009',9,'NIT7',100,'activo'),
+    ('1001',10,'NIT7',20,'activo');
     
 
 --INSERTAR FACTURAS
@@ -207,49 +234,79 @@ VALUES
     ('2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
     ('2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
 
---INSERTAR AGREGAR PRODUCTOS
+--INSERTAR FACTURA PRODUCTO
 
-INSERT INTO agregarProducto(numReferencia,id_producto,cantidad,suma_total)
+INSERT INTO facturaProducto(numReferencia,id_producto,cantidad,suma_total)
 VALUES
-    (31,12,2,0),
-    (39,11,1,0),
-    (40,14,3,0),
-    (31,20,5,0),
-    (37,18,1,0),
-    (35,20,2,0),
-    (40,20,4,0),
-    (32,13,3,0),
-    (39,13,1,0),
-    (31,14,1,0);
+    (31,2,2,0),
+    (39,1,1,0),
+    (40,4,3,0),
+    (31,5,5,0),
+    (37,8,1,0),
+    (35,10,2,0),
+    (40,3,4,0),
+    (32,7,3,0),
+    (39,9,1,0),
+    (31,6,1,0);
 
 --INSERTAR USUARIOS
 
-INSERT INTO usuario(clave, nombre_usuario,rol)
+INSERT INTO usuario(clave, nombre_usuario,rol,estado,fecha_inicio)
 VALUES
-    ('clave123', 'pepito23','administrador'),
-    ('abc456', 'MGomez','encargado'),
-    ('securePass', 'Car30Ruiz','encargado'),
-    ('userPass123', 'Laures123','encargado'),
-    ('passWord42', 'PedroL','encargado'),
-    ('strongPass', 'AGarcia','encargado'),
-    ('secret123', 'Dani2024','encargado'),
-    ('myPass789', 'SofiaDiaz','administrador'),
-    ('pass1234', 'DiegoH14','encargado'),
-    ('adminPass', 'Usuario24','encargado');
+    ('clave123', 'pepito23','administrador','activo',CURDATE()),
+    ('abc456', 'MGomez','encargado','activo',CURDATE()),
+    ('securePass', 'Car30Ruiz','encargado','activo',CURDATE()),
+    ('userPass123', 'Laures123','encargado','activo',CURDATE()),
+    ('passWord42', 'PedroL','encargado','activo',CURDATE()),
+    ('strongPass', 'AGarcia','encargado','activo',CURDATE()),
+    ('secret123', 'Dani2024','encargado','activo',CURDATE()),
+    ('myPass789', 'SofiaDiaz','administrador','activo',CURDATE()),
+    ('pass1234', 'DiegoH14','encargado','activo',CURDATE()),
+    ('adminPass', 'Usuario24','encargado','activo',CURDATE());
 
 --INSERTAR USUARIO FARMACIA
 
-INSERT INTO usuarioFarmacia(id_usuario,NIT_farmacia,estado,fechaInicio,fechaTermino)
+INSERT INTO usuarioFarmacia(id_usuario,NIT_farmacia,estado,fechaInicio)
 VALUES
-    ('1003','activo'),
-    ('1009','activo'),
-    ('1004','activo'),
-    ('1001','activo'),
-    ('1007','activo'),
-    ('1005','inactivo'),
-    ('1010','activo'),
-    ('1002','activo'),
-    ('1009','activo'),
-    ('1001','inactivo');
+    (1,'1003','activo',CURDATE()),
+    (1,'1009','activo',CURDATE()),
+    (1,'1004','activo',CURDATE()),
+    (1,'1001','activo',CURDATE()),
+    (2,'1003','activo',CURDATE()),
+    (3,'1009','activo',CURDATE()),
+    (4,'1004','activo',CURDATE()),
+    (5,'1001','activo',CURDATE()),
+    (6,'1007','activo',CURDATE()),
+    (7,'1005','activo',CURDATE()),
+    (9,'1010','activo',CURDATE()),
+    (10,'1009','activo',CURDATE()),
+    (8,'1001','activo',CURDATE());
+    (8,'1007','activo',CURDATE()),
+    (8,'1005','activo',CURDATE()),
+    (8,'1010','activo',CURDATE()),
+    (8,'1009','activo',CURDATE()),
+
+--TRIGGER USARIO FARMACIA (para actualizar asignación automaticamente cuando un usuario se desactiva)
+DELIMITER //
+CREATE TRIGGER usuarioInactivo BEFORE UPDATE usuario
+FOR EACH ROW
+    BEGIN
+        IF(NEW.estado != OLD.estado) THEN
+            UPDATE usuarioFarmacia SET estado = NEW.estado, fecha_termino = CURDATE() WHERE id_usuario = NEW.id_usuario;
+        END IF;
+    END
+// DELIMITER;
+
+--TRIGGER USARIO FARMACIA (para actualizar una asignación automaticamente cuando una farmacia se desactiva)
+DELIMITER //
+CREATE TRIGGER farmaciaInactiva BEFORE UPDATE historialEstados_farmacia
+FOR EACH ROW
+    BEGIN
+        IF(NEW.estado != OLD.estado) THEN
+            UPDATE usuarioFarmacia SET estado = NEW.estado, fecha_termino = CURDATE() WHERE id_usuario = NEW.id_usuario;
+        END IF;
+    END
+// DELIMITER;
+
 
 
