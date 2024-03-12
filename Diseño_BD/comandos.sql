@@ -1,45 +1,40 @@
 --TABLA FARMACIA
 CREATE TABLE farmacia(
-id_farmacia INT PRIMARY KEY AUTO_INCREMENT,
+NIT_farmacia VARCHAR(12) PRIMARY KEY,
 nombre VARCHAR(25),
 direccion VARCHAR(40),
-telefono CHAR(10)
-estado ENUM('activo','inactivo'));
+telefono CHAR(10));
 
 --TABLA HISTORIAL DE ESTADOS FARMACIA
 CREATE TABLE historialEstados_farmacia(
 id_estado INT PRIMARY KEY AUTO_INCREMENT,
 NIT_farmacia VARCHAR(12),
 FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
-nombre_estado ENUM('activo','inactivo'),
+nombre ENUM('activo','inactivo'),
 fecha_cambio DATE,
 comentario TEXT);
 
---TRIGGER FARMACIA (para crear el primer estado de una farmacia)
-
-CREATE TRIGGER primerEstado_farmacia AFTER INSERT ON farmacia
-FOR EACH ROW
-    INSERT INTO historialEstados_farmacia VALUES(NEW.NIT_farmacia,'activo',CURDATE(),'estado de creación');
-;
-
 --TRIGGER HISTORIAL DE ESTADOS FARMACIA(para actualizar automaticamente una asignación cuando se desactiva una farmacia)
 
-DELIMITER //
 CREATE TRIGGER farmaciaDesactivada BEFORE INSERT ON historialEstados_farmacia
 FOR EACH ROW 
-    BEGIN
-        IF(NEW.nombre != OLD.name) THEN
-            UPDATE usuarioFarmacia SET estado = NEW.nombre, fecha_termino = CURDATE() WHERE NIT_farmacia = NEW.NIT_farmacia;
-        END IF;
-    END
-// DELIMITER;
+BEGIN
+    DECLARE consulta INT;
+    SET consulta = (SELECT COUNT(id_estado) FROM historialEstados_farmacia);
+    IF (consulta != 0 AND NEW.nombre != (SELECT nombre FROM historialEstados_farmacia ORDER BY fecha_cambio DESC LIMIT 1)) THEN
+        UPDATE usuarioFarmacia SET estado = NEW.nombre, fecha_termino = CURDATE() WHERE NIT_farmacia = NEW.NIT_farmacia;
+    END IF;
+END;
+//
 
 
 
 --TABLA USUARIO
 CREATE TABLE usuario(
 id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-nombre_usuario VARCHAR(20),
+cedula CHAR(10),
+nombre_usuario VARCHAR(35),
+usuario VARCHAR(20),
 clave VARCHAR(15),
 rol ENUM('administrador','encargado'),
 estado ENUM('activo','inactivo'),
@@ -48,17 +43,14 @@ fecha_termino  DATE);
 
 --TABLA USUARIO FARMACIA
 CREATE TABLE usuarioFarmacia(
-NIT_farmacia VARCHAR(12) PRIMARY KEY,
+id_usuarioFarmacia INT PRIMARY KEY AUTO_INCREMENT,
 id_usuario INT,
-id_farmacia INT,
+NIT_farmacia VARCHAR(12),
 FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-FOREIGN KEY(id_farmacia) REFERENCES farmacia(id_farmacia),
-estado ENUM('activo','inactivo')
+FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
+estado ENUM('activo','inactivo'),
 fecha_inicio DATE,
-fecha_termino  DATE);
-
-
-
+fecha_termino DATE);
 
 --TABLA PRODUCTO
 CREATE TABLE producto(
@@ -91,22 +83,24 @@ FOREIGN KEY(id_producto) REFERENCES producto(id_producto),
 cantidad INT,
 suma_total INT);
 
---TRIGGER PRODUCTO FACTURA (para calcular el valor final del producto que se va a agrega al multiplicarse por la cantidad)
+--TRIGGER FACTURA PRODUCTO (para calcular el valor final del producto al multiplicarse por la cantidad)
 
-CREATE TRIGGER calcularSumaTotal BEFORE INSERT ON agregarProducto
+CREATE TRIGGER calcularSumaTotal BEFORE INSERT ON facturaProducto
 FOR EACH ROW
     SET NEW.suma_total = NEW.cantidad * (SELECT precio_unitario FROM producto WHERE id_producto = NEW.id_producto)
 ;
 
+--TRIGGER FACTURA PRODUCTO (para calcular el subtotal, iva, y total de la factura)
+
 DELIMITER //
-CREATE TRIGGER sumarFactura AFTER INSERT ON agregarProducto
+CREATE TRIGGER sumarFactura AFTER INSERT ON facturaProducto
 FOR EACH ROW
     BEGIN
         
         DECLARE impuesto DECIMAL(7,1);
         DECLARE partial_cost DECIMAL(8,1);
         DECLARE pago DECIMAL(8,1);
-        SET partial_cost=(SELECT SUM(suma_total) FROM agregarProducto WHERE numReferencia = NEW.numReferencia);
+        SET partial_cost=(SELECT SUM(suma_total) FROM facturaProducto WHERE numReferencia = NEW.numReferencia);
         SET impuesto = partial_cost * 0.05;
         SET pago = partial_cost + impuesto;
         
@@ -126,7 +120,6 @@ CREATE TRIGGER agregarCliente AFTER INSERT ON factura
 FOR EACH ROW
     BEGIN
         DECLARE consulta INT;
-        DECLARE nombre VARCHAR(35);
         SET consulta = (SELECT COUNT(cedula) FROM cliente WHERE cedula = NEW.id_cliente);
         IF (consulta = 0) THEN
             INSERT INTO cliente VALUES(NEW.id_cliente,NEW.nombre_cliente);
@@ -148,14 +141,14 @@ estado ENUM('activo','inactivo'));
 --TABLA STOCK
 CREATE TABLE stock(
 id_stock INT PRIMARY KEY AUTO_INCREMENT,    
-id_farmacia INT,
+NIT_farmacia VARCHAR(12),
 id_producto INT,
-FOREIGN KEY(id_farmacia) REFERENCES farmacia(id_farmacia),
+FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
 FOREIGN KEY(id_producto) REFERENCES producto(id_producto),
 proveedor VARCHAR(12),
-FOREIGN KEY(proveedor) REFERENCES proveedor(NIT),
+FOREIGN KEY(proveedor) REFERENCES proveedor(NIT_proveedor),
 cantidad INT,
-estado ENUM('activo','inactivo')
+estado ENUM('activo','inactivo'),
 fecha_registro DATE,
 fecha_descontinuacion DATE);
 
@@ -191,32 +184,48 @@ VALUES
 --INSERTAR FARMACIAS
 INSERT INTO farmacia(NIT_farmacia,nombre,direccion,telefono)
 VALUES
-    ('1001','Cruz Verde', 'Calle 1, Ciudad', '123-456-7890'),
-    ('1002','Drogas la Rebaja', 'Avenida 2, Pueblo', '456-789-0123'),
-    ('1003','Drogueria Alemana', 'Carrera 3, Villa', '789-012-3456'),
-    ('1004','Cruz Verde', 'Calle 4, Ciudad', '234-567-8901'),
-    ('1005','Drogueria Alemana', 'Avenida 5, Pueblo', '567-890-1234'),
-    ('1006','Drogas la rebaja', 'Carrera 6, Villa', '890-123-4567'),
-    ('1007','Drogas la rebaja', 'Calle 7, Ciudad', '345-678-9012'),
-    ('1008','Cruz Verde', 'Avenida 8, Pueblo', '678-901-2345'),
-    ('1009','Cruz verde', 'Carrera 9, Villa', '901-234-5678'),
-    ('1010','Drogueria Alemana', 'Calle 10, Ciudad', '123-234-5678');
+    ('1001','Cruz Verde', 'Calle 1 Ciudad Jardin', '1234567890'),
+    ('1002','Drogas la Rebaja', 'Avenida 2 Pueblo rico', '4567890123'),
+    ('1003','Drogueria Alemana', 'Carrera 3 Villa santana', '7890123456'),
+    ('1004','Cruz Verde', 'Calle 4  victoria', '2345678901'),
+    ('1005','Drogueria Alemana', 'Avenida 5 Puebla', '5678901234'),
+    ('1006','Drogas la rebaja', 'Carrera 6 Villa maria', '8901234567'),
+    ('1007','Drogas la rebaja', 'Calle 7 venecia', '3456789012'),
+    ('1008','Cruz Verde', 'Avenida 8 Boston', '6789012345'),
+    ('1009','Cruz verde', 'Carrera 9 Palermo', '9012345678'),
+    ('1010','Drogueria Alemana', 'Calle 10 Canan', '1232345678');
+
+--CREAR ESTADO FARMACIA
+
+INSERT INTO historialEstados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario)
+VALUES
+    ('1001','activo', CURDATE(), 'estado de creacion'),
+    ('1002','activo', CURDATE(), 'estado de creacion'),
+    ('1003','activo', CURDATE(), 'estado de creacion'),
+    ('1004','activo', CURDATE(), 'estado de creacion'),
+    ('1005','activo', CURDATE(), 'estado de creacion'),
+    ('1006','activo', CURDATE(), 'estado de creacion'),
+    ('1007','activo', CURDATE(), 'estado de creacion'),
+    ('1008','activo', CURDATE(), 'estado de creacion'),
+    ('1009','activo', CURDATE(), 'estado de creacion'),
+    ('1010','activo', CURDATE(), 'estado de creacion');
+
 
 
 --INSERTAR  STOCK
 
-INSERT INTO stock(NIT_farmacia,id_producto,proveedor,cantidad,estado)
+INSERT INTO stock(NIT_farmacia,id_producto,proveedor,cantidad,estado,fecha_registro)
 VALUES
-    ('1003',1,'NIT6',50,'activo'),
-    ('1009',2,'NIT6',100,'activo'),
-    ('1004',3,'NIT4',120,'activo'),
-    ('1001',4,'NIT1',30,'activo'),
-    ('1007',5,'NIT9',10,'activo'),
-    ('1005',6,'NIT3',0,'inactivo'),
-    ('1010',7,'NIT10',90,'activo'),
-    ('1002',8,'NIT5',86,'activo'),
-    ('1009',9,'NIT7',100,'activo'),
-    ('1001',10,'NIT7',20,'activo');
+    ('1003',1,'NIT6',50,'activo', CURDATE()),
+    ('1009',2,'NIT6',100,'activo', CURDATE()),
+    ('1004',3,'NIT4',120,'activo', CURDATE()),
+    ('1001',4,'NIT1',30,'activo', CURDATE()),
+    ('1007',5,'NIT9',10,'activo', CURDATE()),
+    ('1005',6,'NIT3',10,'activo', CURDATE()),
+    ('1010',7,'NIT10',90,'activo', CURDATE()),
+    ('1002',8,'NIT5',86,'activo', CURDATE()),
+    ('1009',9,'NIT7',100,'activo', CURDATE()),
+    ('1001',10,'NIT7',20,'activo', CURDATE());
     
 
 --INSERTAR FACTURAS
@@ -238,35 +247,35 @@ VALUES
 
 INSERT INTO facturaProducto(numReferencia,id_producto,cantidad,suma_total)
 VALUES
-    (31,2,2,0),
-    (39,1,1,0),
-    (40,4,3,0),
-    (31,5,5,0),
-    (37,8,1,0),
-    (35,10,2,0),
-    (40,3,4,0),
-    (32,7,3,0),
-    (39,9,1,0),
-    (31,6,1,0);
+    (1,2,2,0),
+    (9,1,1,0),
+    (10,4,3,0),
+    (1,5,5,0),
+    (3,8,1,0),
+    (3,10,2,0),
+    (4,3,4,0),
+    (3,7,3,0),
+    (9,9,1,0),
+    (1,6,1,0);
 
 --INSERTAR USUARIOS
 
-INSERT INTO usuario(clave, nombre_usuario,rol,estado,fecha_inicio)
+INSERT INTO usuario(cedula, nombre_usuario, clave,usuario,rol,estado,fecha_inicio)
 VALUES
-    ('clave123', 'pepito23','administrador','activo',CURDATE()),
-    ('abc456', 'MGomez','encargado','activo',CURDATE()),
-    ('securePass', 'Car30Ruiz','encargado','activo',CURDATE()),
-    ('userPass123', 'Laures123','encargado','activo',CURDATE()),
-    ('passWord42', 'PedroL','encargado','activo',CURDATE()),
-    ('strongPass', 'AGarcia','encargado','activo',CURDATE()),
-    ('secret123', 'Dani2024','encargado','activo',CURDATE()),
-    ('myPass789', 'SofiaDiaz','administrador','activo',CURDATE()),
-    ('pass1234', 'DiegoH14','encargado','activo',CURDATE()),
-    ('adminPass', 'Usuario24','encargado','activo',CURDATE());
+    ('20011','Pedro Perez','clave123', 'pepito23','administrador','activo',CURDATE()),
+    ('20012','Maria Gomez','abc456', 'MGomez','encargado','activo',CURDATE()),
+    ('20013','Carolina Ruiz','securePass', 'Car30Ruiz','encargado','activo',CURDATE()),
+    ('20014','Laura Mora','userPass123', 'Laures123','encargado','activo',CURDATE()),
+    ('20015','Pedro Lopez','passWord42', 'PedroL','encargado','activo',CURDATE()),
+    ('20016','Alicia Garcia','strongPass', 'AGarcia','encargado','activo',CURDATE()),
+    ('20017','Daniel Sanchez','secret123', 'Dani2024','encargado','activo',CURDATE()),
+    ('20018','Luisa Diaz','myPass789', 'SofiaDiaz','administrador','activo',CURDATE()),
+    ('20019','Diego Perez','pass1234', 'DiegoH14','encargado','activo',CURDATE()),
+    ('20020','Omar Castellano','adminPass', 'Usuario24','encargado','activo',CURDATE());
 
 --INSERTAR USUARIO FARMACIA
 
-INSERT INTO usuarioFarmacia(id_usuario,NIT_farmacia,estado,fechaInicio)
+INSERT INTO usuarioFarmacia(id_usuario,NIT_farmacia,estado,fecha_inicio)
 VALUES
     (1,'1003','activo',CURDATE()),
     (1,'1009','activo',CURDATE()),
@@ -280,33 +289,24 @@ VALUES
     (7,'1005','activo',CURDATE()),
     (9,'1010','activo',CURDATE()),
     (10,'1009','activo',CURDATE()),
-    (8,'1001','activo',CURDATE());
+    (8,'1001','activo',CURDATE()),
     (8,'1007','activo',CURDATE()),
     (8,'1005','activo',CURDATE()),
     (8,'1010','activo',CURDATE()),
-    (8,'1009','activo',CURDATE()),
+    (8,'1009','activo',CURDATE());
 
 --TRIGGER USARIO FARMACIA (para actualizar asignación automaticamente cuando un usuario se desactiva)
 DELIMITER //
-CREATE TRIGGER usuarioInactivo BEFORE UPDATE usuario
-FOR EACH ROW
-    BEGIN
-        IF(NEW.estado != OLD.estado) THEN
-            UPDATE usuarioFarmacia SET estado = NEW.estado, fecha_termino = CURDATE() WHERE id_usuario = NEW.id_usuario;
-        END IF;
-    END
-// DELIMITER;
 
---TRIGGER USARIO FARMACIA (para actualizar una asignación automaticamente cuando una farmacia se desactiva)
-DELIMITER //
-CREATE TRIGGER farmaciaInactiva BEFORE UPDATE historialEstados_farmacia
+CREATE TRIGGER usuarioInactivo BEFORE UPDATE ON usuarioFarmacia
 FOR EACH ROW
     BEGIN
-        IF(NEW.estado != OLD.estado) THEN
-            UPDATE usuarioFarmacia SET estado = NEW.estado, fecha_termino = CURDATE() WHERE id_usuario = NEW.id_usuario;
+        IF NEW.estado != OLD.estado THEN
+            SET NEW.fecha_termino = CURDATE();
         END IF;
-    END
-// DELIMITER;
+    END;
+// DELIMITER ;
+
 
 
 
