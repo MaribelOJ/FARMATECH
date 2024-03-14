@@ -14,21 +14,6 @@ nombre ENUM('activo','inactivo'),
 fecha_cambio DATE,
 comentario TEXT);
 
---TRIGGER HISTORIAL DE ESTADOS FARMACIA(para actualizar automaticamente una asignación cuando se desactiva una farmacia)
-
-CREATE TRIGGER farmaciaDesactivada BEFORE INSERT ON historialEstados_farmacia
-FOR EACH ROW 
-BEGIN
-    DECLARE consulta INT;
-    SET consulta = (SELECT COUNT(id_estado) FROM historialEstados_farmacia);
-    IF (consulta != 0 AND NEW.nombre != (SELECT nombre FROM historialEstados_farmacia ORDER BY fecha_cambio DESC LIMIT 1)) THEN
-        UPDATE usuarioFarmacia SET estado = NEW.nombre, fecha_termino = CURDATE() WHERE NIT_farmacia = NEW.NIT_farmacia;
-    END IF;
-END;
-//
-
-
-
 --TABLA USUARIO
 CREATE TABLE usuario(
 id_usuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -167,20 +152,6 @@ VALUES
     ('NIT10', 'PrecisionMed Labs', 'Dirección 10', '101-010-1010', 'precisionmed@example.com', 'Ivan Lopez', 'activo');
 
 
---INSERTAR PRODUCTOS
-INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
-VALUES
-    ('Paracetamol', 'ml', 5999, '2026-12-31', 'Paracetamol', 'Alivio del dolor y fiebre'),
-    ('Amoxicilina', 'mg', 12999, '2024-06-30', 'Amoxicilina', 'Antibiotico para infecciones'),
-    ('Ibuprofeno', 'mg', 8500, '2026-11-15', 'Ibuprofeno', 'Antiinflamatorio y analgesico'),
-    ('Omeprazol', 'mg', 15750, '2026-09-30', 'Omeprazol', 'Alivio de acidez estomacal'),
-    ('Loratadina', 'mg', 9999, '2024-04-15', 'Loratadina', 'Antihistaminico para alergias'),
-    ('Vitamina C', 'mg', 7500, '2026-10-31', 'Acido ascórbico', 'Suplemento vitaminico'),
-    ('Aspirina', 'mg', 6250, '2024-01-20', 'Acido acetilsalicílico', 'Analgesico y antipiretico'),
-    ('Simvastatina', 'mg', 14999, '2026-08-31', 'Simvastatina', 'Reduccion de colesterol'),
-    ('Hidroclorotiazida', 'mg', 11500, '2026-12-01', 'Hidroclorotiazida', 'Diuretico'),
-    ('Sertralina', 'mg', 17500, '2024-03-01', 'Sertralina', 'Antidepresivo selectivo de la recaptacion de serotonina');
-
 --INSERTAR FARMACIAS
 INSERT INTO farmacia(NIT_farmacia,nombre,direccion,telefono)
 VALUES
@@ -243,20 +214,34 @@ VALUES
     ('2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
     ('2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
 
+--INSERTAR PRODUCTOS
+INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
+VALUES
+    ('Paracetamol', 'ml', 5999, '2026-12-31', 'Paracetamol', 'Alivio del dolor y fiebre'),
+    ('Amoxicilina', 'mg', 12999, '2024-06-30', 'Amoxicilina', 'Antibiotico para infecciones'),
+    ('Ibuprofeno', 'mg', 8500, '2026-11-15', 'Ibuprofeno', 'Antiinflamatorio y analgesico'),
+    ('Omeprazol', 'mg', 15750, '2026-09-30', 'Omeprazol', 'Alivio de acidez estomacal'),
+    ('Loratadina', 'mg', 9999, '2024-04-15', 'Loratadina', 'Antihistaminico para alergias'),
+    ('Vitamina C', 'mg', 7500, '2026-10-31', 'Acido ascórbico', 'Suplemento vitaminico'),
+    ('Aspirina', 'mg', 6250, '2024-01-20', 'Acido acetilsalicílico', 'Analgesico y antipiretico'),
+    ('Simvastatina', 'mg', 14999, '2026-08-31', 'Simvastatina', 'Reduccion de colesterol'),
+    ('Hidroclorotiazida', 'mg', 11500, '2026-12-01', 'Hidroclorotiazida', 'Diuretico'),
+    ('Sertralina', 'mg', 17500, '2024-03-01', 'Sertralina', 'Antidepresivo selectivo de la recaptacion de serotonina');
+
 --INSERTAR FACTURA PRODUCTO
 
 INSERT INTO facturaProducto(numReferencia,id_producto,cantidad,suma_total)
 VALUES
-    (1,2,2,0),
+    (1,2,2,0),--25.998
     (9,1,1,0),
     (10,4,3,0),
-    (1,5,5,0),
+    (1,5,5,0),--49995
     (3,8,1,0),
     (3,10,2,0),
     (4,3,4,0),
     (3,7,3,0),
     (9,9,1,0),
-    (1,6,1,0);
+    (1,6,1,0);--7500 /83493
 
 --INSERTAR USUARIOS
 
@@ -295,17 +280,6 @@ VALUES
     (8,'1010','activo',CURDATE()),
     (8,'1009','activo',CURDATE());
 
---TRIGGER USARIO FARMACIA (para actualizar asignación automaticamente cuando un usuario se desactiva)
-DELIMITER //
-
-CREATE TRIGGER usuarioInactivo BEFORE UPDATE ON usuarioFarmacia
-FOR EACH ROW
-    BEGIN
-        IF NEW.estado != OLD.estado THEN
-            SET NEW.fecha_termino = CURDATE();
-        END IF;
-    END;
-// DELIMITER ;
 
 
 
