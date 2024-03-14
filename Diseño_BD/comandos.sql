@@ -41,7 +41,7 @@ fecha_termino DATE);
 CREATE TABLE producto(
 id_producto INT PRIMARY KEY AUTO_INCREMENT,
 nombre_producto VARCHAR(25),
-volumen ENUM('gramos','mililitros'),
+volumen ENUM('mg','ml'),
 precio_unitario DECIMAL(7,1),
 fecha_vencimiento DATE,
 ingredientes TEXT,
