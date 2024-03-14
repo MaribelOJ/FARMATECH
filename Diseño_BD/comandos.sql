@@ -181,7 +181,19 @@ VALUES
     ('1009','activo', CURDATE(), 'estado de creacion'),
     ('1010','activo', CURDATE(), 'estado de creacion');
 
-
+--INSERTAR PRODUCTOS
+INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
+VALUES
+    ('Paracetamol', 'ml', 5999, '2026-12-31', 'Paracetamol', 'Alivio del dolor y fiebre'),
+    ('Amoxicilina', 'mg', 12999, '2024-06-30', 'Amoxicilina', 'Antibiotico para infecciones'),
+    ('Ibuprofeno', 'mg', 8500, '2026-11-15', 'Ibuprofeno', 'Antiinflamatorio y analgesico'),
+    ('Omeprazol', 'mg', 15750, '2026-09-30', 'Omeprazol', 'Alivio de acidez estomacal'),
+    ('Loratadina', 'mg', 9999, '2024-04-15', 'Loratadina', 'Antihistaminico para alergias'),
+    ('Vitamina C', 'mg', 7500, '2026-10-31', 'Acido ascórbico', 'Suplemento vitaminico'),
+    ('Aspirina', 'mg', 6250, '2024-01-20', 'Acido acetilsalicílico', 'Analgesico y antipiretico'),
+    ('Simvastatina', 'mg', 14999, '2026-08-31', 'Simvastatina', 'Reduccion de colesterol'),
+    ('Hidroclorotiazida', 'mg', 11500, '2026-12-01', 'Hidroclorotiazida', 'Diuretico'),
+    ('Sertralina', 'mg', 17500, '2024-03-01', 'Sertralina', 'Antidepresivo selectivo de la recaptacion de serotonina');
 
 --INSERTAR  STOCK
 
@@ -214,34 +226,22 @@ VALUES
     ('2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
     ('2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
 
---INSERTAR PRODUCTOS
-INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
-VALUES
-    ('Paracetamol', 'ml', 5999, '2026-12-31', 'Paracetamol', 'Alivio del dolor y fiebre'),
-    ('Amoxicilina', 'mg', 12999, '2024-06-30', 'Amoxicilina', 'Antibiotico para infecciones'),
-    ('Ibuprofeno', 'mg', 8500, '2026-11-15', 'Ibuprofeno', 'Antiinflamatorio y analgesico'),
-    ('Omeprazol', 'mg', 15750, '2026-09-30', 'Omeprazol', 'Alivio de acidez estomacal'),
-    ('Loratadina', 'mg', 9999, '2024-04-15', 'Loratadina', 'Antihistaminico para alergias'),
-    ('Vitamina C', 'mg', 7500, '2026-10-31', 'Acido ascórbico', 'Suplemento vitaminico'),
-    ('Aspirina', 'mg', 6250, '2024-01-20', 'Acido acetilsalicílico', 'Analgesico y antipiretico'),
-    ('Simvastatina', 'mg', 14999, '2026-08-31', 'Simvastatina', 'Reduccion de colesterol'),
-    ('Hidroclorotiazida', 'mg', 11500, '2026-12-01', 'Hidroclorotiazida', 'Diuretico'),
-    ('Sertralina', 'mg', 17500, '2024-03-01', 'Sertralina', 'Antidepresivo selectivo de la recaptacion de serotonina');
+
 
 --INSERTAR FACTURA PRODUCTO
 
 INSERT INTO facturaProducto(numReferencia,id_producto,cantidad,suma_total)
 VALUES
-    (1,2,2,0),--25.998
+    (1,2,2,0),
     (9,1,1,0),
     (10,4,3,0),
-    (1,5,5,0),--49995
+    (1,5,5,0),
     (3,8,1,0),
     (3,10,2,0),
     (4,3,4,0),
     (3,7,3,0),
     (9,9,1,0),
-    (1,6,1,0);--7500 /83493
+    (1,6,1,0);
 
 --INSERTAR USUARIOS
 
