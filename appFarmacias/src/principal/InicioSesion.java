@@ -5,6 +5,8 @@ import javax.swing.ImageIcon;
 import utils.BaseDatos;
 import utils.Usuario;
 
+
+
 public class InicioSesion extends javax.swing.JFrame {
     BaseDatos bd;
     
@@ -103,10 +105,10 @@ public class InicioSesion extends javax.swing.JFrame {
         cont_principal.setLayout(cont_principalLayout);
         cont_principalLayout.setHorizontalGroup(
             cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(252, 252, 252))
+            .addGroup(cont_principalLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(cont_credenciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 85, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,17 +117,16 @@ public class InicioSesion extends javax.swing.JFrame {
                         .addGap(214, 214, 214))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                         .addComponent(btn_ingresar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(225, 225, 225))))
-            .addGroup(cont_principalLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(cont_credenciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 85, Short.MAX_VALUE))
+                        .addGap(225, 225, 225))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
+                        .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(248, 248, 248))))
         );
         cont_principalLayout.setVerticalGroup(
             cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cont_principalLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -179,6 +180,7 @@ public class InicioSesion extends javax.swing.JFrame {
         
         if(user.equals("")|| password.equals("")){
             System.out.println("Las dos credenciales son requeridas!");
+            Alerta ventana = new Alerta("¡Las dos credenciales son requeridas!.");
         }else{
             Usuario usuario = bd.iniciarSesion(user, password);
             if(usuario != null){
@@ -194,6 +196,8 @@ public class InicioSesion extends javax.swing.JFrame {
                 
             }else{
                 System.out.println("El usuario o la contraseña son incorrectas");
+                //se abre ventana advertencia
+                Alerta ventana = new Alerta("El usuario o la contraseña son incorrectas.");
             }
         }
         
