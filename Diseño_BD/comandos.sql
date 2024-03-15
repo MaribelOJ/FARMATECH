@@ -142,7 +142,8 @@ cant_entrante INT,
 cant_restante INT,
 estado ENUM('activo','inactivo'),
 fecha_registro DATE,
-fecha_descontinuacion DATE);
+fecha_descontinuacion DATE,
+comentario TEXT);
 
 --INSERTAR PROVEEDORES
 INSERT INTO proveedor (NIT_proveedor, nombre_proveedor, direccion, telefono, correo, persona_contacto, estado)
