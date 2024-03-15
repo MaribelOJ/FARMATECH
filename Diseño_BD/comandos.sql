@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS farmatech;
 CREATE DATABASE farmatech;
 USE farmatech;
+
 --TABLA FARMACIA
 CREATE TABLE farmacia(
 NIT_farmacia VARCHAR(12) PRIMARY KEY,

@@ -30,7 +30,7 @@ public class InicioSesion extends javax.swing.JFrame {
         campo_usuario = new javax.swing.JTextField();
         icono_clave = new javax.swing.JLabel();
         etq_clave = new javax.swing.JLabel();
-        campo_clave = new javax.swing.JTextField();
+        campo_clave = new javax.swing.JPasswordField();
         btn_ingresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,9 +68,9 @@ public class InicioSesion extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(etq_clave)))
                 .addGap(6, 6, 6)
-                .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(campo_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addComponent(campo_clave))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         cont_credencialesLayout.setVerticalGroup(
@@ -88,7 +88,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(etq_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(campo_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         btn_ingresar.setBackground(new java.awt.Color(0, 0, 255));
@@ -133,7 +133,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addComponent(cont_credenciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btn_ingresar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,7 +175,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
         
         String user = campo_usuario.getText();
-        String password = campo_clave.getText();
+        String password = new String(campo_clave.getPassword());
               
         
         if(user.equals("")|| password.equals("")){
@@ -208,7 +208,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ingresar;
-    private javax.swing.JTextField campo_clave;
+    private javax.swing.JPasswordField campo_clave;
     private javax.swing.JTextField campo_usuario;
     private javax.swing.JPanel cont_credenciales;
     private javax.swing.JPanel cont_principal;
