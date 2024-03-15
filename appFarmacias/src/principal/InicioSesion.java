@@ -91,7 +91,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        btn_ingresar.setBackground(new java.awt.Color(0, 0, 255));
+        btn_ingresar.setBackground(new java.awt.Color(21, 38, 98));
         btn_ingresar.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         btn_ingresar.setForeground(new java.awt.Color(255, 255, 255));
         btn_ingresar.setText("Ingresar");
@@ -155,7 +155,7 @@ public class InicioSesion extends javax.swing.JFrame {
         setVisible(true);
         setResizable(false);
         
-        setIconImage(getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_login.png")));
+        setIconImage(getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_menu.png")));
         
         Image icono_logo = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/logoFT.png"));
         icono_logo = icono_logo.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
@@ -176,6 +176,7 @@ public class InicioSesion extends javax.swing.JFrame {
         
         String user = campo_usuario.getText();
         String password = new String(campo_clave.getPassword());
+        String nombre_usuario;
               
         
         if(user.equals("")|| password.equals("")){
@@ -184,12 +185,16 @@ public class InicioSesion extends javax.swing.JFrame {
         }else{
             Usuario usuario = bd.iniciarSesion(user, password);
             if(usuario != null){
-                if(usuario.getRol().equals("administrador")){
-                    //se abre el perfil del administrador 
+                if(usuario.getRol().equals("administrador")){                 
                     System.out.println("Administrador:" + usuario.getNombre());
+                    nombre_usuario = usuario.getNombre();
+                    MenuAdmin menu = new MenuAdmin (bd, nombre_usuario);
+                    dispose();
                 }else{
-                    //se abre el perfil del encargado
                     System.out.println("Encargado:" + usuario.getNombre());
+                    nombre_usuario = usuario.getNombre();
+                    MenuEncargado menu = new MenuEncargado (bd, nombre_usuario);
+                    dispose();
                 }
                 campo_usuario.setText("");
                 campo_clave.setText("");
