@@ -38,7 +38,7 @@ public class InicioSesion extends javax.swing.JFrame {
         etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         etq_titulo.setText("Iniciar Sesión");
 
-        cont_credenciales.setBackground(new java.awt.Color(102, 102, 255));
+        cont_credenciales.setBackground(new java.awt.Color(79, 108, 211));
 
         icono_usuario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -75,15 +75,17 @@ public class InicioSesion extends javax.swing.JFrame {
             cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cont_credencialesLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etq_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(icono_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(icono_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(etq_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40)
-                .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etq_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(icono_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(icono_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(cont_credencialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(etq_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_clave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -146,34 +148,6 @@ public class InicioSesion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
-        
-        String user = campo_usuario.getText();
-        String password = campo_clave.getText();
-              
-        
-        if(user.equals("")|| password.equals("")){
-            System.out.println("Las dos credenciales son requeridas!");
-        }else{
-            Usuario usuario = bd.iniciarSesion(user, password);
-            if(usuario != null){
-                if(usuario.getRol().equals("administrador")){
-                    //se abre el perfil del administrador 
-                    System.out.println("Administrador:" + usuario.getNombre());
-                }else{
-                    //se abre el perfil del encargado
-                    System.out.println("Encargado:" + usuario.getNombre());
-                }
-                campo_usuario.setText("");
-                campo_clave.setText("");
-            }else{
-                System.out.println("El usuario o la contraseña son incorrectas");
-            }
-        }
-        
-    }//GEN-LAST:event_btn_ingresarActionPerformed
-    
     public void initAlternComponents(){
         setTitle("User Login");
         setLocationRelativeTo(null);
@@ -196,6 +170,36 @@ public class InicioSesion extends javax.swing.JFrame {
         
         revalidate();
     }
+    
+    private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
+        
+        String user = campo_usuario.getText();
+        String password = campo_clave.getText();
+              
+        
+        if(user.equals("")|| password.equals("")){
+            System.out.println("Las dos credenciales son requeridas!");
+        }else{
+            Usuario usuario = bd.iniciarSesion(user, password);
+            if(usuario != null){
+                if(usuario.getRol().equals("administrador")){
+                    //se abre el perfil del administrador 
+                    System.out.println("Administrador:" + usuario.getNombre());
+                }else{
+                    //se abre el perfil del encargado
+                    System.out.println("Encargado:" + usuario.getNombre());
+                }
+                campo_usuario.setText("");
+                campo_clave.setText("");
+                
+            }else{
+                System.out.println("El usuario o la contraseña son incorrectas");
+            }
+        }
+        
+    }//GEN-LAST:event_btn_ingresarActionPerformed
+    
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
