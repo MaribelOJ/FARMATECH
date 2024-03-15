@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS farmatech;
+CREATE DATABASE farmatech;
+USE farmatech;
 --TABLA FARMACIA
 CREATE TABLE farmacia(
 NIT_farmacia VARCHAR(12) PRIMARY KEY,
@@ -91,7 +94,8 @@ FOR EACH ROW
         
         UPDATE factura SET sub_total = partial_cost, iva = impuesto, total = pago WHERE numReferencia = NEW.numReferencia;
     END
-// DELIMITER;
+// 
+DELIMITER ;
 
 --TABLA CLIENTE
 CREATE TABLE cliente(
@@ -110,7 +114,8 @@ FOR EACH ROW
             INSERT INTO cliente VALUES(NEW.id_cliente,NEW.nombre_cliente);
         END IF;
     END
-// DELIMITER;
+// 
+DELIMITER ;
 
 --TABLA PROVEEDOR
 CREATE TABLE proveedor(
