@@ -132,7 +132,8 @@ FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
 FOREIGN KEY(id_producto) REFERENCES producto(id_producto),
 proveedor VARCHAR(12),
 FOREIGN KEY(proveedor) REFERENCES proveedor(NIT_proveedor),
-cantidad INT,
+cant_entrante INT,
+cant_restante INT,
 estado ENUM('activo','inactivo'),
 fecha_registro DATE,
 fecha_descontinuacion DATE);
@@ -197,18 +198,18 @@ VALUES
 
 --INSERTAR  STOCK
 
-INSERT INTO stock(NIT_farmacia,id_producto,proveedor,cantidad,estado,fecha_registro)
+INSERT INTO stock(NIT_farmacia,id_producto,proveedor,cant_entrante,cant_restante,estado,fecha_registro)
 VALUES
-    ('1003',1,'NIT6',50,'activo', CURDATE()),
-    ('1009',2,'NIT6',100,'activo', CURDATE()),
-    ('1004',3,'NIT4',120,'activo', CURDATE()),
-    ('1001',4,'NIT1',30,'activo', CURDATE()),
-    ('1007',5,'NIT9',10,'activo', CURDATE()),
-    ('1005',6,'NIT3',10,'activo', CURDATE()),
-    ('1010',7,'NIT10',90,'activo', CURDATE()),
-    ('1002',8,'NIT5',86,'activo', CURDATE()),
-    ('1009',9,'NIT7',100,'activo', CURDATE()),
-    ('1001',10,'NIT7',20,'activo', CURDATE());
+    ('1003',1,'NIT6',50,50,'activo', CURDATE()),
+    ('1009',2,'NIT6',100,100,'activo', CURDATE()),
+    ('1004',3,'NIT4',120,120,'activo', CURDATE()),
+    ('1001',4,'NIT1',30,30,'activo', CURDATE()),
+    ('1007',5,'NIT9',10,10,'activo', CURDATE()),
+    ('1005',6,'NIT3',10,10,'activo', CURDATE()),
+    ('1010',7,'NIT10',90,90,'activo', CURDATE()),
+    ('1002',8,'NIT5',86,86,'activo', CURDATE()),
+    ('1009',9,'NIT7',100,100,'activo', CURDATE()),
+    ('1001',10,'NIT7',20,20,'activo', CURDATE());
     
 
 --INSERTAR FACTURAS
