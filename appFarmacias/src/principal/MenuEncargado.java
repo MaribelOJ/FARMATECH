@@ -194,7 +194,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -244,7 +244,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(etq_nombre)
                 .addGap(44, 44, 44)
                 .addComponent(etq_texto_continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -81,6 +81,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         btn_visualizar_encargado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_visualizar_encargado.setForeground(new java.awt.Color(255, 255, 255));
         btn_visualizar_encargado.setText("Visualizar encargados");
+        btn_visualizar_encargado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_visualizar_encargadoActionPerformed(evt);
+            }
+        });
 
         btn_visualizar_farmacias.setBackground(new java.awt.Color(144, 177, 239));
         btn_visualizar_farmacias.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -155,21 +160,19 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
+        panel_bienvenida.setPreferredSize(new java.awt.Dimension(791, 500));
 
         etq_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        etq_titulo.setForeground(new java.awt.Color(0, 0, 0));
         etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_titulo.setText("Bienvenido a FARMATECH ");
 
         etq_nombre.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        etq_nombre.setForeground(new java.awt.Color(0, 0, 0));
         etq_nombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_nombre.setText("-----");
 
         etq_texto_continuar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        etq_texto_continuar.setForeground(new java.awt.Color(0, 0, 0));
         etq_texto_continuar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_texto_continuar.setText("Selecciona una opción para continuar.");
 
@@ -178,7 +181,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         panel_bienvenidaLayout.setHorizontalGroup(
             panel_bienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_bienvenidaLayout.createSequentialGroup()
-                .addContainerGap(172, Short.MAX_VALUE)
+                .addContainerGap(184, Short.MAX_VALUE)
                 .addGroup(panel_bienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_bienvenidaLayout.createSequentialGroup()
                         .addComponent(etq_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,7 +222,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_control, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panel_bienvenida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
 
         pack();
@@ -228,6 +231,25 @@ public class MenuAdmin extends javax.swing.JFrame {
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
+
+    private void btn_visualizar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_encargadoActionPerformed
+        Panel_listado_encargados nuevo = new Panel_listado_encargados();
+        
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+        
+        
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_btn_visualizar_encargadoActionPerformed
 
    
     
