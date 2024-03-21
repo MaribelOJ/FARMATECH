@@ -208,7 +208,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -216,17 +216,14 @@ public class MenuEncargado extends javax.swing.JFrame {
         etq_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        etq_titulo.setForeground(new java.awt.Color(0, 0, 0));
         etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_titulo.setText("Bienvenido a FARMATECH ");
 
         etq_nombre.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        etq_nombre.setForeground(new java.awt.Color(0, 0, 0));
         etq_nombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_nombre.setText("-----");
 
         etq_texto_continuar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        etq_texto_continuar.setForeground(new java.awt.Color(0, 0, 0));
         etq_texto_continuar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_texto_continuar.setText("Selecciona una opción para continuar.");
 
@@ -261,7 +258,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(etq_nombre)
                 .addGap(44, 44, 44)
                 .addComponent(etq_texto_continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
