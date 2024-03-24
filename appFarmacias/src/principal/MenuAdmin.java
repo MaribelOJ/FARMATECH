@@ -1,16 +1,25 @@
 package principal;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import utils.BaseDatos;
+import utils.BaseDatosMiguel;
 import utils.Usuario;
 
 
 public class MenuAdmin extends javax.swing.JFrame {
-
+    
     BaseDatos bd;
+    
+    BaseDatosMiguel bdmiguel = new BaseDatosMiguel();
+        
+    Connection conexion = bdmiguel.getConexion();
+    Statement manipularBD = bdmiguel.getManipularBD();
     
     public MenuAdmin(BaseDatos bd, String nombre_usuario) {
         this.bd = bd;
+        this.bdmiguel = bdmiguel;
         initComponents();
         initAlternComponents(nombre_usuario);
         
@@ -238,7 +247,8 @@ public class MenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
     private void btn_visualizar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_encargadoActionPerformed
-        Panel_listado_encargados nuevo = new Panel_listado_encargados();
+        Usuario listado[]= bdmiguel.listaEncargados();
+        Panel_listado_encargados nuevo = new Panel_listado_encargados(listado);
         
         // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
