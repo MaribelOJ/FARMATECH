@@ -96,6 +96,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         btn_crear_farmacia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_crear_farmacia.setForeground(new java.awt.Color(255, 255, 255));
         btn_crear_farmacia.setText("Crear farmacia");
+        btn_crear_farmacia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_crear_farmaciaActionPerformed(evt);
+            }
+        });
 
         btn_informe_ventas.setBackground(new java.awt.Color(144, 177, 239));
         btn_informe_ventas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -250,6 +255,20 @@ public class MenuAdmin extends javax.swing.JFrame {
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_visualizar_encargadoActionPerformed
+
+    private void btn_crear_farmaciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_farmaciaActionPerformed
+        Panel_crearFarmacia registro= new Panel_crearFarmacia();
+        
+        registro.setPreferredSize(panel_bienvenida.getPreferredSize());
+        registro.setSize(panel_bienvenida.getSize());
+         
+        panel_bienvenida.removeAll();
+
+        panel_bienvenida.add(registro);
+
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_btn_crear_farmaciaActionPerformed
 
    
     
