@@ -8,9 +8,13 @@ public class Usuario {
     private String cedula;
     private String nombre;
     private String usuario;
+    private String clave;
     private String rol;
     private String estado;
     private String fecha_inicio;
+    private String fecha_termino;
+    private String establecimiento;
+    
 
     public Usuario(String id_usuario, String cedula, String nombre, String usuario, String rol, String estado, String fecha_inicio) {
         this.id_usuario = id_usuario;
@@ -20,6 +24,17 @@ public class Usuario {
         this.rol = rol;
         this.estado = estado;
         this.fecha_inicio = fecha_inicio;
+    }
+    
+    public Usuario(String cedula, String nombre, String usuario, String clave, String establecimiento, String estado, String fecha_inicio, String fecha_termino){
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.usuario = usuario;
+        this.clave = clave;
+        this.establecimiento = establecimiento;
+        this.estado = estado;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_termino = fecha_termino;
     }
 
     public String getId_usuario() {
@@ -79,6 +94,29 @@ public class Usuario {
         this.fecha_inicio = fecha_inicio;
     }
     
+    public String getFecha_termino(){
+        return fecha_termino;
+    }
+    
+    public void setFecha_termino(String fecha_termino){
+        this.fecha_termino = fecha_termino;
+    }
+    
+    public String getClave(){
+        return clave;
+    }
+    
+    public void setClave(String clave){
+        this.clave = clave;
+    }
+    
+    public String getEstablecimiento(){
+        return establecimiento;
+    }
+    
+    public void setEstablecimiento(String establecimiento){
+        this.establecimiento = establecimiento;
+    }
     
     
 }
