@@ -13,9 +13,10 @@ import utils.Usuario;
 public class Panel_listado_encargados extends javax.swing.JPanel {
     BaseDatosMiguel bdmiguel;
     BaseDatos bd;
-    
+    private Alerta_Crear_Encargado ventanaAlerta;
     Usuario listaPersonas[];
     DefaultTableModel  modelo;
+    boolean ventana_abierta = false;
     
     public Panel_listado_encargados(Usuario[] listado) {
         this.bdmiguel = bdmiguel;
@@ -24,6 +25,7 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         initComponents();
         initAlternComponents();
         imprimirTabla();
+        
     }
     
     
@@ -33,7 +35,7 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
 
         etq_titulo = new javax.swing.JLabel();
         etq_logo = new javax.swing.JLabel();
-        xd = new javax.swing.JScrollPane();
+        scrollpane = new javax.swing.JScrollPane();
         tablaPersonas = new javax.swing.JTable();
         btn_crear_encargado = new javax.swing.JButton();
         btn_eliminar_encargado = new javax.swing.JButton();
@@ -49,22 +51,24 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etq_titulo.setText("Lista de los encargados");
 
+        tablaPersonas.setAutoCreateRowSorter(true);
+        tablaPersonas.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Documento", "Nombre", "Usuario", "Contraseña", "Establecimiento", "Estado", "Fecha inicio", "Fecha fin"
+                "Documento", "Nombre", "Usuario", "Establecimiento", "Estado", "Fecha inicio", "Fecha fin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,7 +80,7 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
             }
         });
         tablaPersonas.setEnabled(false);
-        xd.setViewportView(tablaPersonas);
+        scrollpane.setViewportView(tablaPersonas);
 
         btn_crear_encargado.setBackground(new java.awt.Color(144, 177, 239));
         btn_crear_encargado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -140,9 +144,6 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
                         .addGap(0, 29, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btn_crear_encargado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btn_eliminar_encargado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -159,18 +160,22 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
                                 .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(174, 174, 174))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(xd)
+                        .addComponent(scrollpane)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(xd, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_crear_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +195,17 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_actualizar_infoActionPerformed
 
     private void btn_crear_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_encargadoActionPerformed
-        Alerta_Crear_Encargado alerta = new Alerta_Crear_Encargado();
+        
+        if (ventanaAlerta != null) {
+            ventanaAlerta.dispose();
+            
+        }
+    
+        // Abrir una nueva ventana de alerta
+        ventanaAlerta = new Alerta_Crear_Encargado();
+        ventanaAlerta.setVisible(true);
+        
+        
         
     }//GEN-LAST:event_btn_crear_encargadoActionPerformed
 
@@ -205,7 +220,7 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
     public void initAlternComponents(){
         setVisible(true);
         Image icono_logo = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/logoFT.png"));
-        icono_logo = icono_logo.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        icono_logo = icono_logo.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
         etq_logo.setIcon(new ImageIcon(icono_logo));
         
         
@@ -218,7 +233,7 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         tablaPersonas.getTableHeader().setFont(new Font("Arial",Font.BOLD,15));
         tablaPersonas.getTableHeader().setForeground(Color.WHITE);
         tablaPersonas.getTableHeader().setOpaque(false);
-        tablaPersonas.getTableHeader().setBackground(Color.BLUE);
+        tablaPersonas.getTableHeader().setBackground(new Color(79, 108, 211));
         
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
         centerRender.setHorizontalAlignment(SwingConstants.CENTER);
@@ -229,34 +244,45 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         tablaPersonas.getColumnModel().getColumn(4).setCellRenderer(centerRender);
         tablaPersonas.getColumnModel().getColumn(5).setCellRenderer(centerRender);
         tablaPersonas.getColumnModel().getColumn(6).setCellRenderer(centerRender);
-        tablaPersonas.getColumnModel().getColumn(7).setCellRenderer(centerRender);
+        
+        tablaPersonas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tablaPersonas.getColumnModel().getColumn(1).setPreferredWidth(75);
+        tablaPersonas.getColumnModel().getColumn(2).setPreferredWidth(75);
+        tablaPersonas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tablaPersonas.getColumnModel().getColumn(4).setPreferredWidth(25);
+        tablaPersonas.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tablaPersonas.getColumnModel().getColumn(6).setPreferredWidth(40);
+        
         
         
         
         revalidate();
+        repaint();
         
     
     }
     
     public void imprimirTabla(){
         modelo.setRowCount(0);
-        for(int i = 0;listaPersonas[i] != null;i++){
+        for(int i = 0; listaPersonas[i] != null; i++){
             String cedula = listaPersonas[i].getCedula();
             String nombre = listaPersonas[i].getNombre();
             String usuario = listaPersonas[i].getUsuario();
-            String contraseña = listaPersonas[i].getClave();
+            // No necesitas obtener la contraseña aquí
             String establecimiento = listaPersonas[i].getEstablecimiento();
             String estado = listaPersonas[i].getEstado();
             String fecha_inicio = listaPersonas[i].getFecha_inicio();
             String fecha_fin = listaPersonas[i].getFecha_termino();
-            System.out.println("-> "+cedula);
-            
-            Object dato = new Object[]{cedula,nombre,usuario,contraseña,establecimiento,estado,fecha_inicio,fecha_fin};
-            modelo.addRow((Object[]) dato);
 
-         
+            // No incluyas la contraseña en el arreglo de objetos
+            Object dato = new Object[]{cedula, nombre, usuario, establecimiento, estado, fecha_inicio, fecha_fin};
+            modelo.addRow((Object[]) dato);
         }
-    }
+
+        repaint();
+        revalidate();
+    
+ }
     
     
     
@@ -271,8 +297,8 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
     private javax.swing.JButton btn_historial_asignaciones;
     private javax.swing.JLabel etq_logo;
     private javax.swing.JLabel etq_titulo;
+    private javax.swing.JScrollPane scrollpane;
     private javax.swing.JTable tablaPersonas;
-    private javax.swing.JScrollPane xd;
     // End of variables declaration//GEN-END:variables
 
     
