@@ -8,12 +8,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-
 import utils.BaseDatosMiguel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
-
-
 
 public class Alerta_Crear_Encargado extends javax.swing.JFrame {
 
@@ -76,8 +73,6 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-       
-        
         
         SwingUtilities.invokeLater(() -> {
             foco.requestFocusInWindow();
@@ -93,16 +88,13 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
         String nombrePlaceholder = "Nombres:";
         String usuarioPlaceholder = "Usuario:";
         String clavePlaceholder = "Clave:";
-        
-        
+
         campo_documento.setText(documentoPlaceholder);
         campo_nombre.setText(nombrePlaceholder);
         campo_usuario.setText(usuarioPlaceholder);
         campo_clave.setText(clavePlaceholder);
         
-       
-        
-        
+        //Placeholder para cada campo
         campo_documento.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -177,10 +169,8 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
             }
         });
 
-        
-        
-            
         revalidate();
+        repaint();
     }
     
     @SuppressWarnings("unchecked")
@@ -218,7 +208,7 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
             }
         });
 
-        btn_crear_encargado.setBackground(new java.awt.Color(204, 0, 0));
+        btn_crear_encargado.setBackground(new java.awt.Color(239, 30, 30));
         btn_crear_encargado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_crear_encargado.setForeground(new java.awt.Color(255, 255, 255));
         btn_crear_encargado.setText("Crear");
@@ -325,7 +315,7 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
                 .addComponent(btn_crear_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -361,11 +351,11 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(foco)
-                .addGap(48, 48, 48))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -416,6 +406,7 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
             if (bdmiguel.agregarEncargado(cedula, nombre, usuario, clave, nombreFarmaciaSeleccionada, direccionFarmaciaSeleccionada, fechaInicio)) {
                 Confirmacion ventana = new Confirmacion("Encargado creado con éxito.");
                 ventanaAlerta = null; // Limpiar la referencia a la ventana de alerta
+                
 
                 // Cerrar la ventana actual
                 dispose(); 
@@ -432,10 +423,7 @@ public class Alerta_Crear_Encargado extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btn_crear_encargadoActionPerformed
-    
-    
-    
-    
+
     private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
         dispose();
         ventanaAlerta.dispose();

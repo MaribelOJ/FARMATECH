@@ -185,6 +185,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Asignar encargado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_asignar_encargadoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_desasignar_encargado">
       <Properties>
@@ -199,6 +202,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Desasignar encargado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_desasignar_encargadoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_actualizar_info">
       <Properties>
