@@ -14,13 +14,15 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
     private Alerta_Crear_Encargado ventanaAlerta;
     private Alerta_Eliminar_Encargado ventanaAlertaEliminar;
     private Alerta_Asignar_Encargado ventanaAlertaAsignar;
-     private Alerta_Desasignar_Encargado ventanaAlertaDesasignar;
+    private Alerta_Desasignar_Encargado ventanaAlertaDesasignar;
+    private Alerta_Actualizar_Encargado ventanaAlertaActualizar;
+    private Alerta_Historial_Encargado ventanaAlertaHistorial;
     Usuario listaPersonas[];
     DefaultTableModel  modelo;
     boolean ventana_abierta = false;
     
     public Panel_listado_encargados(Usuario[] listado) {
-        this.bdmiguel = bdmiguel;
+        this.bdmiguel = new BaseDatosMiguel();
         this.listaPersonas = listado;
         initComponents();
         initAlternComponents();
@@ -198,7 +200,15 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_actualizar_infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_infoActionPerformed
-        // TODO add your handling code here:
+        if (ventanaAlertaActualizar != null) {
+            ventanaAlertaActualizar.dispose();   
+        }
+        ventanaAlertaActualizar = new Alerta_Actualizar_Encargado();
+        ventanaAlertaActualizar.setVisible(true);
+        listaPersonas = bdmiguel.listaEncargados();
+        actualizarListaEncargados(listaPersonas);
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_actualizar_infoActionPerformed
 
     private void btn_crear_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_encargadoActionPerformed
@@ -207,6 +217,8 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         }
         ventanaAlerta = new Alerta_Crear_Encargado();
         ventanaAlerta.setVisible(true);
+        listaPersonas = bdmiguel.listaEncargados();
+        actualizarListaEncargados(listaPersonas);
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_crear_encargadoActionPerformed
@@ -217,10 +229,22 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         }
         ventanaAlertaEliminar = new Alerta_Eliminar_Encargado();
         ventanaAlertaEliminar.setVisible(true);
+        listaPersonas = bdmiguel.listaEncargados();
+        actualizarListaEncargados(listaPersonas);
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_eliminar_encargadoActionPerformed
 
     private void btn_historial_asignacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_asignacionesActionPerformed
-        // TODO add your handling code here:
+        if (ventanaAlertaHistorial != null) {
+            ventanaAlertaHistorial.dispose();   
+        }
+        ventanaAlertaHistorial = new Alerta_Historial_Encargado();
+        ventanaAlertaHistorial.setVisible(true);
+        listaPersonas = bdmiguel.listaEncargados();
+        actualizarListaEncargados(listaPersonas);
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_historial_asignacionesActionPerformed
 
     private void btn_asignar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_asignar_encargadoActionPerformed
@@ -230,6 +254,10 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         }
         ventanaAlertaAsignar = new Alerta_Asignar_Encargado();
         ventanaAlertaAsignar.setVisible(true);
+        listaPersonas = bdmiguel.listaEncargados();
+        actualizarListaEncargados(listaPersonas);
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_asignar_encargadoActionPerformed
 
     private void btn_desasignar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_desasignar_encargadoActionPerformed
@@ -237,7 +265,11 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
             ventanaAlertaDesasignar.dispose();   
         }
         ventanaAlertaDesasignar = new Alerta_Desasignar_Encargado();
-        ventanaAlertaDesasignar.setVisible(true);
+        ventanaAlertaDesasignar.setVisible(true);      
+        listaPersonas = bdmiguel.listaEncargados();
+        actualizarListaEncargados(listaPersonas);
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_desasignar_encargadoActionPerformed
 
     public void initAlternComponents(){
@@ -278,6 +310,12 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
         repaint();
     }
     
+    public void actualizarListaEncargados(Usuario[] lista) {
+        
+        this.listaPersonas = lista;
+        imprimirTabla();
+    }
+    
     public void imprimirTabla() {
         modelo.setRowCount(0);
         if (listaPersonas != null) {
@@ -294,8 +332,8 @@ public class Panel_listado_encargados extends javax.swing.JPanel {
             }
         }
 
-        repaint();
-        revalidate();
+        tablaPersonas.repaint();
+        tablaPersonas.revalidate();
     }
 
     

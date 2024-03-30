@@ -6,20 +6,21 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import utils.BaseDatosMiguel;
 
-public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
+public class Alerta_Historial_Encargado extends javax.swing.JFrame {
 
-    private Alerta ventanaAlerta;
-    BaseDatosMiguel bdmiguel;
-    public Alerta_Desasignar_Encargado() {
+        BaseDatosMiguel bdmiguel;
+        private Alerta ventanaAlerta;
+    public Alerta_Historial_Encargado() {
         this.bdmiguel = new BaseDatosMiguel();
         initComponents();
         initAlternComponents();
     }
     
     public void initAlternComponents(){
-        setTitle("Desasignación de encargado");
+        setTitle("Historial de encargado");
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
@@ -60,26 +61,21 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         
         revalidate();
         repaint();
-    
     }
-
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        etq_logo = new javax.swing.JLabel();
-        etq_titulo = new javax.swing.JLabel();
         fondo = new javax.swing.JPanel();
         campo_documento = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
+        etq_logo = new javax.swing.JLabel();
+        etq_titulo = new javax.swing.JLabel();
         foco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etq_titulo.setText("Buscar encargado");
 
         fondo.setBackground(new java.awt.Color(79, 108, 211));
 
@@ -132,19 +128,23 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
+        etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etq_titulo.setText("Buscar encargado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(711, Short.MAX_VALUE)
-                .addComponent(foco)
-                .addContainerGap())
+                .addContainerGap(672, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(etq_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                        .addComponent(etq_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(67, 67, 67)
                             .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,9 +157,9 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(499, Short.MAX_VALUE)
-                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addContainerGap(489, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -168,7 +168,7 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
                     .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(48, 48, 48)
                     .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(96, Short.MAX_VALUE)))
+                    .addContainerGap(80, Short.MAX_VALUE)))
         );
 
         pack();
@@ -203,7 +203,7 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         } else {
 
             if(bdmiguel.buscarPersona(campo_documento.getText())){
-                Alerta_Desasignar_Encargado_Final aviso = new Alerta_Desasignar_Encargado_Final(campo_documento.getText());
+                Alerta_Historial_Encargado_Final aviso = new Alerta_Historial_Encargado_Final(campo_documento.getText());
                 dispose();
 
             }else{
@@ -224,6 +224,7 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         ventanaAlerta.dispose();
     }//GEN-LAST:event_btn_volverActionPerformed
 
+    
     public static void main(String args[]) {
         
     }

@@ -9,7 +9,7 @@ import utils.BaseDatosMiguel;
 
 public class Alerta_Desasignar_Encargado_Final extends javax.swing.JFrame {
     BaseDatosMiguel bdmiguel;
-    
+   
     DefaultComboBoxModel<String> comboBoxModelNombres = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> comboBoxModelDirecciones = new DefaultComboBoxModel<>();
 
@@ -224,7 +224,10 @@ public class Alerta_Desasignar_Encargado_Final extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    
 
+    
     private void btn_desasignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_desasignarActionPerformed
         // Obtener la cédula del encargado
         String cedula = texto_cedula.getText();
@@ -236,12 +239,14 @@ public class Alerta_Desasignar_Encargado_Final extends javax.swing.JFrame {
         // Mostrar confirmación
         Confirmacion nuevo = new Confirmacion("Encargado desasignado con éxito");
         dispose();
+        
     }//GEN-LAST:event_btn_desasignarActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btn_cancelarActionPerformed
-
+    
+    
     public static void main(String args[]) {
       
     }

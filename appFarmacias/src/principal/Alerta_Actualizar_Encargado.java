@@ -8,18 +8,18 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import utils.BaseDatosMiguel;
 
-public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
+public class Alerta_Actualizar_Encargado extends javax.swing.JFrame {
 
     private Alerta ventanaAlerta;
     BaseDatosMiguel bdmiguel;
-    public Alerta_Desasignar_Encargado() {
+    public Alerta_Actualizar_Encargado() {
         this.bdmiguel = new BaseDatosMiguel();
         initComponents();
         initAlternComponents();
     }
     
     public void initAlternComponents(){
-        setTitle("Desasignación de encargado");
+        setTitle("Actualización de encargado");
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
@@ -60,9 +60,9 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         
         revalidate();
         repaint();
-    
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -137,14 +137,14 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(711, Short.MAX_VALUE)
-                .addComponent(foco)
+                .addContainerGap(681, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(etq_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                        .addComponent(etq_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(67, 67, 67)
                             .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,9 +157,9 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(499, Short.MAX_VALUE)
+                .addContainerGap(464, Short.MAX_VALUE)
                 .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(17, 17, 17))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -168,7 +168,7 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
                     .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(48, 48, 48)
                     .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(96, Short.MAX_VALUE)))
+                    .addContainerGap(62, Short.MAX_VALUE)))
         );
 
         pack();
@@ -203,7 +203,7 @@ public class Alerta_Desasignar_Encargado extends javax.swing.JFrame {
         } else {
 
             if(bdmiguel.buscarPersona(campo_documento.getText())){
-                Alerta_Desasignar_Encargado_Final aviso = new Alerta_Desasignar_Encargado_Final(campo_documento.getText());
+                Alerta_Actualizar_Encargado_Final aviso = new Alerta_Actualizar_Encargado_Final(campo_documento.getText());
                 dispose();
 
             }else{

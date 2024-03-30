@@ -192,22 +192,40 @@ public class BaseDatosMiguel {
     }
 
     public String infoPersona(String cedula) {
-    String nombre;
-    try {
-        String consulta = "SELECT nombre_usuario FROM usuario WHERE cedula = '" + cedula + "'";
-        ResultSet registros = manipularBD.executeQuery(consulta);
-        if (registros.next()) {
-            nombre = registros.getString("nombre_usuario");
-            return nombre;
-        } else {
-            System.out.println("No se encontraron registros para la cédula: " + cedula);
+        String nombre;
+        try {
+            String consulta = "SELECT nombre_usuario FROM usuario WHERE cedula = '" + cedula + "'";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            if (registros.next()) {
+                nombre = registros.getString("nombre_usuario");
+                return nombre;
+            } else {
+                System.out.println("No se encontraron registros para la cédula: " + cedula);
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al ejecutar la consulta SQL: " + e.getMessage());
             return null;
         }
-    } catch (Exception e) {
-        System.out.println("Error al ejecutar la consulta SQL: " + e.getMessage());
-        return null;
     }
-}
+    
+    public String userPersona(String cedula) {
+        String usuario;
+        try {
+            String consulta = "SELECT usuario FROM usuario WHERE cedula = '" + cedula + "'";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            if (registros.next()) {
+                usuario = registros.getString("usuario");
+                return usuario;
+            } else {
+                System.out.println("No se encontraron registros para la cédula: " + cedula);
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al ejecutar la consulta SQL: " + e.getMessage());
+            return null;
+        }
+    }
        
     public List<String> cargarNombresFarmacias() {
         List<String> nombresFarmacias = new ArrayList<>();
@@ -248,8 +266,8 @@ public class BaseDatosMiguel {
     
     public Usuario[] listaEncargados() {
      try {
-         Usuario arreglo[] = new Usuario[100];
-        String consulta = "SELECT usuario.cedula, usuario.nombre_usuario, usuario.usuario, usuario.clave, farmacia.nombre, usuario.estado, usuariofarmacia.fecha_inicio, usuario.fecha_termino "
+        Usuario arreglo[] = new Usuario[100];
+        String consulta = "SELECT usuario.cedula, usuario.nombre_usuario, usuario.usuario, usuario.clave, farmacia.nombre, usuariofarmacia.estado, usuariofarmacia.fecha_inicio, usuariofarmacia.fecha_termino "
                 + "FROM usuario "
                 + "INNER JOIN usuariofarmacia ON usuario.id_usuario = usuariofarmacia.id_usuario "
                 + "INNER JOIN farmacia ON usuariofarmacia.NIT_farmacia = farmacia.NIT_farmacia "
@@ -258,42 +276,42 @@ public class BaseDatosMiguel {
                 + "FROM usuariofarmacia "
                 + "GROUP BY id_usuario) "
                 + "AND usuario.rol = 'encargado' "
-                + "AND usuario.estado = 'activo'"
+                + "AND usuario.estado = 'activo' OR 'inactivo'"   
                 + "AND usuariofarmacia.estado = 'activo'";
                     
                     
-         ResultSet registros = manipularBD.executeQuery(consulta);
+        ResultSet registros = manipularBD.executeQuery(consulta);
 
-         int i = 0;
-         while (registros.next()) {
-             String cedula = registros.getString("cedula");
-             String nombre = registros.getString("nombre_usuario");
-             String usuario = registros.getString("usuario");
-             String contraseña = registros.getString("clave");
-             String establecimiento = registros.getString("nombre");
-             String estado = registros.getString("estado");
-             String fecha_inicio = registros.getString("fecha_inicio");
-             String fecha_fin = registros.getString("fecha_termino");
+        int i = 0;
+        while (registros.next()) {
+            String cedula = registros.getString("cedula");
+            String nombre = registros.getString("nombre_usuario");
+            String usuario = registros.getString("usuario");
+            String contraseña = registros.getString("clave");
+            String establecimiento = registros.getString("nombre");
+            String estado = registros.getString("estado");
+            String fecha_inicio = registros.getString("fecha_inicio");
+            String fecha_fin = registros.getString("fecha_termino");
 
-             arreglo[i] = new Usuario(cedula, nombre, usuario, contraseña, establecimiento, estado, fecha_inicio, fecha_fin);
-             i++;
-         }
+            arreglo[i] = new Usuario(cedula, nombre, usuario, contraseña, establecimiento, estado, fecha_inicio, fecha_fin);
+            i++;
+        }
 
-         // Si no se recuperaron encargados, retornar null
-         if (i == 0) {
-             return null;
-         }
+        // Si no se recuperaron encargados, retornar null
+        if (i == 0) {
+            return null;
+        }
 
-         // Redimensionar el arreglo para eliminar elementos nulos
-         Usuario[] encargados = Arrays.copyOf(arreglo, i);
+        // Redimensionar el arreglo para eliminar elementos nulos
+        Usuario[] encargados = Arrays.copyOf(arreglo, i);
 
-         return encargados;
-     } catch (Exception e) {
+        return encargados;
+        } catch (Exception e) {
          System.out.println("Error al imprimir el SELECT");
          System.out.println(e.getMessage());
          return null;
-     }
- }
+        }
+    }
     
     public boolean agregarEncargado(String cedula, String nombre, String usuario, String clave, String establecimiento, String direccion, Date fechaInicio) {
         try {
@@ -426,6 +444,55 @@ public class BaseDatosMiguel {
         }
         return respuesta;
     }
+    
+    public boolean actualizarInformacionEncargado(String cedula, String nombre, String usuario) {
+        try {
+            // Actualizar el nombre y el usuario del encargado en la tabla usuario
+            String updateQuery = "UPDATE usuario SET nombre_usuario = ?, usuario = ? WHERE cedula = ?";
+            PreparedStatement statement = conexion.prepareStatement(updateQuery);
+            statement.setString(1, nombre);
+            statement.setString(2, usuario);
+            statement.setString(3, cedula);
+            int filasActualizadas = statement.executeUpdate();
+
+            // Verificar si la actualización fue exitosa
+            if (filasActualizadas > 0) {
+                System.out.println("Información del encargado actualizada correctamente.");
+                return true;
+            } else {
+                System.out.println("No se pudo actualizar la información del encargado.");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar la información del encargado: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public List<List<String>> obtenerAsignacionesPorCedula(String cedula) {
+        List<List<String>> asignaciones = new ArrayList<>();
+        String query = "SELECT farmacia.nombre, farmacia.direccion, usuariofarmacia.fecha_inicio " +
+                       "FROM farmacia " +
+                       "JOIN usuarioFarmacia ON farmacia.NIT_farmacia = usuarioFarmacia.NIT_farmacia " +
+                       "JOIN historialEstados_farmacia ON farmacia.NIT_farmacia = historialEstados_farmacia.NIT_farmacia " +
+                       "WHERE usuarioFarmacia.id_usuario IN (SELECT id_usuario FROM usuario WHERE cedula = ?)";
+        try (PreparedStatement statement = conexion.prepareStatement(query)) {
+            statement.setString(1, cedula);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                List<String> asignacion = new ArrayList<>();
+                asignacion.add(resultSet.getString(1)); // Nombre del establecimiento
+                asignacion.add(resultSet.getString(2)); // Dirección
+                asignacion.add(resultSet.getString(3)); // Fecha de asignación
+                asignaciones.add(asignacion);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return asignaciones;
+    }
+    
+    
     
     public String getMD5(String clave){
         try {
