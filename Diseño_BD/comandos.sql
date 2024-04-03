@@ -5,6 +5,7 @@ USE farmatech;
 --TABLA FARMACIA
 CREATE TABLE farmacia(
 NIT_farmacia VARCHAR(12) PRIMARY KEY,
+foto LONGBLOB,
 nombre VARCHAR(25),
 direccion VARCHAR(40),
 telefono CHAR(10));
@@ -45,6 +46,7 @@ fecha_termino DATE);
 CREATE TABLE producto(
 id_producto INT PRIMARY KEY AUTO_INCREMENT,
 nombre_producto VARCHAR(25),
+medicamento LONGBLOB,
 volumen ENUM('mg','ml'),
 precio_unitario DECIMAL(7,1),
 fecha_vencimiento DATE,
@@ -54,6 +56,8 @@ usos TEXT);
 --TABLA FACTURA
 CREATE TABLE factura(
 numReferencia INT PRIMARY KEY AUTO_INCREMENT,
+NIT_farmacia VARCHAR(12),
+FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
 fecha DATE,
 hora TIME,
 id_cliente CHAR(10),
@@ -174,20 +178,6 @@ VALUES
     ('1009','Cruz verde', 'Carrera 9 Palermo', '9012345678'),
     ('1010','Drogueria Alemana', 'Calle 10 Canan', '1232345678');
 
---CREAR ESTADO FARMACIA
-
-INSERT INTO historialEstados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario)
-VALUES
-    ('1001','activo', CURDATE(), 'estado de creacion'),
-    ('1002','activo', CURDATE(), 'estado de creacion'),
-    ('1003','activo', CURDATE(), 'estado de creacion'),
-    ('1004','activo', CURDATE(), 'estado de creacion'),
-    ('1005','activo', CURDATE(), 'estado de creacion'),
-    ('1006','activo', CURDATE(), 'estado de creacion'),
-    ('1007','activo', CURDATE(), 'estado de creacion'),
-    ('1008','activo', CURDATE(), 'estado de creacion'),
-    ('1009','activo', CURDATE(), 'estado de creacion'),
-    ('1010','activo', CURDATE(), 'estado de creacion');
 
 --INSERTAR PRODUCTOS
 INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
@@ -221,18 +211,18 @@ VALUES
 
 --INSERTAR FACTURAS
 
-INSERT INTO factura(fecha, hora, id_cliente, nombre_cliente, sub_total, iva, total)
+INSERT INTO factura(NIT_farmaciafecha, hora, id_cliente, nombre_cliente, sub_total, iva, total)
 VALUES
-    ('2024-03-07', '12:30:00', '10100', 'Camila Murillo', 0,0,0),
-    ('2024-03-07', '13:45:00', '10200', 'Alejandra Garces', 0,0,0),
-    ('2024-03-07', '14:15:00', '10300', 'Catalina Rojas', 0,0,0),
-    ('2024-03-07', '15:00:00', '10400', 'Artemiz Arias', 0,0,0),
-    ('2024-03-07', '15:45:00', '10500', 'Diego Osorio', 0,0,0),
-    ('2024-03-07', '16:30:00', '10600', 'Diego Jaramillo', 0,0,0),
-    ('2024-03-07', '17:00:00', '10700', 'Alejandra Rojas', 0,0,0),
-    ('2024-03-07', '17:45:00', '10800', 'Natalia Ortiz', 0,0,0),
-    ('2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
-    ('2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
+    ('1001','2024-03-07', '12:30:00', '10100', 'Camila Murillo', 0,0,0),
+    ('1001','2024-03-07', '13:45:00', '10200', 'Alejandra Garces', 0,0,0),
+    ('1007','2024-03-07', '14:15:00', '10300', 'Catalina Rojas', 0,0,0),
+    ('1009','2024-03-07', '15:00:00', '10400', 'Artemiz Arias', 0,0,0),
+    ('1001','2024-03-07', '15:45:00', '10500', 'Diego Osorio', 0,0,0),
+    ('1002','2024-03-07', '16:30:00', '10600', 'Diego Jaramillo', 0,0,0),
+    ('1010','2024-03-07', '17:00:00', '10700', 'Alejandra Rojas', 0,0,0),
+    ('1009','2024-03-07', '17:45:00', '10800', 'Natalia Ortiz', 0,0,0),
+    ('1004','2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
+    ('1005','2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
 
 
 
@@ -250,6 +240,7 @@ VALUES
     (3,7,3,0),
     (9,9,1,0),
     (1,6,1,0);
+
 
 --INSERTAR USUARIOS
 

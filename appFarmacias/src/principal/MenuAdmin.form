@@ -158,6 +158,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Visualizar farmacias"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_visualizar_farmaciasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_crear_farmacia">
           <Properties>
