@@ -3,20 +3,20 @@ package utils;
 
 
 public class Usuario {
+
+
   
     private String id_usuario;
     private String cedula;
     private String nombre;
     private String usuario;
-    private String clave;
     private String rol;
     private String estado;
     private String fecha_inicio;
-    private String fecha_termino;
-    private String establecimiento;
+    
     
 
-    public Usuario(String id_usuario, String cedula, String nombre, String usuario, String rol, String estado, String fecha_inicio) {
+    public Usuario(String id_usuario, String cedula, String nombre, String usuario, String rol) {
         this.id_usuario = id_usuario;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -26,16 +26,6 @@ public class Usuario {
         this.fecha_inicio = fecha_inicio;
     }
     
-    public Usuario(String cedula, String nombre, String usuario, String clave, String establecimiento, String estado, String fecha_inicio, String fecha_termino){
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.clave = clave;
-        this.establecimiento = establecimiento;
-        this.estado = estado;
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_termino = fecha_termino;
-    }
 
     public String getId_usuario() {
         return id_usuario;
@@ -93,30 +83,28 @@ public class Usuario {
     public void setFecha_inicio(String fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
-    
-    public String getFecha_termino(){
-        return fecha_termino;
+
+    public String getTelefono() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public void setFecha_termino(String fecha_termino){
-        this.fecha_termino = fecha_termino;
+
+    public String getDireccion() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public String getClave(){
-        return clave;
+
+    public String getCorreo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public void setClave(String clave){
-        this.clave = clave;
+
+    public String getNit() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public String getEstablecimiento(){
-        return establecimiento;
+
+    public String getNit_proveedor() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
-    public void setEstablecimiento(String establecimiento){
-        this.establecimiento = establecimiento;
-    }
     
     
 }

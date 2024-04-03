@@ -1,3 +1,4 @@
+
 package utils;
 
 import java.awt.Component;
@@ -6,11 +7,13 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
-public class ButtonEditor extends DefaultCellEditor {
-        private Object clickedValue;
+public class ButtonEditar extends DefaultCellEditor{
+    
+   private Object clickedValue;
 
-        public ButtonEditor(JCheckBox checkBox) {
+        public ButtonEditar(JCheckBox checkBox) {
             super(checkBox);
             checkBox.addActionListener(new ActionListener() {
                 @Override
@@ -19,6 +22,7 @@ public class ButtonEditor extends DefaultCellEditor {
                 }
             });
         }
+
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
@@ -33,4 +37,5 @@ public class ButtonEditor extends DefaultCellEditor {
         public Object getCellEditorValue() {
             return clickedValue;
         }
-    }
+    
+}

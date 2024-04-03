@@ -52,6 +52,7 @@ public class MenuEncargado extends javax.swing.JFrame {
         btn_añadir_prod_stock = new javax.swing.JButton();
         btn_editar_prod = new javax.swing.JButton();
         btn_eliminar_prod = new javax.swing.JButton();
+        btn_registrar_factura = new javax.swing.JButton();
         btn_factura = new javax.swing.JButton();
         btn_lista_proveedores = new javax.swing.JButton();
         panel_bienvenida = new javax.swing.JPanel();
@@ -124,6 +125,16 @@ public class MenuEncargado extends javax.swing.JFrame {
             }
         });
 
+        btn_registrar_factura.setBackground(new java.awt.Color(144, 177, 239));
+        btn_registrar_factura.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_registrar_factura.setForeground(new java.awt.Color(255, 255, 255));
+        btn_registrar_factura.setText("Registrar Factura");
+        btn_registrar_factura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrar_facturaActionPerformed(evt);
+            }
+        });
+
         btn_factura.setBackground(new java.awt.Color(144, 177, 239));
         btn_factura.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_factura.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,6 +168,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btn_factura, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_registrar_factura, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_eliminar_prod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_editar_prod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_catalogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,11 +202,13 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(btn_editar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_eliminar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_registrar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -244,7 +258,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(etq_nombre)
                 .addGap(44, 44, 44)
                 .addComponent(etq_texto_continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,7 +288,20 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_historial_ventasActionPerformed
 
     private void btn_añadir_prod_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadir_prod_stockActionPerformed
-        // TODO add your handling code here:
+        AgregarProducto nuevo = new AgregarProducto(bd);
+    
+        nuevo.setPreferredSize( panel_bienvenida.getPreferredSize() );
+        nuevo.setSize( panel_bienvenida.getSize() );
+        
+        // Eliminar el contenido del contentPrincipal
+        panel_bienvenida.removeAll();
+        
+        // Agregar dentro de contentPrincipal el contenedor nuevo.
+        panel_bienvenida.add(nuevo);
+        
+        // repaint();
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
 
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
@@ -285,12 +312,16 @@ public class MenuEncargado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_eliminar_prodActionPerformed
 
+    private void btn_registrar_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrar_facturaActionPerformed
+        
+    }//GEN-LAST:event_btn_registrar_facturaActionPerformed
+
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
    
@@ -303,6 +334,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     private javax.swing.JButton btn_factura;
     private javax.swing.JButton btn_historial_ventas;
     private javax.swing.JButton btn_lista_proveedores;
+    private javax.swing.JButton btn_registrar_factura;
     private javax.swing.JLabel etq_logo;
     private javax.swing.JLabel etq_logo_encargado;
     private javax.swing.JLabel etq_nombre;
