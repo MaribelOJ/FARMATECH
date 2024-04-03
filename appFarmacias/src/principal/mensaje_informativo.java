@@ -2,28 +2,31 @@ package principal;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
-public class Alerta extends javax.swing.JFrame {
+public class Mensaje_informativo extends javax.swing.JFrame {
 
     String texto;
    
-    public Alerta(String texto) {
+    public Mensaje_informativo(String texto) {
         this.texto = texto;
         initComponents();
         initAlternComponents();
     }
     
     public void initAlternComponents(){
-        setLocationRelativeTo(null);
+
+        setLocation(680,550);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle("Importante");
         
-        setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_warning.png") ) );
+        setIconImage( getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_info.png") ) );
         
-        Image img_warning = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_warning.png") );
-        img_warning = img_warning.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        etqImagen.setIcon(new ImageIcon(img_warning));
+        Image img_info = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/icono_info.png") );
+        img_info = img_info.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        etqImagen.setIcon(new ImageIcon(img_info));
             
         etqTexto.setText(texto);
     }
@@ -34,26 +37,21 @@ public class Alerta extends javax.swing.JFrame {
 
         contenedorPrincipal = new javax.swing.JPanel();
         etqImagen = new javax.swing.JLabel();
-        etqTitulo = new javax.swing.JLabel();
         etqTexto = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Alerta");
 
-        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.setBackground(new java.awt.Color(255, 204, 102));
 
         etqImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        etqTitulo.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        etqTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etqTitulo.setText("Advertencia");
 
         etqTexto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         etqTexto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etqTexto.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        btnCerrar.setBackground(new java.awt.Color(153, 0, 0));
+        btnCerrar.setBackground(new java.awt.Color(255, 102, 0));
         btnCerrar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnCerrar.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrar.setText("OK");
@@ -69,30 +67,26 @@ public class Alerta extends javax.swing.JFrame {
         contenedorPrincipalLayout.setHorizontalGroup(
             contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorPrincipalLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addComponent(etqImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contenedorPrincipalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(etqTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
-                            .addComponent(etqTexto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorPrincipalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCerrar)
-                        .addGap(14, 14, 14))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(etqTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contenedorPrincipalLayout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(btnCerrar)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         contenedorPrincipalLayout.setVerticalGroup(
             contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(etqImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(etqImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(contenedorPrincipalLayout.createSequentialGroup()
-                        .addComponent(etqTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(etqTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(etqTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCerrar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -121,6 +115,5 @@ public class Alerta extends javax.swing.JFrame {
     private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JLabel etqImagen;
     private javax.swing.JLabel etqTexto;
-    private javax.swing.JLabel etqTitulo;
     // End of variables declaration//GEN-END:variables
 }
