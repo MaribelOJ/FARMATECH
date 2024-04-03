@@ -70,7 +70,6 @@ public class MenuAdmin extends javax.swing.JFrame {
         btn_crear_farmacia = new javax.swing.JButton();
         btn_informe_ventas = new javax.swing.JButton();
         btn_lista_proveedores = new javax.swing.JButton();
-        btn_administrar_encargado = new javax.swing.JButton();
         panel_bienvenida = new javax.swing.JPanel();
         etq_logo = new javax.swing.JLabel();
         etq_titulo = new javax.swing.JLabel();
@@ -136,16 +135,6 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        btn_administrar_encargado.setBackground(new java.awt.Color(144, 177, 239));
-        btn_administrar_encargado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_administrar_encargado.setForeground(new java.awt.Color(255, 255, 255));
-        btn_administrar_encargado.setText("Administrar encargado");
-        btn_administrar_encargado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_administrar_encargadoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panel_controlLayout = new javax.swing.GroupLayout(panel_control);
         panel_control.setLayout(panel_controlLayout);
         panel_controlLayout.setHorizontalGroup(
@@ -168,8 +157,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                             .addComponent(btn_crear_farmacia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_informe_ventas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_administrar_encargado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32))))
         );
         panel_controlLayout.setVerticalGroup(
@@ -181,10 +169,8 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addComponent(etq_texto_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(etq_texto_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
+                .addGap(88, 88, 88)
                 .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_administrar_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_visualizar_farmacias, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -193,7 +179,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addComponent(btn_informe_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -327,7 +313,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_administrar_encargado;
     private javax.swing.JButton btn_crear_farmacia;
     private javax.swing.JButton btn_informe_ventas;
     private javax.swing.JButton btn_lista_proveedores;
