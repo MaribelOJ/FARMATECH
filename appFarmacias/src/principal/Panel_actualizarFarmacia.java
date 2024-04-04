@@ -290,8 +290,7 @@ public class Panel_actualizarFarmacia extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     public void initAlternComponents(){
-        
-        System.out.println(this.indice);
+
         imagenTemporal = null;
         
         Image icono_logo = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/logoFT.png"));
@@ -310,12 +309,15 @@ public class Panel_actualizarFarmacia extends javax.swing.JPanel {
         
     }
     private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        
         for(int i= 0; i < listaFarmacias.length && listaFarmacias[i] != null; i++){
             if(listaFarmacias[i].getNIT().equalsIgnoreCase(NIT)){
                 indice=i;
                 break;
             }
         }
+        System.out.println("desde panel_farmacia: indice " + indice);
+        System.out.println("desde panel_farmacia: contenedor " + numContenedor);
         this.menu.btn_visualizar_farmaciasActionPerformed(indice,numContenedor);
     }//GEN-LAST:event_btn_volverActionPerformed
 
@@ -345,10 +347,10 @@ public class Panel_actualizarFarmacia extends javax.swing.JPanel {
         
         boolean actualizada=false;
         
-        if(NIT.equals("") || nombre.equals("") || direccion.equals("") || estado.equals("") || telefono.equals("") || comentario.equals("")){
+        if(NIT.equals("") || nombre.equals("") || direccion.equals("") || estado.equals("") || telefono.equals("")){
             Alerta aviso1 = new Alerta("No se permiten campos vacios");
         }else{
-            if(estado.equalsIgnoreCase("activo") || estado.equalsIgnoreCase("inaactivo")){
+            if(estado.equalsIgnoreCase("activo") || estado.equalsIgnoreCase("inactivo")){
                 if(imagenTemporal != null){
                     actualizada = bd.actualizarFarmacia(NIT, nombre, direccion, estado, telefono, imagenTemporal,comentario);
                 }else{

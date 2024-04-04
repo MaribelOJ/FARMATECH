@@ -291,6 +291,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     public void btn_visualizar_farmaciasActionPerformed(int indice,String contenedor){
         this.indice = indice;
+        System.out.println("indice desde menu: "+ this.indice);
         this.numContenedor=contenedor;
         btn_visualizar_farmaciasActionPerformed(null);
     }
