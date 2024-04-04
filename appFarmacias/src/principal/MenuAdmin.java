@@ -7,6 +7,8 @@ import utils.BaseDatos;
 import utils.BaseDatosMiguel;
 import utils.BaseDatos_Maribel;
 import utils.Usuario;
+import utils.BaseDatosValeria;
+import utils.Proveedores;
 
 
 public class MenuAdmin extends javax.swing.JFrame {
@@ -21,6 +23,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         
     Connection conexion = bdmiguel.getConexion();
     Statement manipularBD = bdmiguel.getManipularBD();
+    
+    BaseDatosValeria bdvaleria = new BaseDatosValeria();
     
     
     public MenuAdmin(BaseDatos bd, String nombre_usuario) {
@@ -252,7 +256,21 @@ public class MenuAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
-        // TODO add your handling code here:
+        Proveedores listado[] = bdvaleria.listaProveedores_admin();
+        Panel_listado_proveedores_admin nuevo = new Panel_listado_proveedores_admin (listado);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
     private void btn_visualizar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_encargadoActionPerformed
