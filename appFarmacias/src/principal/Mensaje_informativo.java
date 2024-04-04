@@ -3,7 +3,7 @@ package principal;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.JFrame;
 
 public class Mensaje_informativo extends javax.swing.JFrame {
     String texto;
@@ -16,8 +16,8 @@ public class Mensaje_informativo extends javax.swing.JFrame {
     
     public void initAlternComponents(){
 
-        setLocation(680,550);
-        setResizable(true);
+        setLocation(680,650);
+        setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Importante");
