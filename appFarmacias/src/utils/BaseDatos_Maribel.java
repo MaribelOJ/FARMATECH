@@ -51,11 +51,13 @@ public class BaseDatos_Maribel {
         try{
             int resp_consulta2 = 0;
             int resp_consulta3=0;
-            java.util.Date fechaHoy = new java.util.Date();
-            Long fechaHoraActual = fechaHoy.getTime();
-//            java.sql.Date fechaSQL = new java.sql.Date(fechaHoraActual);
-//            java.sql.Time horaSQL = new java.sql.Time(fechaHoraActual);
             int i = 0;
+            
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
             
             Image image = imagen.getImage();
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -114,7 +116,8 @@ public class BaseDatos_Maribel {
             }else{
                 if(resp_consulta2==0){
                     System.out.println("Registro farmacia no se realizó!");
-                }else if(resp_consulta3==0){
+                }
+                if(resp_consulta3==0){
                     System.out.println("Registro estado no se realizó!");
                 }
             }
@@ -238,8 +241,11 @@ public class BaseDatos_Maribel {
 
         try{
             
-            java.util.Date fechaHoy = new java.util.Date();
-            Long fechaHoraActual = fechaHoy.getTime();
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
 
             
             Image image = imagen.getImage(); 
@@ -291,14 +297,11 @@ public class BaseDatos_Maribel {
 
         try{          
      
-//            java.util.Date fechaHoy = new java.util.Date();
-//            Long fechaHoraActual = fechaHoy.getTime();
-
             java.util.Date dt = new java.util.Date();
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss");
 
-            String fechaHora = sdf.format(dt);
+            String fechaHoraActual = sdf.format(dt);
             
             
             String consulta = "UPDATE farmacia SET nombre ='"+ nombre +"',direccion = '"+ direccion +"', telefono = '"+ telefono +"' WHERE NIT_farmacia ='"+ NIT +"'";
@@ -313,7 +316,7 @@ public class BaseDatos_Maribel {
             dato.next();
             if(dato.getRow()==1){
                 if(!dato.getString("nombre").equalsIgnoreCase(estado)){
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+ fechaHora+"','"+comentario+"')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+ fechaHoraActual+"','"+comentario+"')";
                     manipularDB.executeUpdate(consulta3);
                 }
             }
