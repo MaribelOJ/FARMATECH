@@ -278,7 +278,22 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_historial_ventasActionPerformed
 
     private void btn_añadir_prod_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadir_prod_stockActionPerformed
-        // TODO add your handling code here:
+        Panel_crear_producto nuevo = new Panel_crear_producto();
+        
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+        
+        
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
 
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
