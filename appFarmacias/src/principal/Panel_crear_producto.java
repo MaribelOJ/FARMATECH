@@ -2,16 +2,37 @@
 package principal;
 
 import java.awt.Image;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import utils.BaseDatosMiguel;
 
 public class Panel_crear_producto extends javax.swing.JPanel {
+    
+    private Alerta ventanaAlerta;
+    DefaultComboBoxModel<String> comboBoxModelNombres = new DefaultComboBoxModel<>();
     BaseDatosMiguel bdmiguel;
+    ImageIcon imagenTemporal;
    
     public Panel_crear_producto() {
         this.bdmiguel = new BaseDatosMiguel();
         initComponents();
         initAlternComponents();
+        
+        // Obtener la lista de nombres de farmacias y agregarlas al modelo del JComboBox
+        List<String> nombresProveedor = bdmiguel.cargarNombresProveedores();
+        for (String nombreProveedor : nombresProveedor) {
+            comboBoxModelNombres.addElement(nombreProveedor);
+        }
+        
+        // Establecer el modelo del JComboBox de nombres de farmacias
+        lista_proveedores.setModel(comboBoxModelNombres);
+        imagenTemporal = null;
     }
 
     public void initAlternComponents(){
@@ -19,6 +40,147 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         Image icono_logo = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/logoFT.png"));
         icono_logo = icono_logo.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
         etq_logo.setIcon(new ImageIcon(icono_logo));
+        
+        String nombrePlaceholder = "Nombre:";
+        String cantidadPlaceholder = "Cantidad:";
+        String precioPlaceholder = "Precio:";
+        String fechaPlaceholder = "Fecha de vencimiento:";
+        String ingredientesPlaceholder = "Ingredientes:";
+        String usosPlaceholder = "Usos:";
+        
+        SwingUtilities.invokeLater(() -> {
+            foco.requestFocusInWindow();
+        });
+        
+        campo_nombre.setText(nombrePlaceholder);
+        campo_cantidad.setText(cantidadPlaceholder);
+        campo_precio.setText(precioPlaceholder);
+        campo_fecha_vencimiento.setText(fechaPlaceholder);
+        campo_ingredientes.setText(ingredientesPlaceholder);
+        campo_usos.setText(usosPlaceholder);
+        
+        //Placeholder para cada campo
+        campo_nombre.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String currentText = campo_nombre.getText();
+                
+                if (currentText.equals(nombrePlaceholder)) {
+                    campo_nombre.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String currentText = campo_nombre.getText();
+                
+                if (currentText.isEmpty()) {
+                    campo_nombre.setText(nombrePlaceholder);
+                }
+            }
+        });
+        
+        campo_cantidad.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String currentText = campo_cantidad.getText();
+                
+                if (currentText.equals(cantidadPlaceholder)) {
+                    campo_cantidad.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String currentText = campo_cantidad.getText();
+                
+                if (currentText.isEmpty()) {
+                    campo_cantidad.setText(cantidadPlaceholder);
+                }
+            }
+        });
+        
+        campo_precio.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String currentText = campo_precio.getText();
+                
+                if (currentText.equals(precioPlaceholder)) {
+                    campo_precio.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String currentText = campo_precio.getText();
+                
+                if (currentText.isEmpty()) {
+                    campo_precio.setText(precioPlaceholder);
+                }
+            }
+        });
+        
+        campo_fecha_vencimiento.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String currentText = campo_fecha_vencimiento.getText();
+                
+                if (currentText.equals(fechaPlaceholder)) {
+                    campo_fecha_vencimiento.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String currentText = campo_fecha_vencimiento.getText();
+                
+                if (currentText.isEmpty()) {
+                    campo_fecha_vencimiento.setText(fechaPlaceholder);
+                }
+            }
+        });
+        
+        campo_ingredientes.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String currentText = campo_ingredientes.getText();
+                
+                if (currentText.equals(ingredientesPlaceholder)) {
+                    campo_ingredientes.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String currentText = campo_ingredientes.getText();
+                
+                if (currentText.isEmpty()) {
+                    campo_ingredientes.setText(ingredientesPlaceholder);
+                }
+            }
+        });
+        
+        campo_usos.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                String currentText = campo_usos.getText();
+                
+                if (currentText.equals(usosPlaceholder)) {
+                    campo_usos.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String currentText = campo_usos.getText();
+                
+                if (currentText.isEmpty()) {
+                    campo_usos.setText(usosPlaceholder);
+                }
+            }
+        });
+        
+        
         
         revalidate();
         repaint();
@@ -30,15 +192,22 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         etq_titulo = new javax.swing.JLabel();
         etq_logo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        campo_nombre = new javax.swing.JTextField();
+        campo_cantidad = new javax.swing.JTextField();
+        campo_fecha_vencimiento = new javax.swing.JTextField();
+        campo_ingredientes = new javax.swing.JTextField();
+        campo_usos = new javax.swing.JTextField();
+        campo_precio = new javax.swing.JTextField();
+        etq_proveedor = new javax.swing.JLabel();
+        lista_proveedores = new javax.swing.JComboBox<>();
+        btn_crear = new javax.swing.JButton();
+        btnLoadImage = new javax.swing.JButton();
+        panelPreview = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        imagenLabel = new javax.swing.JLabel();
+        lista_volumen = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        foco = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(762, 730));
@@ -49,44 +218,77 @@ public class Panel_crear_producto extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(79, 108, 211));
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campo_nombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        campo_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                campo_nombreActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("jTextField2");
+        campo_cantidad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        campo_fecha_vencimiento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        campo_fecha_vencimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                campo_fecha_vencimientoActionPerformed(evt);
             }
         });
 
-        jTextField5.setText("jTextField5");
+        campo_ingredientes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jTextField6.setText("jTextField6");
+        campo_usos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        campo_precio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        etq_proveedor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        etq_proveedor.setForeground(new java.awt.Color(255, 255, 255));
+        etq_proveedor.setText("Proveedor:");
+
+        lista_proveedores.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lista_proveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btn_crear.setBackground(new java.awt.Color(144, 177, 239));
+        btn_crear.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btn_crear.setForeground(new java.awt.Color(255, 255, 255));
+        btn_crear.setText("Crear");
+        btn_crear.setToolTipText("");
+        btn_crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_crearActionPerformed(evt);
+            }
+        });
+
+        btnLoadImage.setBackground(new java.awt.Color(144, 177, 239));
+        btnLoadImage.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnLoadImage.setForeground(new java.awt.Color(255, 255, 255));
+        btnLoadImage.setText("Buscar Imagen");
+        btnLoadImage.setFocusable(false);
+        btnLoadImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadImageActionPerformed(evt);
+            }
+        });
+
+        imagenLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jScrollPane2.setViewportView(imagenLabel);
+
+        javax.swing.GroupLayout panelPreviewLayout = new javax.swing.GroupLayout(panelPreview);
+        panelPreview.setLayout(panelPreviewLayout);
+        panelPreviewLayout.setHorizontalGroup(
+            panelPreviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+        );
+        panelPreviewLayout.setVerticalGroup(
+            panelPreviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+        );
+
+        lista_volumen.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lista_volumen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "mg", "ml" }));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Proveedor:");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton1.setBackground(new java.awt.Color(144, 177, 239));
-        jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Crear");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("Volumen:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -94,43 +296,58 @@ public class Panel_crear_producto extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField6)
-                        .addComponent(jTextField4)
-                        .addComponent(jTextField5)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelPreview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnLoadImage, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campo_usos)
+                    .addComponent(campo_fecha_vencimiento)
+                    .addComponent(campo_ingredientes)
+                    .addComponent(campo_nombre, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_cantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(etq_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lista_volumen, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campo_precio))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campo_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lista_volumen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campo_fecha_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campo_ingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                    .addComponent(etq_proveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lista_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(campo_precio, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelPreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLoadImage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -138,87 +355,127 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
                 .addGap(253, 253, 253)
                 .addComponent(etq_titulo)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(60, 60, 60)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(67, Short.MAX_VALUE)))
+                    .addContainerGap(62, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(605, Short.MAX_VALUE))
+                        .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 609, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(135, 135, 135)
+                    .addGap(106, 106, 106)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(43, Short.MAX_VALUE)))
+                    .addContainerGap(22, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void campo_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_campo_nombreActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void campo_fecha_vencimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_fecha_vencimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_campo_fecha_vencimientoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
+        // Verificar si algún campo está vacío
+        if (campo_nombre.getText().equals("") || campo_cantidad.getText().equals("") || campo_fecha_vencimiento.getText().equals("") || campo_ingredientes.getText().equals("") || campo_usos.getText().equals("") || imagenTemporal==null) {
+            // Mostrar alerta indicando que todos los campos son obligatorios
+            Alerta ventana = new Alerta("Todos los campos son obligatorios.");
+
+            // Cerrar la ventana de alerta anterior (si existe)
+            if (ventanaAlerta != null) {
+                ventanaAlerta.dispose();
+            }
+
+            // Asignar la nueva ventana de alerta como la ventana actual
+            ventanaAlerta = ventana;
+
+        } else if (campo_nombre.getText().equals("Nombre:") || campo_cantidad.getText().equals("Cantidad:") || campo_fecha_vencimiento.getText().equals("Fecha de vencimiento:")|| campo_ingredientes.getText().equals("Ingredientes:") || campo_usos.getText().equals("Usos:") || imagenTemporal==null) {
+            // Mostrar alerta indicando que todos los campos son obligatorios
+            Alerta ventana = new Alerta("Todos los campos son obligatorios.");
+
+            // Cerrar la ventana de alerta anterior (si existe)
+            if (ventanaAlerta != null) {
+                ventanaAlerta.dispose();
+            }
+
+            // Asignar la nueva ventana de alerta como la ventana actual
+            ventanaAlerta = ventana;
+
+        } else {
+            
+            String campo_proveedor = (String) lista_proveedores.getSelectedItem();
+            String campo_volumen = (String) lista_volumen.getSelectedItem();
+            String campo_nombre_str = campo_nombre.getText();
+            String campo_cantidad_str = campo_cantidad.getText();
+            String campo_fecha_vencimiento_str = campo_fecha_vencimiento.getText();
+            String campo_ingredientes_str = campo_ingredientes.getText();
+            String campo_usos_str = campo_usos.getText();
+            String campo_precio_str = campo_precio.getText();
+           
+                    
+            bdmiguel.uploadPhoto(campo_nombre_str, imagenTemporal, campo_volumen, campo_precio_str, campo_fecha_vencimiento_str, campo_ingredientes_str, campo_usos_str, campo_cantidad_str, campo_proveedor);
+            Confirmacion nuevo = new Confirmacion("Producto creado con éxito");
+           
+        }
+    }//GEN-LAST:event_btn_crearActionPerformed
+
+    private void btnLoadImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadImageActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Imagen", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int seleccion = fileChooser.showOpenDialog(panelPreview);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            String rutaImagen = fileChooser.getSelectedFile().getAbsolutePath();
+            imagenTemporal = new ImageIcon(rutaImagen);
+            Image imagen = imagenTemporal.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+            imagenTemporal = new ImageIcon(imagen);
+
+            imagenLabel.setIcon(imagenTemporal);
+        }
+    }//GEN-LAST:event_btnLoadImageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel cont_preview;
-    private javax.swing.JPanel cont_preview1;
-    private javax.swing.JPanel cont_preview2;
-    private javax.swing.JPanel cont_preview4;
-    private javax.swing.JPanel cont_preview5;
-    private javax.swing.JPanel cont_preview6;
-    private javax.swing.JPanel cont_preview7;
-    private javax.swing.JPanel cont_preview8;
-    private javax.swing.JPanel cont_preview9;
-    private javax.swing.JLabel etq_imagen;
-    private javax.swing.JLabel etq_imagen1;
-    private javax.swing.JLabel etq_imagen2;
-    private javax.swing.JLabel etq_imagen4;
-    private javax.swing.JLabel etq_imagen5;
-    private javax.swing.JLabel etq_imagen6;
-    private javax.swing.JLabel etq_imagen7;
-    private javax.swing.JLabel etq_imagen8;
-    private javax.swing.JLabel etq_imagen9;
+    private javax.swing.JButton btnLoadImage;
+    private javax.swing.JButton btn_crear;
+    private javax.swing.JTextField campo_cantidad;
+    private javax.swing.JTextField campo_fecha_vencimiento;
+    private javax.swing.JTextField campo_ingredientes;
+    private javax.swing.JTextField campo_nombre;
+    private javax.swing.JTextField campo_precio;
+    private javax.swing.JTextField campo_usos;
     private javax.swing.JLabel etq_logo;
+    private javax.swing.JLabel etq_proveedor;
     private javax.swing.JLabel etq_titulo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JLabel foco;
+    private javax.swing.JLabel imagenLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JComboBox<String> lista_proveedores;
+    private javax.swing.JComboBox<String> lista_volumen;
+    private javax.swing.JPanel panelPreview;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,14 @@
 package utils;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -13,6 +19,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import principal.Alerta;
 
 public class BaseDatosMiguel {
@@ -492,7 +500,23 @@ public class BaseDatosMiguel {
         return asignaciones;
     }
     
-    
+    public List<String> cargarNombresProveedores() {
+        List<String> nombresProveedor = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/farmatech", "root", "")) {
+            String sql = "SELECT DISTINCT nombre_proveedor FROM proveedor";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        String nombreProveedor = resultSet.getString("nombre_proveedor");
+                        nombresProveedor.add(nombreProveedor);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombresProveedor;
+    }
     
     public String getMD5(String clave){
         try {
@@ -518,6 +542,47 @@ public class BaseDatosMiguel {
         }
     }
      
+    public boolean uploadPhoto(String nombre_producto, ImageIcon imageIcon, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String cantidad, String proveedor) {
+        boolean respuesta = false;
+
+        try {
+            // Get the underlying image from the ImageIcon
+            Image image = imageIcon.getImage();
+
+            // Create a BufferedImage with the same dimensions and type as the original image
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+            // Use graphics context to draw the original image onto the BufferedImage
+            Graphics2D g2 = bufferedImage.createGraphics();
+            g2.drawImage(image, 0, 0, null);
+            g2.dispose();
+
+            // Convert the BufferedImage to byte[] 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            byte[] imageBytes = baos.toByteArray();
+
+            // Rest of your code remains the same
+            Blob imageBlob = conexion.createBlob();
+            imageBlob.setBytes(1, imageBytes);
+
+            //String consulta = "UPDATE personas SET foto = ? WHERE cedula = ?";
+            //PreparedStatement prepared = conexion.prepareStatement(consulta);
+            //prepared.setBlob(1, imageBlob);
+            //prepared.setString(2, cedula);
+            //respuesta = prepared.execute();
+
+        } catch (IOException ex) {
+            System.out.println("Error en IO en Foto: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error en UPDATE Foto: " + ex.getMessage());
+        }
+
+        return respuesta;
+    }
+    
+    
+    
     public Connection getConexion() {
         return conexion;
     }
@@ -525,6 +590,10 @@ public class BaseDatosMiguel {
     public Statement getManipularBD() {
         return manipularBD;
         
+    }
+
+    public void uploadPhoto(String campo_nombre_str) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
