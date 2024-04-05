@@ -3,11 +3,15 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import utils.BaseDatos;
 import utils.Usuario;
+import utils.BaseDatosValeria;
+import utils.Producto;
+import utils.Proveedores;
 
 
 
 public class MenuEncargado extends javax.swing.JFrame {
     BaseDatos bd;
+    BaseDatosValeria bdvaleria = new BaseDatosValeria();
     
     public MenuEncargado(BaseDatos bd, String nombre_usuario) {
         this.bd = bd;
@@ -278,11 +282,37 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
 
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
-        // TODO add your handling code here:
+        EditarProducto nuevo = new EditarProducto(bdvaleria);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_editar_prodActionPerformed
 
     private void btn_eliminar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_prodActionPerformed
-        // TODO add your handling code here:
+        EliminarProducto nuevo = new EliminarProducto(bdvaleria);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_eliminar_prodActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
@@ -290,7 +320,21 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
-        // TODO add your handling code here:
+        Proveedores listado[] = bdvaleria.listaProveedores();
+        Panel_listado_proveedores_encargado nuevo = new Panel_listado_proveedores_encargado(listado);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
    

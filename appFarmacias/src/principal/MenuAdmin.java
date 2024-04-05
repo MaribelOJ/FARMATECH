@@ -7,6 +7,8 @@ import utils.BaseDatos;
 import utils.BaseDatosMiguel;
 import utils.BaseDatos_Maribel;
 import utils.Usuario;
+import utils.BaseDatosValeria;
+import utils.Proveedores;
 
 
 public class MenuAdmin extends javax.swing.JFrame {
@@ -21,6 +23,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         
     Connection conexion = bdmiguel.getConexion();
     Statement manipularBD = bdmiguel.getManipularBD();
+    
+    BaseDatosValeria bdvaleria = new BaseDatosValeria();
     
     
     public MenuAdmin(BaseDatos bd, String nombre_usuario) {
@@ -70,6 +74,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         btn_crear_farmacia = new javax.swing.JButton();
         btn_informe_ventas = new javax.swing.JButton();
         btn_lista_proveedores = new javax.swing.JButton();
+        btn_administar_encargados = new javax.swing.JButton();
         panel_bienvenida = new javax.swing.JPanel();
         etq_logo = new javax.swing.JLabel();
         etq_titulo = new javax.swing.JLabel();
@@ -135,6 +140,16 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        btn_administar_encargados.setBackground(new java.awt.Color(144, 177, 239));
+        btn_administar_encargados.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_administar_encargados.setForeground(new java.awt.Color(255, 255, 255));
+        btn_administar_encargados.setText("Administrar encargados");
+        btn_administar_encargados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_administar_encargadosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_controlLayout = new javax.swing.GroupLayout(panel_control);
         panel_control.setLayout(panel_controlLayout);
         panel_controlLayout.setHorizontalGroup(
@@ -157,7 +172,8 @@ public class MenuAdmin extends javax.swing.JFrame {
                             .addComponent(btn_crear_farmacia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_informe_ventas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_administar_encargados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(32, 32, 32))))
         );
         panel_controlLayout.setVerticalGroup(
@@ -169,7 +185,9 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addComponent(etq_texto_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(etq_texto_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
+                .addGap(34, 34, 34)
+                .addComponent(btn_administar_encargados, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_visualizar_farmacias, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,7 +270,21 @@ public class MenuAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
-        // TODO add your handling code here:
+        Proveedores listado[] = bdvaleria.listaProveedores_admin();
+        Panel_listado_proveedores_admin nuevo = new Panel_listado_proveedores_admin (listado);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
     private void btn_visualizar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_encargadoActionPerformed
@@ -310,10 +342,30 @@ public class MenuAdmin extends javax.swing.JFrame {
         revalidate();
     }//GEN-LAST:event_btn_visualizar_farmaciasActionPerformed
 
+    private void btn_administar_encargadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_administar_encargadosActionPerformed
+        Panel_administrar_encargado nuevo = new Panel_administrar_encargado();
+        
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+        
+        
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_btn_administar_encargadosActionPerformed
+
    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_administar_encargados;
     private javax.swing.JButton btn_crear_farmacia;
     private javax.swing.JButton btn_informe_ventas;
     private javax.swing.JButton btn_lista_proveedores;
