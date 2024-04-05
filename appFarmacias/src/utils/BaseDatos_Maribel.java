@@ -151,7 +151,7 @@ public class BaseDatos_Maribel {
                     foto = new ImageIcon(bytes, NIT).getImage();
                 }
                 
-                String consulta2 = "SELECT nombre,comentario FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"')";
+                String consulta2 = "SELECT nombre,comentario FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"')";
                 
                 ResultSet dato = manipularDB.executeQuery(consulta2);
                 dato.next();
@@ -212,13 +212,8 @@ public class BaseDatos_Maribel {
                     ResultSet dato = manipularDB.executeQuery(consulta2);
                     dato.next();
                     if(dato.getRow()==1){
-                        i=0;
-                        do{
-                            if(arreglo[i].getNIT().equalsIgnoreCase(dato.getString("NIT_farmacia"))){
-                                arreglo[i].setEstado(dato.getString("nombre"));
-                            }
-                            i++;
-                        }while(dato.next());
+
+                        arreglo[j].setEstado(dato.getString("nombre"));
                     }
                 }
                 
@@ -269,7 +264,7 @@ public class BaseDatos_Maribel {
             
             respuesta=true;
            
-            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia)";
+            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia)";
             ResultSet dato = manipularDB.executeQuery(consulta2);
             dato.next();
             if(dato.getRow()==1){
@@ -296,8 +291,14 @@ public class BaseDatos_Maribel {
 
         try{          
      
-            java.util.Date fechaHoy = new java.util.Date();
-            Long fechaHoraActual = fechaHoy.getTime();
+//            java.util.Date fechaHoy = new java.util.Date();
+//            Long fechaHoraActual = fechaHoy.getTime();
+
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHora = sdf.format(dt);
             
             
             String consulta = "UPDATE farmacia SET nombre ='"+ nombre +"',direccion = '"+ direccion +"', telefono = '"+ telefono +"' WHERE NIT_farmacia ='"+ NIT +"'";
@@ -312,7 +313,7 @@ public class BaseDatos_Maribel {
             dato.next();
             if(dato.getRow()==1){
                 if(!dato.getString("nombre").equalsIgnoreCase(estado)){
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,hora,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaHoraActual+"','"+comentario+"')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+ fechaHora+"','"+comentario+"')";
                     manipularDB.executeUpdate(consulta3);
                 }
             }
