@@ -8,7 +8,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.BaseDatos;
-import utils.ButtonEditar;
+import utils.ButtonEditor;
 import utils.ButtonEditor;
 import utils.ButtonRenderer;
 
