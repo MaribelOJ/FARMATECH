@@ -2,6 +2,7 @@ package principal;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import utils.BaseDatos;
+import utils.BaseDatosCristian;
 import utils.Usuario;
 import utils.BaseDatosValeria;
 import utils.Producto;
@@ -10,10 +11,10 @@ import utils.Proveedores;
 
 
 public class MenuEncargado extends javax.swing.JFrame {
-    BaseDatos bd;
+    BaseDatosCristian bd;
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
     
-    public MenuEncargado(BaseDatos bd, String nombre_usuario) {
+    public MenuEncargado(BaseDatos bdValeria, String nombre_usuario) {
         this.bd = bd;
         initComponents();
         initAlternComponents(nombre_usuario);
@@ -270,11 +271,36 @@ public class MenuEncargado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
-        // TODO add your handling code here:
+        CatalogoProducto catalogo = new CatalogoProducto(bd);
+        catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
+        catalogo.setSize( panel_bienvenida.getSize() );
+        
+        // Eliminar el contenido del contentPrincipal
+        panel_bienvenida.removeAll();
+        
+        // Agregar dentro de contentPrincipal el contenedor nuevo.
+        panel_bienvenida.add(catalogo);
+        
+        // repaint();
+        repaint();
+        revalidate();
+        
     }//GEN-LAST:event_btn_catalogoActionPerformed
 
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
-        // TODO add your handling code here:
+        HistorialVentas historial = new HistorialVentas(bd);
+        historial.setPreferredSize( panel_bienvenida.getPreferredSize() );
+        historial.setSize( panel_bienvenida.getSize() );
+        
+        // Eliminar el contenido del contentPrincipal
+        panel_bienvenida.removeAll();
+        
+        // Agregar dentro de contentPrincipal el contenedor nuevo.
+        panel_bienvenida.add(historial);
+        
+        // repaint();
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_historial_ventasActionPerformed
 
     private void btn_añadir_prod_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadir_prod_stockActionPerformed
@@ -316,7 +342,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_eliminar_prodActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        // TODO add your handling code here:
+        GenerarFactura factura = new GenerarFactura(bd);
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed

@@ -10,12 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-public class BaseDatos {
+public class BaseDatosCristian {
     Connection conexion;
     Statement manipularDB;
     
-    public BaseDatos(){
+    public BaseDatosCristian(){
         String hostname = "localhost";
         String puerto = "3306";
         String databasename = "farmatech";
@@ -90,5 +89,54 @@ public class BaseDatos {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
+    public HistorialVentas [] HistorialVentas(){
+        try {
+            HistorialVentas arreglo [] = new HistorialVentas[100];
+            String consulta = "SELECT factura.numReferencia, producto.nombre_producto, factura.fecha, factura.id_cliente, factura.nombre_cliente, factura.total FROM factura  INNER JOIN facturaproducto ON factura.numReferencia = facturaproducto.numReferencia INNER JOIN producto ON facturaproducto.id_producto = producto.id_producto";
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow()==1) {
+                int i = 0;
+                do{
+                    String numReferencia = registros.getString("numReferencia");
+                    String nombre_producto = registros.getString("nombre_producto");
+                    String fecha = registros.getString("fecha");
+                    String id_cliente = registros.getString("id_cliente");
+                    String nombre_cliente = registros.getString("nombre_cliente");
+                    String total = registros.getString("total");
+                   
+                    
+                    arreglo[i] = new HistorialVentas(numReferencia, nombre_producto, fecha, id_cliente, nombre_cliente, total);
+                    i++;
+                }while(registros.next());
+                
+                return arreglo;
+            }else{
+                return arreglo;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+            return null;
+        }    
+    }
+    
+    public void imprimirHistorial(){
+        ResultSet registros = null;
+	try {
+	    String consulta = "SELECT factura.numReferencia, producto.nombre_producto, factura.fecha, factura.id_cliente, factura.nombre_cliente, factura.total  FROM factura INNER JOIN facturaproducto ON factura.numReferencia = facturaproducto.numReferencia INNER JOIN producto ON facturaproducto.id_producto = producto.id_producto";
+	    registros = manipularDB.executeQuery(consulta);
+	    registros.next();
+	    if(registros.getRow()==1){
+	        do{
+	            System.out.println(registros.getRow()+" => "+registros.getString("numReferencia")+registros.getString("nombre_producto")+registros.getString("fecha")+registros.getString("id_cliente")+registros.getString("nombre_cliente")+registros.getString("total"));
+	        }while(registros.next());
+	    }else{
+	        System.out.println("No se encuentran clientes registrados.");
+	    }
+	} catch (SQLException ex) {
+	    System.out.println("Error al buscar el cliente: "+ex.getMessage());
+	}   
     }
 }
