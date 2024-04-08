@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -542,7 +543,7 @@ public class BaseDatosMiguel {
         }
     }
      
-    public boolean uploadPhoto(String nombre_producto, ImageIcon imageIcon, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String cantidad, String proveedor) {
+    public boolean uploadPhoto(String nombre_producto, ImageIcon imageIcon, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String cantidad, String nombreProveedor) {
         boolean respuesta = false;
 
         try {
@@ -562,15 +563,54 @@ public class BaseDatosMiguel {
             ImageIO.write(bufferedImage, "png", baos);
             byte[] imageBytes = baos.toByteArray();
 
-            // Rest of your code remains the same
+            // Prepare the image blob
             Blob imageBlob = conexion.createBlob();
             imageBlob.setBytes(1, imageBytes);
 
-            //String consulta = "UPDATE personas SET foto = ? WHERE cedula = ?";
-            //PreparedStatement prepared = conexion.prepareStatement(consulta);
-            //prepared.setBlob(1, imageBlob);
-            //prepared.setString(2, cedula);
-            //respuesta = prepared.execute();
+            // Obtener el NIT del proveedor usando el nombre del proveedor
+            String obtenerNITProveedorQuery = "SELECT NIT_proveedor FROM proveedor WHERE nombre_proveedor = ?";
+            PreparedStatement obtenerNITProveedorStatement = conexion.prepareStatement(obtenerNITProveedorQuery);
+            obtenerNITProveedorStatement.setString(1, nombreProveedor);
+            ResultSet resultSet = obtenerNITProveedorStatement.executeQuery();
+
+            String nitProveedor = null;
+            if (resultSet.next()) {
+                nitProveedor = resultSet.getString("NIT_proveedor");
+            }
+
+            // Insertar el producto en la tabla producto
+            String insertProductQuery = "INSERT INTO producto (nombre_producto, medicamento, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertProductStatement = conexion.prepareStatement(insertProductQuery, Statement.RETURN_GENERATED_KEYS);
+            insertProductStatement.setString(1, nombre_producto);
+            insertProductStatement.setBlob(2, imageBlob);
+            insertProductStatement.setString(3, volumen);
+            insertProductStatement.setBigDecimal(4, new BigDecimal(precio_unitario));
+            insertProductStatement.setDate(5, java.sql.Date.valueOf(fecha_vencimiento));
+            insertProductStatement.setString(6, ingredientes);
+            insertProductStatement.setString(7, usos);
+            insertProductStatement.executeUpdate();
+
+            // Obtener el id del último producto insertado
+            ResultSet generatedKeys = insertProductStatement.getGeneratedKeys();
+            int productId = -1;
+            if (generatedKeys.next()) {
+                productId = generatedKeys.getInt(1);
+            }
+
+            // Insertar la información del stock en la tabla stock
+            String insertStockQuery = "INSERT INTO stock (NIT_farmacia, id_producto, proveedor, cant_entrante, cant_restante, estado, fecha_registro) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStockStatement = conexion.prepareStatement(insertStockQuery);
+            insertStockStatement.setString(1, null); // No se proporciona el NIT de la farmacia
+            insertStockStatement.setInt(2, productId);
+            insertStockStatement.setString(3, nitProveedor); // Usar el NIT del proveedor obtenido
+            int cantidadEntrante = Integer.parseInt(cantidad);
+            insertStockStatement.setInt(4, cantidadEntrante);
+            insertStockStatement.setInt(5, cantidadEntrante); // Cantidades entrante y restante iguales
+            insertStockStatement.setString(6, "activo");
+            insertStockStatement.setDate(7, new java.sql.Date(System.currentTimeMillis())); // or use java.sql.Date.valueOf(LocalDate.now()) if using Java 8 or higher
+            insertStockStatement.executeUpdate();
+
+            respuesta = true;
 
         } catch (IOException ex) {
             System.out.println("Error en IO en Foto: " + ex.getMessage());
@@ -580,7 +620,7 @@ public class BaseDatosMiguel {
 
         return respuesta;
     }
-    
+
     
     
     public Connection getConexion() {

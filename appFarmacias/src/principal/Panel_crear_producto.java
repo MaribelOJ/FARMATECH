@@ -38,7 +38,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
     public void initAlternComponents(){
         setVisible(true);
         Image icono_logo = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/logoFT.png"));
-        icono_logo = icono_logo.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+        icono_logo = icono_logo.getScaledInstance(85, 85, Image.SCALE_SMOOTH);
         etq_logo.setIcon(new ImageIcon(icono_logo));
         
         String nombrePlaceholder = "Nombre:";
@@ -240,7 +240,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
 
         campo_precio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        etq_proveedor.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        etq_proveedor.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         etq_proveedor.setForeground(new java.awt.Color(255, 255, 255));
         etq_proveedor.setText("Proveedor:");
 
@@ -398,7 +398,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
 
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
         // Verificar si algún campo está vacío
-        if (campo_nombre.getText().equals("") || campo_cantidad.getText().equals("") || campo_fecha_vencimiento.getText().equals("") || campo_ingredientes.getText().equals("") || campo_usos.getText().equals("") || imagenTemporal==null) {
+        if (campo_nombre.getText().equals("") || campo_cantidad.getText().equals("") || campo_fecha_vencimiento.getText().equals("") || campo_ingredientes.getText().equals("") || campo_usos.getText().equals("") || campo_precio.getText().equals("") || imagenTemporal==null) {
             // Mostrar alerta indicando que todos los campos son obligatorios
             Alerta ventana = new Alerta("Todos los campos son obligatorios.");
 
@@ -410,7 +410,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
             // Asignar la nueva ventana de alerta como la ventana actual
             ventanaAlerta = ventana;
 
-        } else if (campo_nombre.getText().equals("Nombre:") || campo_cantidad.getText().equals("Cantidad:") || campo_fecha_vencimiento.getText().equals("Fecha de vencimiento:")|| campo_ingredientes.getText().equals("Ingredientes:") || campo_usos.getText().equals("Usos:") || imagenTemporal==null) {
+        } else if (campo_nombre.getText().equals("Nombre:") || campo_cantidad.getText().equals("Cantidad:") || campo_fecha_vencimiento.getText().equals("Fecha de vencimiento:")|| campo_ingredientes.getText().equals("Ingredientes:") || campo_usos.getText().equals("Usos:") || campo_precio.getText().equals("") || imagenTemporal==null) {
             // Mostrar alerta indicando que todos los campos son obligatorios
             Alerta ventana = new Alerta("Todos los campos son obligatorios.");
 
