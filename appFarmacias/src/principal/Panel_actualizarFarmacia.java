@@ -363,6 +363,7 @@ public class Panel_actualizarFarmacia extends javax.swing.JPanel {
       
         if(actualizada){
             Confirmacion aviso = new Confirmacion("¡Farmacia actualizada con éxito!");
+            btn_volverActionPerformed(null);
         }else{
             Alerta aviso2 = new Alerta("La farmacia no fué actualizada, intente de nuevo!");
         }

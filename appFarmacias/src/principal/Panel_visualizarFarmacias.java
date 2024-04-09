@@ -1,13 +1,9 @@
 
 package principal;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import utils.BaseDatos_Maribel;
 import utils.Farmacia;
 
@@ -36,8 +32,7 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
         
         
     }
-    
-   
+       
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -327,11 +322,18 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
             btn_rewind.setEnabled(false);
             btn_buscar.setEnabled(false);
             
-            cont_principal.setLayout(new BorderLayout());
-            Mensaje_informativo msj = new Mensaje_informativo("No se ha creado o registrado ninguna farmacia hasta el momento");
+            farmacia2.setBackground(Color.GRAY);
+            Image foto = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/no_disponible.png"));
+            foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            etq_img2.setIcon(new ImageIcon(foto));
+            btn_editar2.setEnabled(false);
+            btn_eliminar2.setEnabled(false);
+            btn_inventario2.setEnabled(false);
+            btn_ventas2.setEnabled(false);
+            
+            Mensaje_informativo msj = new Mensaje_informativo("No se ha registrado ninguna farmacia hasta el momento");
    
         }else{
-            System.out.println("NIT: "+ listaFarmacias[indice].getNIT());
             
             if(listaFarmacias[indice].getEstado().equalsIgnoreCase("activo")){
                 etq_estado2.setForeground(Color.GREEN);
@@ -366,7 +368,7 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
             }
 
         }
-        System.out.println("numCont: "+ numContenedor+ " - indice: "+ indice);
+
         if(cont > 1){
             btn_next.setEnabled(true);
             
@@ -377,10 +379,7 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
                 }
             }
         }
-        
-        
-       
-        
+         
         repaint();
         revalidate();
         
