@@ -5,7 +5,7 @@ import utils.BaseDatos;
 import utils.BaseDatosCristian;
 
 public class GenerarFactura extends javax.swing.JPanel {
- BaseDatos bd;
+ BaseDatosCristian bd;
 
     public GenerarFactura(BaseDatosCristian bd) {
        this.bd = bd;
