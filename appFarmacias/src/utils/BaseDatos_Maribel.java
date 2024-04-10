@@ -516,30 +516,89 @@ public class BaseDatos_Maribel {
         return arreglo;
     }
     
-    public String getFirstYearwithSalesRecords(String NIT){
-        String firstYear=null;
+    public String [] getFirstDatewithSalesRecords(String NIT){
+        String [] firstDate = new String[2];
         try {
             if(NIT != null){
-                String consulta = "SELECT MIN(YEAR(fecha)) minYear FROM factura WHERE NIT_farmacia = '"+NIT+"'";
+                String consulta = "SELECT YEAR(fecha) minYear ,MONTH(fecha) minMonth FROM factura WHERE fecha = (SELECT MIN(fecha)FROM factura WHERE NIT_farmacia = '"+NIT+"')";
                 ResultSet registros = manipularDB.executeQuery(consulta);
                 registros.next();
                 if(registros.getRow()==1){
-                    firstYear=registros.getString("minYear");
+                    String firstYear=registros.getString("minYear");
+                    String firstMonth =registros.getString("minMonth");
+                    firstDate[0]=firstYear;
+                    firstDate[1]=firstMonth;
                 }
             }else{
-                String consulta = "SELECT MIN(YEAR(fecha)) minYear FROM factura";
+                String consulta = "SELECT YEAR(fecha) minYear ,MONTH(fecha) minMonth FROM factura WHERE fecha = (SELECT MIN(fecha)FROM factura)";
                 ResultSet registros = manipularDB.executeQuery(consulta);
                 registros.next();
                 if(registros.getRow()==1){
-                    firstYear=registros.getString("minYear");
+                    String firstYear=registros.getString("minYear");
+                    String firstMonth =registros.getString("minMonth");
+                    firstDate[0]=firstYear;
+                    firstDate[1]=firstMonth;
                 }
             }
-            return firstYear;
+            return firstDate;
         }catch (SQLException ex) {
             System.out.println("Error al ejecutar el SELECT: ");
             System.out.println(ex.getMessage());
         }
-        return firstYear;
+        return firstDate;
     }
 
+    public String [] calcularGananciasyPerdidas(String periodo, String NIT){
+        String [] calculos = new String [2];
+        try {
+            String ganancias=null;
+            String perdidas=null;
+            if(NIT != null){
+                
+                String consulta = "SELECT SUM(total) ganancias FROM factura WHERE NIT_farmacia = '"+ NIT +"' AND fecha LIKE '"+periodo+"%'";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    ganancias = registros.getString("ganancias");
+                }
+                
+                String consulta2 = "SELECT stock.id_producto , precio_unitario, SUM((precio_unitario * cant_restante)) perdidas FROM producto ";
+                consulta2 += "INNER JOIN stock ON (producto.id_producto = stock.id_producto) WHERE NIT_farmacia = '"+NIT+"' ";
+                consulta2 += "AND estado = 'inactivo' AND cant_restante > 0 AND fecha_descontinuacion LIKE '"+periodo+"%'"; 
+                ResultSet registros2 = manipularDB.executeQuery(consulta2);
+                registros2.next();
+                if(registros2.getRow()==1){
+                    perdidas = registros2.getString("perdidas");
+                }
+                calculos[0]=ganancias;
+                calculos[1]=perdidas;
+ 
+            }else{
+                
+                String consulta = "SELECT SUM(total) ganancias FROM factura WHERE fecha LIKE '"+periodo+"%'";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    ganancias = registros.getString("ganancias");
+                }
+                
+                String consulta2 = "SELECT stock.id_producto , precio_unitario, SUM((precio_unitario * cant_restante)) perdidas FROM producto ";
+                consulta2 += "INNER JOIN stock ON (producto.id_producto = stock.id_producto) WHERE estado = 'inactivo' AND cant_restante > 0 AND fecha_descontinuacion LIKE '"+periodo+"%'";
+                ResultSet registros2 = manipularDB.executeQuery(consulta2);
+                registros2.next();
+                if(registros2.getRow()==1){
+                    perdidas = registros2.getString("perdidas");
+                }
+                calculos[0]=ganancias;
+                calculos[1]=perdidas;
+
+
+            }
+            return calculos;
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return calculos;
+    }
 }
