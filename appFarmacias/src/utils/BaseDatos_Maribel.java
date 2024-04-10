@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -513,4 +515,31 @@ public class BaseDatos_Maribel {
         }
         return arreglo;
     }
+    
+    public String getFirstYearwithSalesRecords(String NIT){
+        String firstYear=null;
+        try {
+            if(NIT != null){
+                String consulta = "SELECT MIN(YEAR(fecha)) minYear FROM factura WHERE NIT_farmacia = '"+NIT+"'";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    firstYear=registros.getString("minYear");
+                }
+            }else{
+                String consulta = "SELECT MIN(YEAR(fecha)) minYear FROM factura";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    firstYear=registros.getString("minYear");
+                }
+            }
+            return firstYear;
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return firstYear;
+    }
+
 }
