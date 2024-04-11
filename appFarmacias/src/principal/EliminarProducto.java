@@ -238,14 +238,14 @@ public class EliminarProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        String id_producto = Campo_buscar.getText();
+        //String id_producto = Campo_buscar.getText();
 
-        boolean proceso = bdvaleria.eliminarProducto(id_producto);
-        if (proceso) {
-            System.out.println("Producto Eliminado.");
+       // boolean proceso = bdvaleria.eliminarProducto(id_producto);
+        //if (proceso) {
+            /*System.out.println("Producto Eliminado.");
         } else {
             Alerta ventana = new Alerta("Error al eliminar a la persona.");
-        }     //
+        }    //*/
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
 

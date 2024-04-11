@@ -12,9 +12,11 @@ import utils.Proveedores;
 public class MenuEncargado extends javax.swing.JFrame {
     BaseDatos bd;
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
+    String id_usuario;
     
-    public MenuEncargado(BaseDatos bd, String nombre_usuario) {
+    public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario) {
         this.bd = bd;
+        this.id_usuario=id_usuario;
         initComponents();
         initAlternComponents(nombre_usuario);
     }
@@ -282,7 +284,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
 
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
-        EditarProducto nuevo = new EditarProducto(bdvaleria);
+        EditarProducto nuevo = new EditarProducto(bdvaleria,id_usuario);
 
         // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());

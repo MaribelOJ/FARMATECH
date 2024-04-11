@@ -8,9 +8,11 @@ public class EditarProducto extends javax.swing.JPanel {
 
     BaseDatosValeria bdvaleria;
     BaseDatos bd;
+    String id_usuario;
 
-    public EditarProducto(BaseDatosValeria bdvaleria) {
+    public EditarProducto(BaseDatosValeria bdvaleria, String id_usuario) {
         this.bdvaleria = bdvaleria;
+        this.id_usuario = id_usuario;
         this.bd = bd;
         initComponents();
     }
@@ -31,6 +33,7 @@ public class EditarProducto extends javax.swing.JPanel {
         campo_fecha = new javax.swing.JTextField();
         campo_ingredientes = new javax.swing.JTextField();
         campo_usos = new javax.swing.JTextField();
+        campo_estado = new javax.swing.JTextField();
         btn_editar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
 
@@ -75,6 +78,9 @@ public class EditarProducto extends javax.swing.JPanel {
         campo_usos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         campo_usos.setText("Usos:");
 
+        campo_estado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        campo_estado.setText("estado:");
+
         btn_editar.setBackground(new java.awt.Color(44, 45, 233));
         btn_editar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_editar.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,7 +111,8 @@ public class EditarProducto extends javax.swing.JPanel {
                             .addComponent(campo_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campo_ingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campo_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel_menuLayout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,11 +137,13 @@ public class EditarProducto extends javax.swing.JPanel {
                 .addComponent(campo_ingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(campo_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -166,7 +175,7 @@ public class EditarProducto extends javax.swing.JPanel {
                 .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -238,11 +247,14 @@ public class EditarProducto extends javax.swing.JPanel {
         String fecha = campo_fecha.getText();
         String ingredientes = campo_ingredientes.getText();
         String usos = campo_usos.getText();
+        String estado = campo_estado.getText();
+        
+        String nit = bdvaleria.buscarAsignacion(id_usuario);
 
-        if( nombres.equals("") || volumen.equals("") || precio.equals("")|| fecha.equals("")|| ingredientes.equals("") || usos.equals("")){
+        if( nombres.equals("") || volumen.equals("") || precio.equals("")|| fecha.equals("")|| ingredientes.equals("") || usos.equals("")|| estado.equals("")){
             Alerta ventana = new Alerta("Todos los campos son Obligatorios.");
         }else{
-            boolean proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, medicamento, volumen, precio, fecha, ingredientes,usos);
+            boolean proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, medicamento, volumen, precio, fecha, ingredientes,usos,estado,nit);
             if (proceso) {
                 System.out.println("Producto "+id_producto+" editado con exito.");
             }else{
@@ -257,6 +269,7 @@ public class EditarProducto extends javax.swing.JPanel {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_volver;
+    private javax.swing.JTextField campo_estado;
     private javax.swing.JTextField campo_fecha;
     private javax.swing.JTextField campo_ingredientes;
     private javax.swing.JTextField campo_medicamento;
