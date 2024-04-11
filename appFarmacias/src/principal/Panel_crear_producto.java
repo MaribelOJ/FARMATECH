@@ -10,13 +10,18 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import utils.BaseDatosMiguel;
 
 public class Panel_crear_producto extends javax.swing.JPanel {
     
     private Alerta ventanaAlerta;
+    
+
     DefaultComboBoxModel<String> comboBoxModelNombres = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> comboBoxModelNombres_farmacias = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> comboBoxModelDirecciones = new DefaultComboBoxModel<>();
@@ -31,7 +36,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         // Obtener la lista de nombres de farmacias y agregarlas al modelo del JComboBox
         List<String> nombresProveedor = bdmiguel.cargarNombresProveedores();
         for (String nombreProveedor : nombresProveedor) {
-            comboBoxModelNombres_farmacias.addElement(nombreProveedor);
+            comboBoxModelNombres.addElement(nombreProveedor);
         }
         
         // Establecer el modelo del JComboBox de nombres de farmacias
@@ -104,6 +109,10 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         campo_fecha_vencimiento.setText(fechaPlaceholder);
         campo_ingredientes.setText(ingredientesPlaceholder);
         campo_usos.setText(usosPlaceholder);
+        
+            
+        
+
         
         //Placeholder para cada campo
         campo_nombre.addFocusListener(new FocusAdapter() {
@@ -254,8 +263,8 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lista_farmacias = new javax.swing.JComboBox<>();
         lista_direcciones = new javax.swing.JComboBox<>();
-        foco = new javax.swing.JLabel();
         lista_proveedores = new javax.swing.JComboBox<>();
+        foco = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -342,6 +351,9 @@ public class Panel_crear_producto extends javax.swing.JPanel {
 
         lista_direcciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lista_proveedores.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lista_proveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -362,13 +374,15 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                             .addComponent(campo_ingredientes)
                             .addComponent(etq_proveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lista_farmacias, 0, 270, Short.MAX_VALUE)
-                            .addComponent(lista_volumen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campo_precio)
-                            .addComponent(campo_cantidad)
-                            .addComponent(campo_usos)
-                            .addComponent(lista_direcciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lista_farmacias, 0, 270, Short.MAX_VALUE)
+                                .addComponent(lista_volumen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(campo_precio)
+                                .addComponent(campo_cantidad)
+                                .addComponent(campo_usos)
+                                .addComponent(lista_direcciones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lista_proveedores, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34))
         );
         jPanel2Layout.setVerticalGroup(
@@ -391,8 +405,10 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                     .addComponent(lista_volumen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(etq_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etq_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addComponent(lista_farmacias, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lista_direcciones, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -404,9 +420,6 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                     .addComponent(btnLoadImage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
-
-        lista_proveedores.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lista_proveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -425,21 +438,16 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                 .addComponent(etq_titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
                 .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(50, 50, 50)
@@ -454,15 +462,12 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(etq_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(249, 249, 249)
-                .addComponent(lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(299, 299, 299)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
-                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                .addComponent(foco, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(65, 65, 65)
@@ -478,7 +483,8 @@ public class Panel_crear_producto extends javax.swing.JPanel {
     private void campo_fecha_vencimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_fecha_vencimientoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_fecha_vencimientoActionPerformed
-
+    
+     
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
         // Verificar si algún campo está vacío
         if (campo_nombre.getText().equals("") || campo_cantidad.getText().equals("") || campo_fecha_vencimiento.getText().equals("") || campo_ingredientes.getText().equals("") || campo_usos.getText().equals("") || campo_precio.getText().equals("") || imagenTemporal==null) {
@@ -517,10 +523,56 @@ public class Panel_crear_producto extends javax.swing.JPanel {
             String campo_ingredientes_str = campo_ingredientes.getText();
             String campo_usos_str = campo_usos.getText();
             String campo_precio_str = campo_precio.getText();
-           
-                    
+
+            // Validar si el campo de cantidad contiene solo números
+            if (!campo_cantidad_str.matches("\\d+")) {
+                // Mostrar alerta indicando que la cantidad debe ser un número
+                Alerta ventana = new Alerta("La cantidad debe ser un número.");
+
+                // Cerrar la ventana de alerta anterior (si existe)
+                if (ventanaAlerta != null) {
+                    ventanaAlerta.dispose();
+                }
+
+                // Asignar la nueva ventana de alerta como la ventana actual
+                ventanaAlerta = ventana;
+
+                return; // Salir del método, ya que la validación falló
+            }
+
+            // Validar si el campo de precio contiene solo números
+            if (!campo_precio_str.matches("\\d+(\\.\\d+)?")) {
+                // Mostrar alerta indicando que el precio debe ser un número
+                Alerta ventana = new Alerta("El precio debe ser un número.");
+
+                // Cerrar la ventana de alerta anterior (si existe)
+                if (ventanaAlerta != null) {
+                    ventanaAlerta.dispose();
+                }
+
+                // Asignar la nueva ventana de alerta como la ventana actual
+                ventanaAlerta = ventana;
+
+                return; // Salir del método, ya que la validación falló
+            }
+
+            // Si todos los campos son válidos, proceder con la lógica para crear el producto
             bdmiguel.uploadPhoto(campo_nombre_str, imagenTemporal, campo_volumen, campo_precio_str, campo_fecha_vencimiento_str, campo_ingredientes_str, campo_usos_str, campo_cantidad_str, campo_proveedor, campo_nombre_farmacia, campo_direccion_farmacia);
             Confirmacion nuevo = new Confirmacion("Producto creado con éxito");
+            campo_nombre.setText("Nombre:");
+            campo_cantidad.setText("Cantidad:");
+            campo_fecha_vencimiento.setText("Fecha de vencimiento:");
+            campo_ingredientes.setText("Ingredientes:");
+            campo_usos.setText("Usos:");
+            campo_precio.setText("");
+            imagenTemporal = null;
+            imagenLabel.setIcon(null);
+            lista_proveedores.setSelectedIndex(0);
+            lista_farmacias.setSelectedIndex(0);
+            lista_direcciones.setSelectedIndex(0);
+            lista_volumen.setSelectedIndex(0);
+            
+            
            
         }
     }//GEN-LAST:event_btn_crearActionPerformed
