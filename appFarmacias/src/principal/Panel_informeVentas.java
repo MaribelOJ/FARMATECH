@@ -23,16 +23,21 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 
     MenuAdmin menu;
     BaseDatos_Maribel bd;
-    DefaultComboBoxModel<String> comboBoxModelTipos = new DefaultComboBoxModel<>();
-    DefaultComboBoxModel<String> comboBoxModelFarmacias = new DefaultComboBoxModel<>();
+    DefaultComboBoxModel<String> comboBoxModelTipos;
+    DefaultComboBoxModel<String> comboBoxModelFarmacias;
+    List<String> anios ;
+    List<String> mesesVentas;
+    List<String> meses;
     Farmacia [] listaFarmacias;
     String [] firstDate;
-    String [] gananciasyPerdidas;
-    List<String> meses;
+    String [] gananciasyPerdidas;  
     int primermes;
     int primeranio;
     int mesActual;
     int anioActual;
+    String farmaciaSeleccionada;
+    String tipoSeleccionado;
+    SpinnerListModel spinnerModelPeriodo;
     
     public Panel_informeVentas(MenuAdmin menu) {
         this.bd = menu.bd_mari;
@@ -45,6 +50,13 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         this.mesActual = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
         this.anioActual = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
         this.meses = Arrays.asList("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic");
+        this.farmaciaSeleccionada="";
+        this.tipoSeleccionado ="";
+        this.anios = new ArrayList<>();
+        this.mesesVentas = new ArrayList<>();
+        this.comboBoxModelTipos = new DefaultComboBoxModel<>();
+        this.comboBoxModelFarmacias = new DefaultComboBoxModel<>();
+        this.spinnerModelPeriodo = new SpinnerListModel();
         initComponents();
         initAlternComponents();
         generarOpcionesInforme();
@@ -349,6 +361,8 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         icono4= icono4.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         icono_perder.setIcon(new ImageIcon(icono4));
         
+        
+        
     }
 
     public void generarOpcionesInforme(){
@@ -371,11 +385,12 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         comboBoxModelTipos.addElement("Anual");
         tiposInforme.setModel(comboBoxModelTipos);
         
-        List<String> mesesVentas = new ArrayList<>();       
+              
         mesesVentas.add("Seleccionar");
-        SpinnerListModel spinnerModelMeses = new SpinnerListModel(mesesVentas);
-        period_time.setModel(spinnerModelMeses);
-        
+  
+        spinnerModelPeriodo = new SpinnerListModel(mesesVentas);
+        period_time.setModel(spinnerModelPeriodo);
+
         
         if(cont == 0){
             farmacias.setEnabled(false);
@@ -386,10 +401,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String farmaciaSeleccionada = (String) farmacias.getSelectedItem();
-
-                valor_ganancias.setText("");
-                valor_perdidas.setText("");
+                farmaciaSeleccionada = (String) farmacias.getSelectedItem();
                 
                 if(!farmaciaSeleccionada.equals("Seleccionar")){
                     
@@ -402,17 +414,23 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                         primeranio = Integer.parseInt(firstDate[0]);
                         primermes = Integer.parseInt(firstDate[1]);
                     }
-                    
+
+                    tiposInforme.setSelectedIndex(0);
+                    SpinnerListModel model = (SpinnerListModel) period_time.getModel();
+                    Object primerValor = model.getList().get(0);
+                    period_time.setValue(primerValor);
                     tiposInforme.setEnabled(true);
                 }
             }
+            
+          
         });
         
         tiposInforme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String tipoSeleccionado = (String) tiposInforme.getSelectedItem();
+                tipoSeleccionado = (String) tiposInforme.getSelectedItem();
 
                 valor_ganancias.setText("");
                 valor_perdidas.setText("");
@@ -435,16 +453,16 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                             mesActual = 11;
                         }
                         
-                        SpinnerListModel spinnerModelMeses = new SpinnerListModel(mesesVentas);
-                        period_time.setModel(spinnerModelMeses);
+                        spinnerModelPeriodo = new SpinnerListModel(mesesVentas);
+                        period_time.setModel(spinnerModelPeriodo);
                     }else{
-                        List<String> anios = new ArrayList<>();
+                        anios.add("Seleccionar");
                         for (int i = anioActual; i >= primeranio; i--) {
                             anios.add(String.valueOf(i));
                         }
 
-                        SpinnerListModel spinnerModelAnios = new SpinnerListModel(anios);
-                        period_time.setModel(spinnerModelAnios);
+                        spinnerModelPeriodo = new SpinnerListModel(anios);
+                        period_time.setModel(spinnerModelPeriodo);
                     }
                     
                     period_time.setEnabled(true);
@@ -452,16 +470,41 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 
             }
         });
-        
-        if(farmacias.getSelectedItem().equals("Seleccionar") && tiposInforme.getSelectedItem().equals("Seleccionar")){
+
+        if(!farmaciaSeleccionada.equals("Seleccionar") && !tipoSeleccionado.equals("Seleccionar")){
             
         
             period_time.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent e) {
                     String valorSeleccionado = (String) period_time.getValue();
+                    
+                    System.out.println("fecha: "+valorSeleccionado);
+                    System.out.println("tipo informe: "+ tipoSeleccionado);
+                    System.out.println("farmacia: "+ farmaciaSeleccionada);
+                    
                     if(!valorSeleccionado.equals("Seleccionar")){
-                        if(tiposInforme.getSelectedItem().equals("Mensual")){
-                            if(farmacias.getSelectedItem().equals("todas")){
+                        if(tipoSeleccionado.equals("Mensual")){
+                            
+                            String fecha = valorSeleccionado;
+                                
+                            for(int i = 0; i < 12 ; i++){
+                                if(meses.get(i).equals(fecha.substring(0, 3))){
+                                    if((i+1)<10){
+                                        fecha = fecha.substring(6)+"-0"+(i+1);
+                                    }else{
+                                        fecha = fecha.substring(6)+"-"+(i+1);
+                                    }
+                                }
+                            }
+                            
+                            if(farmaciaSeleccionada.equals("todas")){
+                                gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, null);
+                            }else{
+
+                                gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
+                            }
+                        }else{
+                            if(farmaciaSeleccionada.equals("todas")){
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(valorSeleccionado, null);
                             }else{
                                 String fecha = valorSeleccionado;
@@ -476,7 +519,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                                     }
                                 }
 
-                                gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, (String) farmacias.getSelectedItem());
+                                gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
                             }
                         }
                     }
@@ -501,16 +544,9 @@ public class Panel_informeVentas extends javax.swing.JPanel {
             });
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
-
-             
+        revalidate();
+        repaint();
+          
      }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cont_farmacias;
