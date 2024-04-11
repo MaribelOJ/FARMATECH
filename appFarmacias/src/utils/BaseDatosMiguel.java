@@ -543,7 +543,7 @@ public class BaseDatosMiguel {
         }
     }
      
-    public boolean uploadPhoto(String nombre_producto, ImageIcon imageIcon, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String cantidad, String nombreProveedor) {
+   public boolean uploadPhoto(String nombre_producto, ImageIcon imageIcon, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String cantidad, String nombreProveedor, String nombre_farmacia, String direccion_farmacia) {
         boolean respuesta = false;
 
         try {
@@ -578,6 +578,18 @@ public class BaseDatosMiguel {
                 nitProveedor = resultSet.getString("NIT_proveedor");
             }
 
+            // Obtener el NIT de la farmacia usando el nombre y la dirección de la farmacia
+            String obtenerNITFarmaciaQuery = "SELECT NIT_farmacia FROM farmacia WHERE nombre_farmacia = ? AND direccion_farmacia = ?";
+            PreparedStatement obtenerNITFarmaciaStatement = conexion.prepareStatement(obtenerNITFarmaciaQuery);
+            obtenerNITFarmaciaStatement.setString(1, nombre_farmacia);
+            obtenerNITFarmaciaStatement.setString(2, direccion_farmacia);
+            resultSet = obtenerNITFarmaciaStatement.executeQuery();
+
+            String nitFarmacia = null;
+            if (resultSet.next()) {
+                nitFarmacia = resultSet.getString("NIT_farmacia");
+            }
+
             // Insertar el producto en la tabla producto
             String insertProductQuery = "INSERT INTO producto (nombre_producto, medicamento, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement insertProductStatement = conexion.prepareStatement(insertProductQuery, Statement.RETURN_GENERATED_KEYS);
@@ -600,7 +612,7 @@ public class BaseDatosMiguel {
             // Insertar la información del stock en la tabla stock
             String insertStockQuery = "INSERT INTO stock (NIT_farmacia, id_producto, proveedor, cant_entrante, cant_restante, estado, fecha_registro) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement insertStockStatement = conexion.prepareStatement(insertStockQuery);
-            insertStockStatement.setString(1, null); // No se proporciona el NIT de la farmacia
+            insertStockStatement.setString(1, nitFarmacia); // Usar el NIT de la farmacia obtenido
             insertStockStatement.setInt(2, productId);
             insertStockStatement.setString(3, nitProveedor); // Usar el NIT del proveedor obtenido
             int cantidadEntrante = Integer.parseInt(cantidad);
