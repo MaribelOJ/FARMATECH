@@ -1,6 +1,9 @@
 
 package principal;
 
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +41,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
     String farmaciaSeleccionada;
     String tipoSeleccionado;
     SpinnerListModel spinnerModelPeriodo;
+    GridBagConstraints restricciones;
     
     public Panel_informeVentas(MenuAdmin menu) {
         this.bd = menu.bd_mari;
@@ -59,6 +63,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         this.spinnerModelPeriodo = new SpinnerListModel();
         initComponents();
         initAlternComponents();
+        cargardatosExtra();
         generarOpcionesInforme();
     }
 
@@ -67,7 +72,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        cont_opciones = new javax.swing.JPanel();
         etq_logo = new javax.swing.JLabel();
         etq_titulo = new javax.swing.JLabel();
         cont_tipo_informe = new javax.swing.JPanel();
@@ -90,8 +95,9 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         etq_farmacias = new javax.swing.JLabel();
         farmacias = new javax.swing.JComboBox<>();
         icono_farmacias = new javax.swing.JLabel();
+        cont_datosExtra = new javax.swing.JPanel();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        cont_opciones.setBackground(new java.awt.Color(255, 255, 255));
 
         etq_titulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -277,61 +283,74 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                 .addGap(27, 27, 27))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout cont_datosExtraLayout = new javax.swing.GroupLayout(cont_datosExtra);
+        cont_datosExtra.setLayout(cont_datosExtraLayout);
+        cont_datosExtraLayout.setHorizontalGroup(
+            cont_datosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        cont_datosExtraLayout.setVerticalGroup(
+            cont_datosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 316, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout cont_opcionesLayout = new javax.swing.GroupLayout(cont_opciones);
+        cont_opciones.setLayout(cont_opcionesLayout);
+        cont_opcionesLayout.setHorizontalGroup(
+            cont_opcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cont_opcionesLayout.createSequentialGroup()
                 .addComponent(etq_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(cont_ganancias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(cont_perdidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_opcionesLayout.createSequentialGroup()
                 .addGap(82, 82, 82)
                 .addComponent(cont_farmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(cont_tipo_informe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(cont_mes_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
+            .addGroup(cont_opcionesLayout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(cont_ganancias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(cont_perdidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(cont_datosExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        cont_opcionesLayout.setVerticalGroup(
+            cont_opcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cont_opcionesLayout.createSequentialGroup()
+                .addGroup(cont_opcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cont_opcionesLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(cont_opcionesLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(3, 3, 3)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cont_opcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cont_tipo_informe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cont_farmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cont_mes_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(cont_opcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cont_ganancias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cont_perdidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(cont_datosExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cont_opciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cont_opciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -359,14 +378,40 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         
         Image icono4 = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_perder.png"));
         icono4= icono4.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-        icono_perder.setIcon(new ImageIcon(icono4));
+        icono_perder.setIcon(new ImageIcon(icono4));    
         
+       cont_datosExtra.setLayout(new GridBagLayout());
+       cont_datosExtra.setPreferredSize(new Dimension(715, 330));
         
+        restricciones = new GridBagConstraints();
+        restricciones.gridwidth = 1;
+        restricciones.gridheight = 1;
+        restricciones.weightx = 50;
+        restricciones.weighty = 1;
+        restricciones.fill = GridBagConstraints.BOTH;
         
+    }
+    
+    public void cargardatosExtra(){
+        Panel_progresoMensual izquierda = new Panel_progresoMensual();
+        izquierda.setPreferredSize(new Dimension(386, 316));  
+
+        restricciones.gridx = 0;
+        restricciones.gridy = 0;
+        cont_datosExtra.add(izquierda,restricciones);
+        
+        Panel_masVendidos derecha = new Panel_masVendidos();
+        derecha.setPreferredSize(new Dimension(392, 316));  
+
+        restricciones.gridx = 1;
+        restricciones.gridy = 0;
+        cont_datosExtra.add(derecha,restricciones);
+        this.menu.revalidate();
+        this.menu.repaint();
     }
 
     public void generarOpcionesInforme(){
-        
+               
         period_time.setEnabled(false);
         tiposInforme.setEnabled(false);
                
@@ -523,35 +568,39 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                             }
                         }
                     }
-                    String ganancia="";
-                    String perdida="";
-                    
-                    if(gananciasyPerdidas[0] == null){
-                        ganancia="$0.00";
-                    }else{
-                        ganancia="$"+gananciasyPerdidas[0];
-                    }
-                    
-                    if(gananciasyPerdidas[1] == null){
-                        perdida = "$0.00";
-                    }else{
-                        perdida = "$"+gananciasyPerdidas[1];
-                    }
-                    
-                    valor_ganancias.setText(ganancia);
-                    valor_perdidas.setText(perdida);
+                  
                 }
             });
         }
         
+        String ganancia="";
+        String perdida="";
+
+        if(gananciasyPerdidas[0] == null){
+            ganancia="$0.00";
+        }else{
+            ganancia="$"+gananciasyPerdidas[0];
+        }
+
+        if(gananciasyPerdidas[1] == null){
+            perdida = "$0.00";
+        }else{
+            perdida = "$"+gananciasyPerdidas[1];
+        }
+
+        valor_ganancias.setText(ganancia);
+        valor_perdidas.setText(perdida);
+                        
         revalidate();
         repaint();
           
      }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel cont_datosExtra;
     private javax.swing.JPanel cont_farmacias;
     private javax.swing.JPanel cont_ganancias;
     private javax.swing.JPanel cont_mes_year;
+    private javax.swing.JPanel cont_opciones;
     private javax.swing.JPanel cont_perdidas;
     private javax.swing.JPanel cont_tipo_informe;
     private javax.swing.JLabel etq_Tipo;
@@ -567,7 +616,6 @@ public class Panel_informeVentas extends javax.swing.JPanel {
     private javax.swing.JLabel icono_ganar;
     private javax.swing.JLabel icono_perder;
     private javax.swing.JLabel icono_tipo;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner period_time;
     private javax.swing.JComboBox<String> tiposInforme;
     private javax.swing.JLabel valor_ganancias;
