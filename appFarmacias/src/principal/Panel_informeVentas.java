@@ -533,7 +533,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                     if(!valorSeleccionado.equals("Seleccionar")){
                         String fecha = valorSeleccionado;
                         if(tipoSeleccionado.equals("Mensual")){       
-                                
+                            
                             for(int i = 0; i < 12 ; i++){
                                 if(meses.get(i).equals(fecha.substring(0, 3))){
                                     if((i+1)<10){
@@ -552,6 +552,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                             }
                             
                         }else{
+
                             if(farmaciaSeleccionada.equals("todas")){
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(valorSeleccionado, null);
                             }else{
@@ -569,31 +570,31 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
                             }
                         }
-                        cargardatosExtra(fecha);
+                        //cargardatosExtra(fecha);
                     }
+                    String ganancia="";
+                    String perdida="";
+
+                    if(gananciasyPerdidas[0] == null){
+                        ganancia="$0.00";
+                    }else{
+                        ganancia="$"+gananciasyPerdidas[0];
+                    }
+
+                    if(gananciasyPerdidas[1] == null){
+                        perdida = "$0.00";
+                    }else{
+                        perdida = "$"+gananciasyPerdidas[1];
+                    }
+
+                    valor_ganancias.setText(ganancia);
+                    valor_perdidas.setText(perdida);
+                    
                   
                 }
             });
         }
-      
-        
-        String ganancia="";
-        String perdida="";
 
-        if(gananciasyPerdidas[0] == null){
-            ganancia="$0.00";
-        }else{
-            ganancia="$"+gananciasyPerdidas[0];
-        }
-
-        if(gananciasyPerdidas[1] == null){
-            perdida = "$0.00";
-        }else{
-            perdida = "$"+gananciasyPerdidas[1];
-        }
-
-        valor_ganancias.setText(ganancia);
-        valor_perdidas.setText(perdida);
                         
         revalidate();
         repaint();
