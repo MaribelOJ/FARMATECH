@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2024 a las 07:19:33
+-- Tiempo de generación: 12-04-2024 a las 21:27:58
 -- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -80,7 +80,16 @@ INSERT INTO `factura` (`numReferencia`, `NIT_farmacia`, `fecha`, `hora`, `id_cli
 (7, '1003', '2024-03-07', '17:00:00', '10700', 'Alejandra Rojas', 17997, 899.9, 18896.9),
 (8, '1004', '2024-03-07', '17:45:00', '10800', 'Natalia Ortiz', 8500, 425.0, 8925.0),
 (9, '1004', '2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 8500, 425.0, 8925.0),
-(10, '1005', '2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 34000, 1700.0, 35700.0);
+(10, '1005', '2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 34000, 1700.0, 35700.0),
+(11, '1001', '2023-03-07', '12:30:00', '10100', 'Camila Murillo', 35000, 1750.0, 36750.0),
+(12, '1001', '2023-03-07', '13:45:00', '10200', 'Alejandra Garces', 78750, 3937.5, 82687.5),
+(13, '1001', '2023-03-07', '15:45:00', '10500', 'Diego Osorio', 17500, 875.0, 18375.0),
+(14, '1002', '2023-03-07', '16:30:00', '10600', 'Diego Jaramillo', 11500, 575.0, 12075.0),
+(15, '1006', '2022-03-07', '14:15:00', '10300', 'Catalina Rojas', 63000, 3150.0, 66150.0),
+(16, '1005', '2022-03-07', '15:00:00', '10400', 'Artemiz Arias', 44997, 2249.9, 47246.9),
+(17, '1003', '2022-03-07', '17:00:00', '10700', 'Alejandra Rojas', 5999, 300.0, 6299.0),
+(18, '1004', '2021-03-07', '17:45:00', '10800', 'Natalia Ortiz', 8500, 425.0, 8925.0),
+(19, '1004', '2021-03-07', '18:30:00', '10900', 'Macarena Rojas', 8500, 425.0, 8925.0);
 
 --
 -- Disparadores `factura`
@@ -128,7 +137,16 @@ INSERT INTO `facturaproducto` (`id_facturaProducto`, `numReferencia`, `id_produc
 (11, 2, 10, 1, 17500),
 (12, 5, 4, 4, 63000),
 (13, 6, 8, 3, 44997),
-(14, 8, 3, 1, 8500);
+(14, 8, 3, 1, 8500),
+(15, 11, 10, 2, 35000),
+(16, 12, 4, 5, 78750),
+(17, 13, 10, 1, 17500),
+(18, 14, 9, 1, 11500),
+(19, 15, 4, 4, 63000),
+(20, 16, 8, 3, 44997),
+(21, 17, 1, 1, 5999),
+(22, 18, 3, 1, 8500),
+(23, 19, 3, 1, 8500);
 
 --
 -- Disparadores `facturaproducto`
@@ -457,13 +475,13 @@ ALTER TABLE `usuariofarmacia`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `numReferencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `numReferencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `facturaproducto`
 --
 ALTER TABLE `facturaproducto`
-  MODIFY `id_facturaProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_facturaProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `historialestados_farmacia`
