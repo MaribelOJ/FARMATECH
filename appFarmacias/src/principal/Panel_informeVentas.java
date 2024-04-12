@@ -435,6 +435,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         
               
         mesesVentas.add("Seleccionar");
+        
   
         spinnerModelPeriodo = new SpinnerListModel(mesesVentas);
         period_time.setModel(spinnerModelPeriodo);
@@ -451,22 +452,24 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 
                 farmaciaSeleccionada = (String) farmacias.getSelectedItem();
                 
+                
                 if(!farmaciaSeleccionada.equals("Seleccionar")){
                     
                     if(farmaciaSeleccionada.equals("todas")){
                         firstDate = bd.getFirstDatewithSalesRecords(null);
                         primeranio = Integer.parseInt(firstDate[0]);
                         primermes = Integer.parseInt(firstDate[1]);
+                        System.out.println(firstDate[0]);
                     }else{
                         firstDate = bd.getFirstDatewithSalesRecords(farmaciaSeleccionada);
                         primeranio = Integer.parseInt(firstDate[0]);
                         primermes = Integer.parseInt(firstDate[1]);
+
                     }
 
                     tiposInforme.setSelectedIndex(0);
-                    SpinnerListModel model = (SpinnerListModel) period_time.getModel();
-                    Object primerValor = model.getList().get(0);
-                    period_time.setValue(primerValor);
+
+                    period_time.setValue("Seleccionar");
                     tiposInforme.setEnabled(true);
                 }
             }
@@ -485,7 +488,8 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                 if(!tipoSeleccionado.equals("Seleccionar")){  
                                         
                     if(tipoSeleccionado.equals("Mensual")){
-                        
+                        mesesVentas.removeAll(mesesVentas);
+                        mesesVentas.add("Seleccionar");
                         for(int i = anioActual; i >= primeranio;i--){
                             
                             for(int j = mesActual; j >= 0; j--){
@@ -504,6 +508,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                         spinnerModelPeriodo = new SpinnerListModel(mesesVentas);
                         period_time.setModel(spinnerModelPeriodo);
                     }else{
+                        anios.removeAll(anios);
                         anios.add("Seleccionar");
                         for (int i = anioActual; i >= primeranio; i--) {
                             anios.add(String.valueOf(i));
@@ -526,9 +531,9 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                 public void stateChanged(ChangeEvent e) {
                     String valorSeleccionado = (String) period_time.getValue();
                     
-                    System.out.println("fecha: "+valorSeleccionado);
-                    System.out.println("tipo informe: "+ tipoSeleccionado);
-                    System.out.println("farmacia: "+ farmaciaSeleccionada);
+//                    System.out.println("fecha: "+valorSeleccionado);
+//                    System.out.println("tipo informe: "+ tipoSeleccionado);
+//                    System.out.println("farmacia: "+ farmaciaSeleccionada);
                     
                     if(!valorSeleccionado.equals("Seleccionar")){
                         String fecha = valorSeleccionado;
