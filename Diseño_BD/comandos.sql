@@ -17,7 +17,6 @@ NIT_farmacia VARCHAR(12),
 FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
 nombre ENUM('activo','inactivo'),
 fechaHora_cambio DATETIME,
-hora TIME,
 comentario TEXT);
 
 --TABLA USUARIO
@@ -26,7 +25,7 @@ id_usuario INT PRIMARY KEY AUTO_INCREMENT,
 cedula CHAR(10),
 nombre_usuario VARCHAR(35),
 usuario VARCHAR(20),
-clave VARCHAR(15),
+clave VARCHAR(255),
 rol ENUM('administrador','encargado'),
 estado ENUM('activo','inactivo'),
 fecha_inicio DATE,
@@ -212,10 +211,10 @@ INSERT INTO factura(NIT_farmacia,fecha, hora, id_cliente, nombre_cliente, sub_to
 VALUES
     ('1001','2024-03-07', '12:30:00', '10100', 'Camila Murillo', 0,0,0),
     ('1001','2024-03-07', '13:45:00', '10200', 'Alejandra Garces', 0,0,0),
-    ('1006','2024-03-07', '14:15:00', '10300', 'Catalina Rojas', 0,0,0),
-    ('1005','2024-03-07', '15:00:00', '10400', 'Artemiz Arias', 0,0,0),
     ('1001','2024-03-07', '15:45:00', '10500', 'Diego Osorio', 0,0,0),
     ('1002','2024-03-07', '16:30:00', '10600', 'Diego Jaramillo', 0,0,0),
+    ('1006','2024-03-07', '14:15:00', '10300', 'Catalina Rojas', 0,0,0),
+    ('1005','2024-03-07', '15:00:00', '10400', 'Artemiz Arias', 0,0,0),  
     ('1003','2024-03-07', '17:00:00', '10700', 'Alejandra Rojas', 0,0,0),
     ('1004','2024-03-07', '17:45:00', '10800', 'Natalia Ortiz', 0,0,0),
     ('1004','2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
@@ -228,18 +227,18 @@ VALUES
 INSERT INTO facturaProducto(numReferencia,id_producto,cantidad,suma_total)
 VALUES
     (1,10,2,0),
-    (9,3,1,0),
-    (10,6,3,0),
     (1,4,5,0),
+    (9,3,1,0),
     (4,9,1,0),
     (7,1,2,0),
+    (7,1,1,0),
     (3,7,4,0),
     (3,2,3,0),
     (10,9,1,0),
+    (10,6,3,0),
     (2,10,1,0),
     (5,4,4,0),
     (6,8,3,0),
-    (7,1,1,0),
     (8,3,1,0);
 
 

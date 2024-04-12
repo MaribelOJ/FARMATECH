@@ -51,9 +51,13 @@ public class BaseDatos_Maribel {
         try{
             int resp_consulta2 = 0;
             int resp_consulta3=0;
-            java.util.Date fechaHoy = new java.util.Date();
-            java.sql.Date fechaSQL = new java.sql.Date(fechaHoy.getTime());
             int i = 0;
+            
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
             
             Image image = imagen.getImage();
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -89,7 +93,7 @@ public class BaseDatos_Maribel {
 
                     String consulta2 = "INSERT INTO farmacia(NIT_farmacia,nombre,direccion,telefono) VALUES('"+NIT+"','"+nombre+"','"+direccion+"','"+telefono+"')";
                     resp_consulta2 =manipularDB.executeUpdate(consulta2);
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaSQL+"','estado de creacion')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaHoraActual+"','estado de creacion')";
                     resp_consulta3 =manipularDB.executeUpdate(consulta3); 
                 }
             }
@@ -112,7 +116,8 @@ public class BaseDatos_Maribel {
             }else{
                 if(resp_consulta2==0){
                     System.out.println("Registro farmacia no se realizó!");
-                }else if(resp_consulta3==0){
+                }
+                if(resp_consulta3==0){
                     System.out.println("Registro estado no se realizó!");
                 }
             }
@@ -149,7 +154,7 @@ public class BaseDatos_Maribel {
                     foto = new ImageIcon(bytes, NIT).getImage();
                 }
                 
-                String consulta2 = "SELECT nombre,comentario FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"')";
+                String consulta2 = "SELECT nombre,comentario FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"')";
                 
                 ResultSet dato = manipularDB.executeQuery(consulta2);
                 dato.next();
@@ -197,26 +202,24 @@ public class BaseDatos_Maribel {
                         foto = new ImageIcon(bytes, NIT).getImage();
                     }
                     
-                   
+                    
                     String estado="";                   
                     arreglo[i] = new Farmacia(NIT, nombre, direccion, telefono,estado, foto,comentario);
                     
                     i++;
                 }while(registros.next());
                 
+                for(int j = 0; j < arreglo.length && arreglo[j] != null ; j++){
                 
-                String consulta2 = "SELECT DISTINCT NIT_farmacia,nombre FROM historialestados_farmacia WHERE fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia) ORDER BY NIT_farmacia ASC";
-                ResultSet dato = manipularDB.executeQuery(consulta2);
-                dato.next();
-                if(dato.getRow()==1){
-                    i=0;
-                    do{
-                        if(arreglo[i].getNIT().equalsIgnoreCase(dato.getString("NIT_farmacia"))){
-                            arreglo[i].setEstado(dato.getString("nombre"));
-                        }
-                        i++;
-                    }while(dato.next());
+                    String consulta2 = "SELECT NIT_farmacia,nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+ arreglo[j].getNIT() +"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '" +arreglo[j].getNIT()+"')";
+                    ResultSet dato = manipularDB.executeQuery(consulta2);
+                    dato.next();
+                    if(dato.getRow()==1){
+
+                        arreglo[j].setEstado(dato.getString("nombre"));
+                    }
                 }
+                
                 
                 return arreglo;
                 
@@ -238,8 +241,12 @@ public class BaseDatos_Maribel {
 
         try{
             
-            java.util.Date fechaHoy = new java.util.Date();
-            java.sql.Date fechaSQL = new java.sql.Date(fechaHoy.getTime());
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
+
             
             Image image = imagen.getImage(); 
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -263,12 +270,12 @@ public class BaseDatos_Maribel {
             
             respuesta=true;
            
-            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia)";
+            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia)";
             ResultSet dato = manipularDB.executeQuery(consulta2);
             dato.next();
             if(dato.getRow()==1){
                 if(!dato.getString("nombre").equalsIgnoreCase(estado)){
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaSQL+"','"+comentario+"')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaHoraActual+"','"+comentario+"')";
                     manipularDB.executeUpdate(consulta3);
                 }
             }
@@ -290,8 +297,12 @@ public class BaseDatos_Maribel {
 
         try{          
      
-            java.util.Date fechaHoy = new java.util.Date();
-            java.sql.Date fechaSQL = new java.sql.Date(fechaHoy.getTime());
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
+            
             
             String consulta = "UPDATE farmacia SET nombre ='"+ nombre +"',direccion = '"+ direccion +"', telefono = '"+ telefono +"' WHERE NIT_farmacia ='"+ NIT +"'";
             respuesta2 = manipularDB.executeUpdate(consulta);                       
@@ -300,12 +311,12 @@ public class BaseDatos_Maribel {
                 respuesta = true;
             }
             
-            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia)";
+            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia)";
             ResultSet dato = manipularDB.executeQuery(consulta2);
             dato.next();
             if(dato.getRow()==1){
                 if(!dato.getString("nombre").equalsIgnoreCase(estado)){
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaSQL+"','"+comentario+"')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+ fechaHoraActual+"','"+comentario+"')";
                     manipularDB.executeUpdate(consulta3);
                 }
             }

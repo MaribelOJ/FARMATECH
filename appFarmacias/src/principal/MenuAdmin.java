@@ -323,12 +323,14 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     public void btn_visualizar_farmaciasActionPerformed(int indice,String contenedor){
         this.indice = indice;
+        System.out.println("indice desde menu: "+ this.indice);
         this.numContenedor=contenedor;
         btn_visualizar_farmaciasActionPerformed(null);
     }
     
     private void btn_visualizar_farmaciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_farmaciasActionPerformed
-        Panel_visualizarFarmacias vista= new Panel_visualizarFarmacias(bd_mari,this,indice, numContenedor);
+        //Panel_visualizarFarmacias vista= new Panel_visualizarFarmacias(bd_mari,this,indice, numContenedor);
+        Panel_visualizarFarmaciasOscar vista= new Panel_visualizarFarmaciasOscar(this);
         
         vista.setPreferredSize(panel_bienvenida.getPreferredSize());
         vista.setSize(panel_bienvenida.getSize());
