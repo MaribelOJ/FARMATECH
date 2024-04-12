@@ -274,9 +274,9 @@ public class BaseDatosMiguel {
     }
     
     public Usuario[] listaEncargados() {
-     try {
-        Usuario arreglo[] = new Usuario[100];
-        String consulta = "SELECT usuario.cedula, usuario.nombre_usuario, usuario.usuario, usuario.clave, farmacia.nombre, usuariofarmacia.estado, usuariofarmacia.fecha_inicio, usuariofarmacia.fecha_termino "
+        try {
+            Usuario arreglo[] = new Usuario[100];
+            String consulta = "SELECT usuario.cedula, usuario.nombre_usuario, usuario.usuario, usuario.clave, farmacia.nombre, usuariofarmacia.estado, usuariofarmacia.fecha_inicio, usuariofarmacia.fecha_termino "
                 + "FROM usuario "
                 + "INNER JOIN usuariofarmacia ON usuario.id_usuario = usuariofarmacia.id_usuario "
                 + "INNER JOIN farmacia ON usuariofarmacia.NIT_farmacia = farmacia.NIT_farmacia "
@@ -289,32 +289,32 @@ public class BaseDatosMiguel {
                 + "AND usuariofarmacia.estado = 'activo'";
                     
                     
-        ResultSet registros = manipularBD.executeQuery(consulta);
+            ResultSet registros = manipularBD.executeQuery(consulta);
 
-        int i = 0;
-        while (registros.next()) {
-            String cedula = registros.getString("cedula");
-            String nombre = registros.getString("nombre_usuario");
-            String usuario = registros.getString("usuario");
-            String contraseña = registros.getString("clave");
-            String establecimiento = registros.getString("nombre");
-            String estado = registros.getString("estado");
-            String fecha_inicio = registros.getString("fecha_inicio");
-            String fecha_fin = registros.getString("fecha_termino");
+            int i = 0;
+            while (registros.next()) {
+                String cedula = registros.getString("cedula");
+                String nombre = registros.getString("nombre_usuario");
+                String usuario = registros.getString("usuario");
+                String contraseña = registros.getString("clave");
+                String establecimiento = registros.getString("nombre");
+                String estado = registros.getString("estado");
+                String fecha_inicio = registros.getString("fecha_inicio");
+                String fecha_fin = registros.getString("fecha_termino");
 
-            arreglo[i] = new Usuario(cedula, nombre, usuario, contraseña, establecimiento, estado, fecha_inicio, fecha_fin);
-            i++;
-        }
+                arreglo[i] = new Usuario(cedula, nombre, usuario, contraseña, establecimiento, estado, fecha_inicio, fecha_fin);
+                i++;
+            }
 
-        // Si no se recuperaron encargados, retornar null
-        if (i == 0) {
-            return null;
-        }
+            // Si no se recuperaron encargados, retornar null
+            if (i == 0) {
+                return null;
+            }
 
-        // Redimensionar el arreglo para eliminar elementos nulos
-        Usuario[] encargados = Arrays.copyOf(arreglo, i);
+            // Redimensionar el arreglo para eliminar elementos nulos
+            Usuario[] encargados = Arrays.copyOf(arreglo, i);
 
-        return encargados;
+            return encargados;
         } catch (Exception e) {
          System.out.println("Error al imprimir el SELECT");
          System.out.println(e.getMessage());
@@ -544,108 +544,113 @@ public class BaseDatosMiguel {
     }
      
     public boolean uploadPhoto(String nombre_producto, ImageIcon imageIcon, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String cantidad, String nombreProveedor, String nombre_farmacia, String direccion_farmacia) {
-         boolean respuesta = false;
+        boolean respuesta = false;
 
-         try {
-             // Get the underlying image from the ImageIcon
-             Image image = imageIcon.getImage();
+        try {
+            // Get the underlying image from the ImageIcon
+            Image image = imageIcon.getImage();
 
-             // Create a BufferedImage with the same dimensions and type as the original image
-             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            // Create a BufferedImage with the same dimensions and type as the original image
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
-             // Use graphics context to draw the original image onto the BufferedImage
-             Graphics2D g2 = bufferedImage.createGraphics();
-             g2.drawImage(image, 0, 0, null);
-             g2.dispose();
+            // Use graphics context to draw the original image onto the BufferedImage
+            Graphics2D g2 = bufferedImage.createGraphics();
+            g2.drawImage(image, 0, 0, null);
+            g2.dispose();
 
-             // Convert the BufferedImage to byte[] 
-             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-             ImageIO.write(bufferedImage, "png", baos);
-             byte[] imageBytes = baos.toByteArray();
+            // Convert the BufferedImage to byte[] 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            byte[] imageBytes = baos.toByteArray();
 
-             // Prepare the image blob
-             Blob imageBlob = conexion.createBlob();
-             imageBlob.setBytes(1, imageBytes);
+            // Prepare the image blob
+            Blob imageBlob = conexion.createBlob();
+            imageBlob.setBytes(1, imageBytes);
 
-             // Verificar si el producto ya existe en la base de datos
-             int productId = getProductIdByNombre(nombre_producto);
-             if (productId == -1) {
-                 // El producto no existe, insertarlo en la tabla producto
-                 String insertProductQuery = "INSERT INTO producto (nombre_producto, medicamento, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                 PreparedStatement insertProductStatement = conexion.prepareStatement(insertProductQuery, Statement.RETURN_GENERATED_KEYS);
-                 insertProductStatement.setString(1, nombre_producto);
-                 insertProductStatement.setBlob(2, imageBlob);
-                 insertProductStatement.setString(3, volumen);
-                 insertProductStatement.setBigDecimal(4, new BigDecimal(precio_unitario));
-                 insertProductStatement.setDate(5, java.sql.Date.valueOf(fecha_vencimiento));
-                 insertProductStatement.setString(6, ingredientes);
-                 insertProductStatement.setString(7, usos);
-                 insertProductStatement.executeUpdate();
+            int productId = getProductIdByDetails(nombre_producto, volumen, new BigDecimal(precio_unitario), fecha_vencimiento, ingredientes, usos);
+            if (productId == -1) {
+                // El producto no existe con los mismos detalles, insertarlo en la tabla producto
+                String insertProductQuery = "INSERT INTO producto (nombre_producto, medicamento, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement insertProductStatement = conexion.prepareStatement(insertProductQuery, Statement.RETURN_GENERATED_KEYS);
+                insertProductStatement.setString(1, nombre_producto);
+                insertProductStatement.setBlob(2, imageBlob);
+                insertProductStatement.setString(3, volumen);
+                insertProductStatement.setBigDecimal(4, new BigDecimal(precio_unitario));
+                insertProductStatement.setDate(5, java.sql.Date.valueOf(fecha_vencimiento));
+                insertProductStatement.setString(6, ingredientes);
+                insertProductStatement.setString(7, usos);
+                insertProductStatement.executeUpdate();
 
-                 // Obtener el id del último producto insertado
-                 ResultSet generatedKeys = insertProductStatement.getGeneratedKeys();
-                 if (generatedKeys.next()) {
-                     productId = generatedKeys.getInt(1);
-                 }
-             }
+                // Obtener el id del último producto insertado
+                ResultSet generatedKeys = insertProductStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    productId = generatedKeys.getInt(1);
+                }
+            }
 
-             // Obtener el NIT del proveedor usando el nombre del proveedor
-             String obtenerNITProveedorQuery = "SELECT NIT_proveedor FROM proveedor WHERE nombre_proveedor = ?";
-             PreparedStatement obtenerNITProveedorStatement = conexion.prepareStatement(obtenerNITProveedorQuery);
-             obtenerNITProveedorStatement.setString(1, nombreProveedor);
-             ResultSet resultSet = obtenerNITProveedorStatement.executeQuery();
+            // Obtener el NIT del proveedor usando el nombre del proveedor
+            String obtenerNITProveedorQuery = "SELECT NIT_proveedor FROM proveedor WHERE nombre_proveedor = ?";
+            PreparedStatement obtenerNITProveedorStatement = conexion.prepareStatement(obtenerNITProveedorQuery);
+            obtenerNITProveedorStatement.setString(1, nombreProveedor);
+            ResultSet resultSet = obtenerNITProveedorStatement.executeQuery();
 
-             String nitProveedor = null;
-             if (resultSet.next()) {
-                 nitProveedor = resultSet.getString("NIT_proveedor");
-             }
+            String nitProveedor = null;
+            if (resultSet.next()) {
+                nitProveedor = resultSet.getString("NIT_proveedor");
+            }
 
-             // Obtener el NIT de la farmacia usando el nombre y la dirección de la farmacia
-             String obtenerNITFarmaciaQuery = "SELECT NIT_farmacia FROM farmacia WHERE nombre = ? AND direccion = ?";
-             PreparedStatement obtenerNITFarmaciaStatement = conexion.prepareStatement(obtenerNITFarmaciaQuery);
-             obtenerNITFarmaciaStatement.setString(1, nombre_farmacia);
-             obtenerNITFarmaciaStatement.setString(2, direccion_farmacia);
-             resultSet = obtenerNITFarmaciaStatement.executeQuery();
+            // Obtener el NIT de la farmacia usando el nombre y la dirección de la farmacia
+            String obtenerNITFarmaciaQuery = "SELECT NIT_farmacia FROM farmacia WHERE nombre = ? AND direccion = ?";
+            PreparedStatement obtenerNITFarmaciaStatement = conexion.prepareStatement(obtenerNITFarmaciaQuery);
+            obtenerNITFarmaciaStatement.setString(1, nombre_farmacia);
+            obtenerNITFarmaciaStatement.setString(2, direccion_farmacia);
+            resultSet = obtenerNITFarmaciaStatement.executeQuery();
 
-             String nitFarmacia = null;
-             if (resultSet.next()) {
-                 nitFarmacia = resultSet.getString("NIT_farmacia");
-             }
+            String nitFarmacia = null;
+            if (resultSet.next()) {
+                nitFarmacia = resultSet.getString("NIT_farmacia");
+            }
 
-             // Insertar la información del stock en la tabla stock
-             String insertStockQuery = "INSERT INTO stock (NIT_farmacia, id_producto, proveedor, cant_entrante, cant_restante, estado, fecha_registro) VALUES (?, ?, ?, ?, ?, ?, ?)";
-             PreparedStatement insertStockStatement = conexion.prepareStatement(insertStockQuery);
-             insertStockStatement.setString(1, nitFarmacia); // Usar el NIT de la farmacia obtenido
-             insertStockStatement.setInt(2, productId);
-             insertStockStatement.setString(3, nitProveedor); // Usar el NIT del proveedor obtenido
-             int cantidadEntrante = Integer.parseInt(cantidad);
-             insertStockStatement.setInt(4, cantidadEntrante);
-             insertStockStatement.setInt(5, cantidadEntrante); // Cantidades entrante y restante iguales
-             insertStockStatement.setString(6, "activo");
-             insertStockStatement.setDate(7, new java.sql.Date(System.currentTimeMillis())); // or use java.sql.Date.valueOf(LocalDate.now()) if using Java 8 or higher
-             insertStockStatement.executeUpdate();
+            // Insertar la información del stock en la tabla stock
+            String insertStockQuery = "INSERT INTO stock (NIT_farmacia, id_producto, proveedor, cant_entrante, cant_restante, estado, fecha_registro) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStockStatement = conexion.prepareStatement(insertStockQuery);
+            insertStockStatement.setString(1, nitFarmacia); // Usar el NIT de la farmacia obtenido
+            insertStockStatement.setInt(2, productId);
+            insertStockStatement.setString(3, nitProveedor); // Usar el NIT del proveedor obtenido
+            int cantidadEntrante = Integer.parseInt(cantidad);
+            insertStockStatement.setInt(4, cantidadEntrante);
+            insertStockStatement.setInt(5, cantidadEntrante); // Cantidades entrante y restante iguales
+            insertStockStatement.setString(6, "activo");
+            insertStockStatement.setDate(7, new java.sql.Date(System.currentTimeMillis())); // or use java.sql.Date.valueOf(LocalDate.now()) if using Java 8 or higher
+            insertStockStatement.executeUpdate();
 
-             respuesta = true;
+            respuesta = true;
 
-         } catch (IOException ex) {
-             System.out.println("Error en IO en Foto: " + ex.getMessage());
-         } catch (SQLException ex) {
-             System.out.println("Error en UPDATE Foto: " + ex.getMessage());
-         }
-
-         return respuesta;
-     }
-
-    private int getProductIdByNombre(String nombre_producto) throws SQLException {
-        String query = "SELECT id_producto FROM producto WHERE nombre_producto = ?";
-        PreparedStatement statement = conexion.prepareStatement(query);
-        statement.setString(1, nombre_producto);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            return resultSet.getInt("id_producto");
+        } catch (IOException ex) {
+            System.out.println("Error en IO en Foto: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error en UPDATE Foto: " + ex.getMessage());
         }
-        return -1; // Return -1 if product not found
+
+        return respuesta;
     }
+
+    
+    private int getProductIdByDetails(String nombre_producto, String volumen, BigDecimal precio_unitario, String fecha_vencimiento, String ingredientes, String usos) throws SQLException {
+    String query = "SELECT id_producto FROM producto WHERE nombre_producto = ? AND volumen = ? AND precio_unitario = ? AND fecha_vencimiento = ? AND ingredientes = ? AND usos = ?";
+    PreparedStatement statement = conexion.prepareStatement(query);
+    statement.setString(1, nombre_producto);
+    statement.setString(2, volumen);
+    statement.setBigDecimal(3, precio_unitario);
+    statement.setDate(4, java.sql.Date.valueOf(fecha_vencimiento));
+    statement.setString(5, ingredientes);
+    statement.setString(6, usos);
+    ResultSet resultSet = statement.executeQuery();
+    if (resultSet.next()) {
+        return resultSet.getInt("id_producto");
+    }
+    return -1; // Return -1 if product not found
+}
 
 
     

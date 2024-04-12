@@ -6,22 +6,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import utils.BaseDatosMiguel;
 
 public class Panel_crear_producto extends javax.swing.JPanel {
     
     private Alerta ventanaAlerta;
+   
     
-
+    
+    
     DefaultComboBoxModel<String> comboBoxModelNombres = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> comboBoxModelNombres_farmacias = new DefaultComboBoxModel<>();
     DefaultComboBoxModel<String> comboBoxModelDirecciones = new DefaultComboBoxModel<>();
@@ -103,17 +104,13 @@ public class Panel_crear_producto extends javax.swing.JPanel {
             foco.requestFocusInWindow();
         });
         
+        
         campo_nombre.setText(nombrePlaceholder);
         campo_cantidad.setText(cantidadPlaceholder);
         campo_precio.setText(precioPlaceholder);
-        campo_fecha_vencimiento.setText(fechaPlaceholder);
         campo_ingredientes.setText(ingredientesPlaceholder);
         campo_usos.setText(usosPlaceholder);
-        
-            
-        
 
-        
         //Placeholder para cada campo
         campo_nombre.addFocusListener(new FocusAdapter() {
             @Override
@@ -175,25 +172,6 @@ public class Panel_crear_producto extends javax.swing.JPanel {
             }
         });
         
-        campo_fecha_vencimiento.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                String currentText = campo_fecha_vencimiento.getText();
-                
-                if (currentText.equals(fechaPlaceholder)) {
-                    campo_fecha_vencimiento.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                String currentText = campo_fecha_vencimiento.getText();
-                
-                if (currentText.isEmpty()) {
-                    campo_fecha_vencimiento.setText(fechaPlaceholder);
-                }
-            }
-        });
         
         campo_ingredientes.addFocusListener(new FocusAdapter() {
             @Override
@@ -236,6 +214,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         });
         
         
+       
         
         revalidate();
         repaint();
@@ -249,8 +228,8 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         campo_nombre = new javax.swing.JTextField();
         campo_cantidad = new javax.swing.JTextField();
-        campo_fecha_vencimiento = new javax.swing.JTextField();
         campo_ingredientes = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         campo_usos = new javax.swing.JTextField();
         campo_precio = new javax.swing.JTextField();
         etq_proveedor = new javax.swing.JLabel();
@@ -264,6 +243,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
         lista_farmacias = new javax.swing.JComboBox<>();
         lista_direcciones = new javax.swing.JComboBox<>();
         lista_proveedores = new javax.swing.JComboBox<>();
+        campo_fecha_vencimiento = new com.toedter.calendar.JDateChooser();
         foco = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -286,14 +266,11 @@ public class Panel_crear_producto extends javax.swing.JPanel {
 
         campo_cantidad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        campo_fecha_vencimiento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        campo_fecha_vencimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campo_fecha_vencimientoActionPerformed(evt);
-            }
-        });
-
         campo_ingredientes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Fecha de vencimiento:");
 
         campo_usos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -368,11 +345,14 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                         .addComponent(btn_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(campo_fecha_vencimiento, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campo_nombre, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campo_ingredientes)
-                            .addComponent(etq_proveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                            .addComponent(etq_proveedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campo_fecha_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -393,9 +373,10 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                     .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campo_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campo_fecha_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(campo_usos, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(campo_fecha_vencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,8 +442,8 @@ public class Panel_crear_producto extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(etq_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(299, 299, 299)
+                    .addComponent(etq_logo, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                .addGap(297, 297, 297)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,15 +460,17 @@ public class Panel_crear_producto extends javax.swing.JPanel {
     private void campo_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_nombreActionPerformed
-
-    private void campo_fecha_vencimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_fecha_vencimientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campo_fecha_vencimientoActionPerformed
     
      
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
-        // Verificar si algún campo está vacío
-        if (campo_nombre.getText().equals("") || campo_cantidad.getText().equals("") || campo_fecha_vencimiento.getText().equals("") || campo_ingredientes.getText().equals("") || campo_usos.getText().equals("") || campo_precio.getText().equals("") || imagenTemporal==null) {
+        // Obtener la fecha del JDateChooser
+        Date fechaVencimientoDate = campo_fecha_vencimiento.getDate();
+
+ 
+
+
+            // Verificar si algún campo está vacío
+        if (campo_nombre.getText().isEmpty() || campo_cantidad.getText().isEmpty() || campo_ingredientes.getText().isEmpty() || campo_usos.getText().isEmpty() || campo_precio.getText().isEmpty() || imagenTemporal == null || campo_fecha_vencimiento.getDate() == null) {
             // Mostrar alerta indicando que todos los campos son obligatorios
             Alerta ventana = new Alerta("Todos los campos son obligatorios.");
 
@@ -498,28 +481,18 @@ public class Panel_crear_producto extends javax.swing.JPanel {
 
             // Asignar la nueva ventana de alerta como la ventana actual
             ventanaAlerta = ventana;
-
-        } else if (campo_nombre.getText().equals("Nombre:") || campo_cantidad.getText().equals("Cantidad:") || campo_fecha_vencimiento.getText().equals("Fecha de vencimiento:")|| campo_ingredientes.getText().equals("Ingredientes:") || campo_usos.getText().equals("Usos:") || campo_precio.getText().equals("") || imagenTemporal==null) {
-            // Mostrar alerta indicando que todos los campos son obligatorios
-            Alerta ventana = new Alerta("Todos los campos son obligatorios.");
-
-            // Cerrar la ventana de alerta anterior (si existe)
-            if (ventanaAlerta != null) {
-                ventanaAlerta.dispose();
-            }
-
-            // Asignar la nueva ventana de alerta como la ventana actual
-            ventanaAlerta = ventana;
-
         } else {
-            
             String campo_proveedor = (String) lista_proveedores.getSelectedItem();
             String campo_volumen = (String) lista_volumen.getSelectedItem();
             String campo_nombre_farmacia = (String) lista_farmacias.getSelectedItem();
             String campo_direccion_farmacia = (String) lista_direcciones.getSelectedItem();
             String campo_nombre_str = campo_nombre.getText();
             String campo_cantidad_str = campo_cantidad.getText();
-            String campo_fecha_vencimiento_str = campo_fecha_vencimiento.getText();
+
+            // Obtener la fecha del JDateChooser y convertirla a una cadena de texto
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            String campo_fecha_vencimiento_str = formatoFecha.format(campo_fecha_vencimiento.getDate());
+
             String campo_ingredientes_str = campo_ingredientes.getText();
             String campo_usos_str = campo_usos.getText();
             String campo_precio_str = campo_precio.getText();
@@ -561,19 +534,16 @@ public class Panel_crear_producto extends javax.swing.JPanel {
             Confirmacion nuevo = new Confirmacion("Producto creado con éxito");
             campo_nombre.setText("Nombre:");
             campo_cantidad.setText("Cantidad:");
-            campo_fecha_vencimiento.setText("Fecha de vencimiento:");
+            campo_fecha_vencimiento.setDate(null);
             campo_ingredientes.setText("Ingredientes:");
             campo_usos.setText("Usos:");
-            campo_precio.setText("");
+            campo_precio.setText("Precio:");
             imagenTemporal = null;
             imagenLabel.setIcon(null);
             lista_proveedores.setSelectedIndex(0);
             lista_farmacias.setSelectedIndex(0);
             lista_direcciones.setSelectedIndex(0);
             lista_volumen.setSelectedIndex(0);
-            
-            
-           
         }
     }//GEN-LAST:event_btn_crearActionPerformed
 
@@ -598,7 +568,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
     private javax.swing.JButton btnLoadImage;
     private javax.swing.JButton btn_crear;
     private javax.swing.JTextField campo_cantidad;
-    private javax.swing.JTextField campo_fecha_vencimiento;
+    private com.toedter.calendar.JDateChooser campo_fecha_vencimiento;
     private javax.swing.JTextField campo_ingredientes;
     private javax.swing.JTextField campo_nombre;
     private javax.swing.JTextField campo_precio;
@@ -611,6 +581,7 @@ public class Panel_crear_producto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> lista_direcciones;
