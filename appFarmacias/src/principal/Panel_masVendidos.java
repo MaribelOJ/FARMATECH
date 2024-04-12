@@ -42,27 +42,21 @@ public class Panel_masVendidos extends javax.swing.JPanel {
 
         id1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         id1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        id1.setText("12");
 
         cant1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cant1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cant1.setText("amoxicilina");
 
         id2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         id2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        id2.setText("13");
 
         cant2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cant2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cant2.setText("---");
 
         id3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         id3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        id3.setText("14");
 
         cant3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cant3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cant3.setText("---");
 
         javax.swing.GroupLayout cont_todoLayout = new javax.swing.GroupLayout(cont_todo);
         cont_todo.setLayout(cont_todoLayout);
@@ -102,9 +96,9 @@ public class Panel_masVendidos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(linea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addGroup(cont_todoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etq_id)
-                    .addComponent(etq_cant))
+                .addGroup(cont_todoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(etq_cant, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(etq_id))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cont_todoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(id1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)

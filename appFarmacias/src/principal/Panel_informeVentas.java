@@ -283,6 +283,8 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                 .addGap(27, 27, 27))
         );
 
+        cont_datosExtra.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout cont_datosExtraLayout = new javax.swing.GroupLayout(cont_datosExtra);
         cont_datosExtra.setLayout(cont_datosExtraLayout);
         cont_datosExtraLayout.setHorizontalGroup(
@@ -393,7 +395,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
     }
     
     public void cargardatosExtra(){
-        Panel_progresoMensual izquierda = new Panel_progresoMensual();
+        Panel_progresoMensual izquierda = new Panel_progresoMensual(this.menu,null);
         izquierda.setPreferredSize(new Dimension(386, 316));  
 
         restricciones.gridx = 0;
@@ -474,7 +476,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         tiposInforme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
                 tipoSeleccionado = (String) tiposInforme.getSelectedItem();
 
                 valor_ganancias.setText("");
@@ -528,6 +530,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                     System.out.println("farmacia: "+ farmaciaSeleccionada);
                     
                     if(!valorSeleccionado.equals("Seleccionar")){
+                        
                         if(tipoSeleccionado.equals("Mensual")){
                             
                             String fecha = valorSeleccionado;
@@ -566,12 +569,13 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
                             }
-                        }
+                        }                        
                     }
                   
                 }
             });
         }
+      
         
         String ganancia="";
         String perdida="";

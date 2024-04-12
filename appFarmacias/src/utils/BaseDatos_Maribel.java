@@ -592,7 +592,6 @@ public class BaseDatos_Maribel {
                 calculos[0]=ganancias;
                 calculos[1]=perdidas;
 
-
             }
             return calculos;
         }catch (SQLException ex) {
@@ -600,5 +599,27 @@ public class BaseDatos_Maribel {
             System.out.println(ex.getMessage());
         }
         return calculos;
+    }
+
+    public String getLastYearwithSalesRecords(){
+        String lastDate =null;
+        try {
+            
+            String consulta = "SELECT YEAR(fecha) maxYear FROM factura WHERE fecha = (SELECT MAX(fecha)FROM factura) LIMIT 1";
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            if(registros.getRow()==1){
+                String firstYear=registros.getString("maxYear");
+
+                lastDate=firstYear;
+
+            }
+      
+            return lastDate;
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return lastDate;
     }
 }
