@@ -1,17 +1,15 @@
 package principal;
-
-import utils.BaseDatos;
 import utils.BaseDatosValeria;
 import utils.Proveedores;
 
-public class AcualizarProveedor extends javax.swing.JPanel {
+public class ActualizarProveedor extends javax.swing.JPanel {
 
     BaseDatosValeria bdvaleria;
-    BaseDatos bd;
+    MenuAdmin menu;
 
-    public AcualizarProveedor(BaseDatosValeria bdvaleria) {
-        this.bdvaleria = bdvaleria;
-        this.bd = bd;
+    public ActualizarProveedor(MenuAdmin menu) {
+        this.bdvaleria =menu.bdvaleria;
+        this.menu= menu;
         initComponents();
     }
 
@@ -31,14 +29,14 @@ public class AcualizarProveedor extends javax.swing.JPanel {
         campo_correo = new javax.swing.JTextField();
         campoPersona = new javax.swing.JTextField();
         campo_Estado = new javax.swing.JTextField();
-        btn_insertar = new javax.swing.JButton();
+        btn_actualizar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         etq_titulo.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etq_titulo.setText("INSERTAR PROVEEDOR");
+        etq_titulo.setText("ACTUALIZAR PROVEEDOR");
 
         Campo_buscar.setBackground(new java.awt.Color(230, 230, 230));
         Campo_buscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -75,13 +73,13 @@ public class AcualizarProveedor extends javax.swing.JPanel {
         campo_Estado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         campo_Estado.setText("Estado:");
 
-        btn_insertar.setBackground(new java.awt.Color(44, 45, 233));
-        btn_insertar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_insertar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_insertar.setText("INSERTAR");
-        btn_insertar.addActionListener(new java.awt.event.ActionListener() {
+        btn_actualizar.setBackground(new java.awt.Color(44, 45, 233));
+        btn_actualizar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_actualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_actualizar.setText("ACTUALIZAR");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_insertarActionPerformed(evt);
+                btn_actualizarActionPerformed(evt);
             }
         });
 
@@ -89,6 +87,11 @@ public class AcualizarProveedor extends javax.swing.JPanel {
         btn_volver.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_volver.setForeground(new java.awt.Color(255, 255, 255));
         btn_volver.setText("VOLVER");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_menuLayout = new javax.swing.GroupLayout(jPanel_menu);
         jPanel_menu.setLayout(jPanel_menuLayout);
@@ -108,8 +111,8 @@ public class AcualizarProveedor extends javax.swing.JPanel {
                             .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel_menuLayout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(btn_insertar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105)
+                        .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
                         .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -132,7 +135,7 @@ public class AcualizarProveedor extends javax.swing.JPanel {
                 .addComponent(campo_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_insertar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(86, 86, 86))
         );
@@ -182,7 +185,7 @@ public class AcualizarProveedor extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_insertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertarActionPerformed
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         String nit = campo_nit.getText();
         String nombre = campo_nombre.getText();
         String direccion = campo_direccion.getText();
@@ -194,9 +197,9 @@ public class AcualizarProveedor extends javax.swing.JPanel {
         if( nit.equals("") ||nombre.equals("") || direccion.equals("") || telefono.equals("") || correo.equals("") || persona.equals("")|| estado.equals("") ){
             Alerta ventana = new Alerta("Todos los campos son Obligatorios.");
         }else{
-            boolean proceso = bdvaleria.insertarProveedor(nit,nombre, direccion, telefono, correo, persona, estado);
+            boolean proceso = bdvaleria.actualizarProveedor(nit,nombre, direccion, telefono, correo, persona, estado);
             if (proceso) {
-                System.out.println("Proveedor "+nombre+" insertado con exito.");
+                System.out.println("Proveedor "+nombre+" actualizado con exito.");
                 campo_nit.setText("");
                 campo_nombre.setText("");
                 campo_direccion.setText("");
@@ -205,10 +208,10 @@ public class AcualizarProveedor extends javax.swing.JPanel {
                 campoPersona.setText("");
                 campo_Estado.setText("");
             }else{
-                System.out.println("Proveedor "+nombre+" presento ERROR al insertar.");
+                System.out.println("Proveedor "+nombre+" presento ERROR al actualizar.");
             }
         }
-    }//GEN-LAST:event_btn_insertarActionPerformed
+    }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String nit = Campo_buscar.getText();
@@ -219,6 +222,7 @@ public class AcualizarProveedor extends javax.swing.JPanel {
 
             Proveedores temporal = bdvaleria.buscarProveedor(nit);
             if (temporal != null) {
+                campo_nit.setText(temporal.getNit());
                 campo_nombre.setText(temporal.getNombre_proveedor());
                 campo_direccion.setText(temporal.getDireccion());
                 campo_telefono.setText(temporal.getTelefono());
@@ -226,7 +230,7 @@ public class AcualizarProveedor extends javax.swing.JPanel {
                 campoPersona.setText(temporal.getPersona_contacto());
                 campo_Estado.setText(temporal.getEstado());
                 
-
+                campo_nit.setEnabled(true);
                 campo_nombre.setEnabled(true);
                 campo_direccion.setEnabled(true);
                 campo_telefono.setEnabled(true);
@@ -236,7 +240,8 @@ public class AcualizarProveedor extends javax.swing.JPanel {
 
             } else {
                 Alerta ventana = new Alerta("El proveedor no existe.");
-
+                
+                campo_nit.setText("");
                 campo_nombre.setText("");
                 campo_direccion.setText("");
                 campo_telefono.setText("");
@@ -255,11 +260,15 @@ public class AcualizarProveedor extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.menu.btn_lista_proveedoresActionPerformed();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Campo_buscar;
+    private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_buscar;
-    private javax.swing.JButton btn_insertar;
     private javax.swing.JButton btn_volver;
     private javax.swing.JTextField campoPersona;
     private javax.swing.JTextField campo_Estado;

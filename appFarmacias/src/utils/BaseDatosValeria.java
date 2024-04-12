@@ -1,10 +1,14 @@
 package utils;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 
 public class BaseDatosValeria {
 
@@ -143,12 +147,18 @@ public class BaseDatosValeria {
 
     public boolean eliminarProveedor(String nit) {
         boolean respuesta = false;
+  
         try {
-            String consulta = "DELETE FROM proveedor WHERE nit='" + nit + "' ";
+            String consulta2="DELETE FROM stock WHERE proveedor='" + nit + "' ";
+            int resp_consulta2 = manipularBD.executeUpdate(consulta2);
+            String consulta = "DELETE FROM proveedor WHERE NIT_proveedor='" + nit + "' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
-            if (resp_consulta == 1) {
+            
+    
+            if (resp_consulta == 1  || resp_consulta2 > 0)  {
                 respuesta = true;
             }
+ 
         } catch (SQLException ex) {
             System.out.println("--> Error Delete: " + ex.getMessage());
         }
@@ -179,7 +189,7 @@ public class BaseDatosValeria {
         return null;
     }
 
-    public Producto buscarProducto(String id_producto) {
+    public Producto buscarProducto(String id_producto) throws IOException {
         try {
             Producto encontrado = null;
 
@@ -189,24 +199,34 @@ public class BaseDatosValeria {
             if (registros.getRow() == 1) {
                 String id_productos = registros.getString("id_producto");
                 String nombre_producto = registros.getString("nombre_producto");
-                String medicamentos = registros.getString("medicamento");
                 String volumen = registros.getString("volumen");
                 String precio_unitario = registros.getString("precio_unitario");
                 String fecha_vencimiento = registros.getString("fecha_vencimiento");
                 String ingredientes = registros.getString("ingredientes");
                 String usos = registros.getString("usos");
+                Image medicamento = null;
+                InputStream inputStream = registros.getBinaryStream("medicamento");
+                if (inputStream != null) {
+                    byte[] bytes = new byte[inputStream.available()];
+                    inputStream.read(bytes);
+                    medicamento = new ImageIcon(bytes, id_productos).getImage();
+                }
 
-                encontrado = new Producto(id_productos, nombre_producto, medicamentos, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos);
-                return encontrado;
-            } else {
+                encontrado = new Producto(id_productos, nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos,medicamento);
                 return encontrado;
             }
+        } catch (IOException ex) {
+            System.out.println("Se presento un error al extraer la foto: " + ex.getMessage());
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar el SELECT: ");
             System.out.println(ex.getMessage());
             return null;
         }
+        return null;
     }
+    
+
+    
 
     public boolean actualizarProductoEditar(String id_producto, String nombres, String medicamento, String volumen, String precio, String fecha, String ingredientes, String usos, String estado, String nit) {
         boolean respuesta = false;
@@ -234,7 +254,6 @@ public class BaseDatosValeria {
         }
         return respuesta;
     }
-55
 
     public boolean insertarProveedor(String nit, String nombre, String direccion, String telefono, String correo, String persona, String estado) {
         boolean respuesta = false;
@@ -281,6 +300,25 @@ public class BaseDatosValeria {
             System.out.println(ex.getMessage());
             return null;
         }
+    }
+    
+    public boolean actualizarProveedor(String nit, String nombre, String direccion, String telefono, String correo, String persona, String estado){
+        boolean respuesta = false;
+        try {
+            String consulta = "UPDATE proveedor SET NIT_proveedor='"+nit+"', nombre_proveedor='"+nombre+"', direccion='"+direccion+"', telefono='"+telefono+"', correo='"+correo+"', persona_contacto='"+persona+"', estado='"+estado+"' WHERE NIT_proveedor='"+nit+"' ";
+            int resp_consulta = manipularBD.executeUpdate(consulta);
+            if (resp_consulta==1) {
+                respuesta = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("--> Error Update: " + ex.getMessage());
+        }
+        if (respuesta){
+            System.out.println("Editado con exito");
+        }else{
+            System.out.println("No se pudo Editar");
+        }
+        return respuesta;
     }
 
     public Connection getConexion() {
