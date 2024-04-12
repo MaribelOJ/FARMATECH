@@ -396,7 +396,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
     
     public void cargardatosExtra(String periodo){
         String period = periodo;
-        Panel_progresoMensual izquierda = new Panel_progresoMensual(this.menu,period);
+        Panel_progresoMensual izquierda = new Panel_progresoMensual(this.menu,period,this.meses);
         izquierda.setPreferredSize(new Dimension(386, 316));  
 
         restricciones.gridx = 0;
@@ -534,9 +534,9 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 //                    System.out.println("fecha: "+valorSeleccionado);
 //                    System.out.println("tipo informe: "+ tipoSeleccionado);
 //                    System.out.println("farmacia: "+ farmaciaSeleccionada);
-                    
+                    String fecha = valorSeleccionado;
                     if(!valorSeleccionado.equals("Seleccionar")){
-                        String fecha = valorSeleccionado;
+                        
                         if(tipoSeleccionado.equals("Mensual")){       
                             
                             for(int i = 0; i < 12 ; i++){
@@ -575,7 +575,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
                             }
                         }
-                        //cargardatosExtra(fecha);
+                        
                     }
                     String ganancia="";
                     String perdida="";
@@ -595,6 +595,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                     valor_ganancias.setText(ganancia);
                     valor_perdidas.setText(perdida);
                     
+                    cargardatosExtra(fecha);
                   
                 }
             });
