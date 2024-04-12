@@ -1,6 +1,7 @@
 
 package principal;
 
+import java.util.List;
 import utils.BaseDatos_Maribel;
 
 
@@ -9,21 +10,28 @@ public class Panel_progresoMensual extends javax.swing.JPanel {
     BaseDatos_Maribel bd;
     String periodo;
     int anio;
+    int mes;
     String [] gananciasyPerdidas1;
+    List<String> meses;
     float ganancias;
     float ganancias2;
     float ganancias3;
     float ganancias4;
     
-    public Panel_progresoMensual(MenuAdmin menu,String periodo) {
+    public Panel_progresoMensual(MenuAdmin menu,String periodo,List<String> meses){
         this.menu = menu;
         this.bd = menu.bd_mari;
         this.periodo=periodo;
-        
+        this.anio = 0;
+        this.mes = 0;
+        this.meses = meses;
         if(this.periodo == null){
             this.periodo = bd.getLastYearwithSalesRecords();
+        }else if(this.periodo.length() > 4){
+            this.anio = Integer.parseInt(this.periodo.substring(0, 3));
+            this.mes =Integer.parseInt(this.periodo.substring(6));
         }
-        this.anio = 0;
+        
         this.gananciasyPerdidas1=bd.calcularGananciasyPerdidas(this.periodo, null);
         this.ganancias=0;
         this.ganancias2=0;
@@ -157,12 +165,16 @@ public class Panel_progresoMensual extends javax.swing.JPanel {
     
     public void initAlternComponents(){
         if(periodo != null){
-            anio = Integer.parseInt(periodo);
-            
-            mes1.setText(periodo);
-            mes2.setText(""+(anio-1)+"");
-            mes3.setText(""+(anio-2)+"");
-            mes4.setText(""+(anio-3)+"");
+            if(mes==0){
+                anio = Integer.parseInt(periodo);
+
+                mes1.setText(periodo);
+                mes2.setText(""+(anio-1)+"");
+                mes3.setText(""+(anio-2)+"");
+                mes4.setText(""+(anio-3)+"");
+            }else{
+                
+            }
         }
         
         if(gananciasyPerdidas1[0] != null){
