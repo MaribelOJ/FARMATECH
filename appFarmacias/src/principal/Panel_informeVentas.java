@@ -63,7 +63,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         this.spinnerModelPeriodo = new SpinnerListModel();
         initComponents();
         initAlternComponents();
-        cargardatosExtra();
+        cargardatosExtra(null);
         generarOpcionesInforme();
     }
 
@@ -394,8 +394,9 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         
     }
     
-    public void cargardatosExtra(){
-        Panel_progresoMensual izquierda = new Panel_progresoMensual(this.menu,null);
+    public void cargardatosExtra(String periodo){
+        String period = periodo;
+        Panel_progresoMensual izquierda = new Panel_progresoMensual(this.menu,period);
         izquierda.setPreferredSize(new Dimension(386, 316));  
 
         restricciones.gridx = 0;
@@ -530,10 +531,8 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                     System.out.println("farmacia: "+ farmaciaSeleccionada);
                     
                     if(!valorSeleccionado.equals("Seleccionar")){
-                        
-                        if(tipoSeleccionado.equals("Mensual")){
-                            
-                            String fecha = valorSeleccionado;
+                        String fecha = valorSeleccionado;
+                        if(tipoSeleccionado.equals("Mensual")){       
                                 
                             for(int i = 0; i < 12 ; i++){
                                 if(meses.get(i).equals(fecha.substring(0, 3))){
@@ -551,11 +550,11 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
                             }
+                            
                         }else{
                             if(farmaciaSeleccionada.equals("todas")){
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(valorSeleccionado, null);
                             }else{
-                                String fecha = valorSeleccionado;
                                 
                                 for(int i = 0; i < 12 ; i++){
                                     if(meses.get(i).equals(fecha.substring(0, 3))){
@@ -569,7 +568,8 @@ public class Panel_informeVentas extends javax.swing.JPanel {
 
                                 gananciasyPerdidas = bd.calcularGananciasyPerdidas(fecha, farmaciaSeleccionada);
                             }
-                        }                        
+                        }
+                        cargardatosExtra(fecha);
                     }
                   
                 }
