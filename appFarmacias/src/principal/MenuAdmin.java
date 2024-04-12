@@ -16,6 +16,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     BaseDatos bd;
     int indice;
     String numContenedor;
+
     
     BaseDatosMiguel bdmiguel=new BaseDatosMiguel();
     
@@ -129,6 +130,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         btn_informe_ventas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_informe_ventas.setForeground(new java.awt.Color(255, 255, 255));
         btn_informe_ventas.setText("Informe de ventas");
+        btn_informe_ventas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_informe_ventasActionPerformed(evt);
+            }
+        });
 
         btn_lista_proveedores.setBackground(new java.awt.Color(144, 177, 239));
         btn_lista_proveedores.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -323,14 +329,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     public void btn_visualizar_farmaciasActionPerformed(int indice,String contenedor){
         this.indice = indice;
-        System.out.println("indice desde menu: "+ this.indice);
         this.numContenedor=contenedor;
         btn_visualizar_farmaciasActionPerformed(null);
     }
     
     private void btn_visualizar_farmaciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_farmaciasActionPerformed
-        //Panel_visualizarFarmacias vista= new Panel_visualizarFarmacias(bd_mari,this,indice, numContenedor);
-        Panel_visualizarFarmaciasOscar vista= new Panel_visualizarFarmaciasOscar(this);
+        Panel_visualizarFarmacias vista= new Panel_visualizarFarmacias(bd_mari,this,indice, numContenedor);
+//        Panel_visualizarFarmaciasOscar vista= new Panel_visualizarFarmaciasOscar(this);
         
         vista.setPreferredSize(panel_bienvenida.getPreferredSize());
         vista.setSize(panel_bienvenida.getSize());
@@ -361,6 +366,18 @@ public class MenuAdmin extends javax.swing.JFrame {
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_administar_encargadosActionPerformed
+
+    private void btn_informe_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_informe_ventasActionPerformed
+
+        Panel_informeVentas resumen = new Panel_informeVentas(this);
+        resumen.setPreferredSize(panel_bienvenida.getPreferredSize());
+        resumen.setSize(panel_bienvenida.getSize());
+        panel_bienvenida.removeAll();
+        panel_bienvenida.add(resumen);
+        repaint();
+        revalidate();
+        
+    }//GEN-LAST:event_btn_informe_ventasActionPerformed
 
    
     

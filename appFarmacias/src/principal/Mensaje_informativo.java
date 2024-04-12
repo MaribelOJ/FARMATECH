@@ -7,16 +7,16 @@ import javax.swing.JFrame;
 
 public class Mensaje_informativo extends javax.swing.JFrame {
     String texto;
+    
     public Mensaje_informativo(String texto) {
-        initComponents();
-        this.texto = texto;
+         this.texto = texto;
         initComponents();
         initAlternComponents();
     }
     
     public void initAlternComponents(){
 
-        setLocation(680,650);
+        setLocation(680,450);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
