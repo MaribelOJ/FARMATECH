@@ -14,6 +14,7 @@ public class Panel_progresoMensual extends javax.swing.JPanel {
     float ganancias2;
     float ganancias3;
     float ganancias4;
+    
     public Panel_progresoMensual(MenuAdmin menu,String periodo) {
         this.menu = menu;
         this.bd = menu.bd_mari;
@@ -53,7 +54,7 @@ public class Panel_progresoMensual extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Progreso Mensual");
+        jLabel1.setText("Progreso Mensual / Anual");
 
         mes1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         mes1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
