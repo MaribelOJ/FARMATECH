@@ -1,0 +1,89 @@
+
+package utils;
+
+public class Producto {
+    private String id_producto;
+    private String nombre_producto;
+    private String medicamentos;
+    private String volumen;
+    private String precio_unitario;
+    private String fecha_vencimiento;
+    private String ingredientes;
+    private String usos;
+    
+    public Producto(String id_producto, String nombre_producto, String medicamentos, String volumen, String precio_unitario, String fecha_vencimiento,String ingredientes, String usos) {
+        this.id_producto = id_producto;
+        this.nombre_producto = nombre_producto;
+        this.medicamentos = medicamentos;
+        this.volumen = volumen;
+        this.precio_unitario = precio_unitario;
+        this.fecha_vencimiento = fecha_vencimiento;
+        this.ingredientes = ingredientes;
+        this.usos = usos;
+        
+    }
+
+    public String getId_producto() {
+        return id_producto;
+    }
+
+    public void setId_producto(String id_producto) {
+        this.id_producto = id_producto;
+    }
+
+    public String getNombre_producto() {
+        return nombre_producto;
+    }
+
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    }
+
+    public String getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(String medicamentos) {
+        this.medicamentos = medicamentos;
+    }
+
+    public String getVolumen() {
+        return volumen;
+    }
+
+    public void setVolumen(String volumen) {
+        this.volumen = volumen;
+    }
+
+    public String getPrecio_unitario() {
+        return precio_unitario;
+    }
+
+    public void setPrecio_unitario(String precio_unitario) {
+        this.precio_unitario = precio_unitario;
+    }
+
+    public String getFecha_vencimiento() {
+        return fecha_vencimiento;
+    }
+
+    public void setFecha_vencimiento(String fecha_vencimiento) {
+        this.fecha_vencimiento = fecha_vencimiento;
+    }
+
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public String getUsos() {
+        return usos;
+    }
+
+    public void setUsos(String usos) {
+        this.usos = usos;
+    }
+}

@@ -5,6 +5,7 @@ USE farmatech;
 --TABLA FARMACIA
 CREATE TABLE farmacia(
 NIT_farmacia VARCHAR(12) PRIMARY KEY,
+foto LONGBLOB,
 nombre VARCHAR(25),
 direccion VARCHAR(40),
 telefono CHAR(10));
@@ -15,7 +16,7 @@ id_estado INT PRIMARY KEY AUTO_INCREMENT,
 NIT_farmacia VARCHAR(12),
 FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
 nombre ENUM('activo','inactivo'),
-fecha_cambio DATE,
+fechaHora_cambio DATETIME,
 comentario TEXT);
 
 --TABLA USUARIO
@@ -24,7 +25,7 @@ id_usuario INT PRIMARY KEY AUTO_INCREMENT,
 cedula CHAR(10),
 nombre_usuario VARCHAR(35),
 usuario VARCHAR(20),
-clave VARCHAR(15),
+clave VARCHAR(255),
 rol ENUM('administrador','encargado'),
 estado ENUM('activo','inactivo'),
 fecha_inicio DATE,
@@ -45,6 +46,7 @@ fecha_termino DATE);
 CREATE TABLE producto(
 id_producto INT PRIMARY KEY AUTO_INCREMENT,
 nombre_producto VARCHAR(25),
+medicamento LONGBLOB,
 volumen ENUM('mg','ml'),
 precio_unitario DECIMAL(7,1),
 fecha_vencimiento DATE,
@@ -54,6 +56,8 @@ usos TEXT);
 --TABLA FACTURA
 CREATE TABLE factura(
 numReferencia INT PRIMARY KEY AUTO_INCREMENT,
+NIT_farmacia VARCHAR(12),
+FOREIGN KEY(NIT_farmacia) REFERENCES farmacia(NIT_farmacia),
 fecha DATE,
 hora TIME,
 id_cliente CHAR(10),
@@ -168,26 +172,8 @@ VALUES
     ('1003','Drogueria Alemana', 'Carrera 3 Villa santana', '7890123456'),
     ('1004','Cruz Verde', 'Calle 4  victoria', '2345678901'),
     ('1005','Drogueria Alemana', 'Avenida 5 Puebla', '5678901234'),
-    ('1006','Drogas la rebaja', 'Carrera 6 Villa maria', '8901234567'),
-    ('1007','Drogas la rebaja', 'Calle 7 venecia', '3456789012'),
-    ('1008','Cruz Verde', 'Avenida 8 Boston', '6789012345'),
-    ('1009','Cruz verde', 'Carrera 9 Palermo', '9012345678'),
-    ('1010','Drogueria Alemana', 'Calle 10 Canan', '1232345678');
+    ('1006','Drogas la rebaja', 'Carrera 6 Villa maria', '8901234567');
 
---CREAR ESTADO FARMACIA
-
-INSERT INTO historialEstados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario)
-VALUES
-    ('1001','activo', CURDATE(), 'estado de creacion'),
-    ('1002','activo', CURDATE(), 'estado de creacion'),
-    ('1003','activo', CURDATE(), 'estado de creacion'),
-    ('1004','activo', CURDATE(), 'estado de creacion'),
-    ('1005','activo', CURDATE(), 'estado de creacion'),
-    ('1006','activo', CURDATE(), 'estado de creacion'),
-    ('1007','activo', CURDATE(), 'estado de creacion'),
-    ('1008','activo', CURDATE(), 'estado de creacion'),
-    ('1009','activo', CURDATE(), 'estado de creacion'),
-    ('1010','activo', CURDATE(), 'estado de creacion');
 
 --INSERTAR PRODUCTOS
 INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
@@ -208,31 +194,31 @@ VALUES
 INSERT INTO stock(NIT_farmacia,id_producto,proveedor,cant_entrante,cant_restante,estado,fecha_registro)
 VALUES
     ('1003',1,'NIT6',50,50,'activo', CURDATE()),
-    ('1009',2,'NIT6',100,100,'activo', CURDATE()),
+    ('1006',2,'NIT6',100,100,'activo', CURDATE()),
     ('1004',3,'NIT4',120,120,'activo', CURDATE()),
     ('1001',4,'NIT1',30,30,'activo', CURDATE()),
-    ('1007',5,'NIT9',10,10,'activo', CURDATE()),
+    ('1002',5,'NIT9',10,10,'activo', CURDATE()),
     ('1005',6,'NIT3',10,10,'activo', CURDATE()),
-    ('1010',7,'NIT10',90,90,'activo', CURDATE()),
+    ('1006',7,'NIT10',90,90,'activo', CURDATE()),
     ('1002',8,'NIT5',86,86,'activo', CURDATE()),
-    ('1009',9,'NIT7',100,100,'activo', CURDATE()),
+    ('1005',9,'NIT7',100,100,'activo', CURDATE()),
     ('1001',10,'NIT7',20,20,'activo', CURDATE());
     
 
 --INSERTAR FACTURAS
 
-INSERT INTO factura(fecha, hora, id_cliente, nombre_cliente, sub_total, iva, total)
+INSERT INTO factura(NIT_farmacia,fecha, hora, id_cliente, nombre_cliente, sub_total, iva, total)
 VALUES
-    ('2024-03-07', '12:30:00', '10100', 'Camila Murillo', 0,0,0),
-    ('2024-03-07', '13:45:00', '10200', 'Alejandra Garces', 0,0,0),
-    ('2024-03-07', '14:15:00', '10300', 'Catalina Rojas', 0,0,0),
-    ('2024-03-07', '15:00:00', '10400', 'Artemiz Arias', 0,0,0),
-    ('2024-03-07', '15:45:00', '10500', 'Diego Osorio', 0,0,0),
-    ('2024-03-07', '16:30:00', '10600', 'Diego Jaramillo', 0,0,0),
-    ('2024-03-07', '17:00:00', '10700', 'Alejandra Rojas', 0,0,0),
-    ('2024-03-07', '17:45:00', '10800', 'Natalia Ortiz', 0,0,0),
-    ('2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
-    ('2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
+    ('1001','2024-03-07', '12:30:00', '10100', 'Camila Murillo', 0,0,0),
+    ('1001','2024-03-07', '13:45:00', '10200', 'Alejandra Garces', 0,0,0),
+    ('1001','2024-03-07', '15:45:00', '10500', 'Diego Osorio', 0,0,0),
+    ('1002','2024-03-07', '16:30:00', '10600', 'Diego Jaramillo', 0,0,0),
+    ('1006','2024-03-07', '14:15:00', '10300', 'Catalina Rojas', 0,0,0),
+    ('1005','2024-03-07', '15:00:00', '10400', 'Artemiz Arias', 0,0,0),  
+    ('1003','2024-03-07', '17:00:00', '10700', 'Alejandra Rojas', 0,0,0),
+    ('1004','2024-03-07', '17:45:00', '10800', 'Natalia Ortiz', 0,0,0),
+    ('1004','2024-03-07', '18:30:00', '10900', 'Macarena Rojas', 0,0,0),
+    ('1005','2024-03-07', '19:15:00', '11000', 'Sebastia Ardila', 0,0,0);
 
 
 
@@ -240,16 +226,21 @@ VALUES
 
 INSERT INTO facturaProducto(numReferencia,id_producto,cantidad,suma_total)
 VALUES
-    (1,2,2,0),
-    (9,1,1,0),
-    (10,4,3,0),
-    (1,5,5,0),
-    (3,8,1,0),
-    (3,10,2,0),
-    (4,3,4,0),
-    (3,7,3,0),
-    (9,9,1,0),
-    (1,6,1,0);
+    (1,10,2,0),
+    (1,4,5,0),
+    (9,3,1,0),
+    (4,9,1,0),
+    (7,1,2,0),
+    (7,1,1,0),
+    (3,7,4,0),
+    (3,2,3,0),
+    (10,9,1,0),
+    (10,6,3,0),
+    (2,10,1,0),
+    (5,4,4,0),
+    (6,8,3,0),
+    (8,3,1,0);
+
 
 --INSERTAR USUARIOS
 
@@ -261,32 +252,26 @@ VALUES
     ('20014','Laura Mora','userPass123', 'Laures123','encargado','activo',CURDATE()),
     ('20015','Pedro Lopez','passWord42', 'PedroL','encargado','activo',CURDATE()),
     ('20016','Alicia Garcia','strongPass', 'AGarcia','encargado','activo',CURDATE()),
-    ('20017','Daniel Sanchez','secret123', 'Dani2024','encargado','activo',CURDATE()),
-    ('20018','Luisa Diaz','myPass789', 'SofiaDiaz','administrador','activo',CURDATE()),
-    ('20019','Diego Perez','pass1234', 'DiegoH14','encargado','activo',CURDATE()),
-    ('20020','Omar Castellano','adminPass', 'Usuario24','encargado','activo',CURDATE());
+    ('20017','Daniel Sanchez','secret123', 'Dani2024','encargado','activo',CURDATE());
+
 
 --INSERTAR USUARIO FARMACIA
 
 INSERT INTO usuarioFarmacia(id_usuario,NIT_farmacia,estado,fecha_inicio)
 VALUES
-    (1,'1003','activo',CURDATE()),
-    (1,'1009','activo',CURDATE()),
-    (1,'1004','activo',CURDATE()),
     (1,'1001','activo',CURDATE()),
-    (2,'1003','activo',CURDATE()),
-    (3,'1009','activo',CURDATE()),
-    (4,'1004','activo',CURDATE()),
-    (5,'1001','activo',CURDATE()),
-    (6,'1007','activo',CURDATE()),
-    (7,'1005','activo',CURDATE()),
-    (9,'1010','activo',CURDATE()),
-    (10,'1009','activo',CURDATE()),
-    (8,'1001','activo',CURDATE()),
-    (8,'1007','activo',CURDATE()),
-    (8,'1005','activo',CURDATE()),
-    (8,'1010','activo',CURDATE()),
-    (8,'1009','activo',CURDATE());
+    (1,'1002','activo',CURDATE()),
+    (1,'1003','activo',CURDATE()),
+    (1,'1004','activo',CURDATE()),
+    (1,'1005','activo',CURDATE()),
+    (1,'1006','activo',CURDATE()),
+    (2,'1001','activo',CURDATE()),
+    (3,'1002','activo',CURDATE()),
+    (4,'1003','activo',CURDATE()),
+    (5,'1004','activo',CURDATE()),
+    (6,'1005','activo',CURDATE()),
+    (7,'1006','activo',CURDATE());
+    
 
 
 

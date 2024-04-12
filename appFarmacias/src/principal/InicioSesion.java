@@ -47,10 +47,14 @@ public class InicioSesion extends javax.swing.JFrame {
         etq_usuario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         etq_usuario.setText("Usuario:");
 
+        campo_usuario.setText("pepito23");
+
         icono_clave.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         etq_clave.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         etq_clave.setText("Contraseña:");
+
+        campo_clave.setText("clave123");
 
         javax.swing.GroupLayout cont_credencialesLayout = new javax.swing.GroupLayout(cont_credenciales);
         cont_credenciales.setLayout(cont_credencialesLayout);
@@ -177,8 +181,7 @@ public class InicioSesion extends javax.swing.JFrame {
         String user = campo_usuario.getText();
         String password = new String(campo_clave.getPassword());
         String nombre_usuario;
-              
-        
+
         if(user.equals("")|| password.equals("")){
             System.out.println("Las dos credenciales son requeridas!");
             Alerta ventana = new Alerta("¡Las dos credenciales son requeridas!.");
