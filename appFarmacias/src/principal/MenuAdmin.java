@@ -27,11 +27,11 @@ public class MenuAdmin extends javax.swing.JFrame {
     
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
     
-    
     public MenuAdmin(BaseDatos bd, String nombre_usuario) {
         this.bd = bd;
         this.bdmiguel = bdmiguel;
         this.bd_mari = new BaseDatos_Maribel();
+        this.bdvaleria = bdvaleria;
         this.indice =0;
         this.numContenedor="";
         initComponents();
@@ -274,10 +274,15 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void btn_lista_proveedoresActionPerformed(){
+        
+        btn_lista_proveedoresActionPerformed(null);
+    }
+    
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
         Proveedores listado[] = bdvaleria.listaProveedores_admin();
-        Panel_listado_proveedores_admin nuevo = new Panel_listado_proveedores_admin (listado);
+        Panel_listado_proveedores_admin nuevo = new Panel_listado_proveedores_admin (listado, this);
 
         // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
@@ -292,7 +297,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
-
+    
     private void btn_visualizar_encargadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_visualizar_encargadoActionPerformed
         Usuario listado[]= bdmiguel.listaEncargados();
         Panel_listado_encargados nuevo = new Panel_listado_encargados(listado);
