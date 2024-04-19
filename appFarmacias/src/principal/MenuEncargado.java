@@ -11,9 +11,10 @@ import utils.Proveedores;
 
 
 public class MenuEncargado extends javax.swing.JFrame {
-    BaseDatosCristian bdC;
+    BaseDatosCristian bdC = new BaseDatosCristian();
     BaseDatos bd;
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
+    
     String id_usuario;
     
     public MenuEncargado(BaseDatos bd, String nombre_usuario) {
@@ -277,7 +278,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_catalogoActionPerformed
 
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
-        HistorialVentas historial = new HistorialVentas(bd);
+        HistorialVentas historial = new HistorialVentas(bdC);
         historial.setPreferredSize( panel_bienvenida.getPreferredSize() );
         historial.setSize( panel_bienvenida.getSize() );
         

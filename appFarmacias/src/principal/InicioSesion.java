@@ -197,7 +197,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     System.out.println("Encargado:" + usuario.getNombre());
                     nombre_usuario = usuario.getNombre();
                     String id_usuario=usuario.getId_usuario();
-                    MenuEncargado menu = new MenuEncargado (bd, nombre_usuario,id_usuario);
+                    MenuEncargado menu = new MenuEncargado (bd, nombre_usuario);
                     dispose();
                 }
                 campo_usuario.setText("");
