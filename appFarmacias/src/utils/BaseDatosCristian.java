@@ -60,7 +60,7 @@ public class BaseDatosCristian {
 
             arreglo[i] = new HistorialVentas(numReferencia, nombre_producto, fecha, id_cliente, nombre_cliente, total);
             i++;
-             System.out.println(" "+arreglo[i]);
+            System.out.println(" "+arreglo[i]);
         }   
         }
         return arreglo;

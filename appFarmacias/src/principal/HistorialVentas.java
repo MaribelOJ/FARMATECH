@@ -6,6 +6,7 @@ import utils.BaseDatos;
 import utils.BaseDatosCristian;
 import utils.ButtonRenderer;
 
+
 public class HistorialVentas extends javax.swing.JPanel {
     
     BaseDatosCristian bdC;

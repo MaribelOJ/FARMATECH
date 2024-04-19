@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.io.IOException;
 import utils.BaseDatos;
-import utils.ProductosCristian;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -73,7 +72,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
         
             JPanel contenedor = null;
             if (indice < listaProductos.length && listaProductos[indice] != null) {
-                contenedor = new Panel_Productos(bd, listaProductos[indice].getId_producto(), String.valueOf(i), null);
+                
 
             } else {
                 contenedor = new JPanel();
