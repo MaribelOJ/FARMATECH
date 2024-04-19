@@ -8,13 +8,13 @@ import utils.ButtonRenderer;
 
 public class HistorialVentas extends javax.swing.JPanel {
     
-    BaseDatosCristian bd;
+    BaseDatosCristian bdC;
     
     DefaultTableModel model;
-    JTable tablaDatos;
+
   
     public HistorialVentas(BaseDatosCristian bd) {
-        this.bd = bd;
+        this.bdC = bd;
         initComponents();
         InitAlternComponents();
         imprimirHistorial();
