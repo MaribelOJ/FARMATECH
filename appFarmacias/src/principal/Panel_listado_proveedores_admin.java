@@ -19,15 +19,15 @@ import utils.ButtonRenderer;
 
 public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
 
-    BaseDatosValeria bdmiguel;
-    BaseDatos bd;
+    BaseDatosValeria bdvaleria;
 
     Proveedores listaProveedores_admin[];
     DefaultTableModel modelo;
-
-    public Panel_listado_proveedores_admin(Proveedores[] listado) {
-        this.bdmiguel = bdmiguel;
-        this.bd = bd;
+    MenuAdmin menu;
+    
+    public Panel_listado_proveedores_admin(Proveedores[] listado, MenuAdmin menu) {
+        this.bdvaleria = menu.bdvaleria;
+        this.menu = menu;
         this.listaProveedores_admin = listado;
         initComponents();
         initAlternComponents();
@@ -38,6 +38,7 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        cont_principal = new javax.swing.JPanel();
         etq_titulo = new javax.swing.JLabel();
         etq_logo = new javax.swing.JLabel();
         xd = new javax.swing.JScrollPane();
@@ -47,6 +48,9 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(791, 750));
+
+        cont_principal.setBackground(new java.awt.Color(255, 255, 255));
+        cont_principal.setPreferredSize(new java.awt.Dimension(791, 750));
 
         etq_titulo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         etq_titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -78,7 +82,6 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tablaProveedores.setEnabled(false);
         xd.setViewportView(tablaProveedores);
 
         btn_añadir_proveedor.setBackground(new java.awt.Color(144, 177, 239));
@@ -101,59 +104,92 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout cont_principalLayout = new javax.swing.GroupLayout(cont_principal);
+        cont_principal.setLayout(cont_principalLayout);
+        cont_principalLayout.setHorizontalGroup(
+            cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cont_principalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cont_principalLayout.createSequentialGroup()
                         .addGap(0, 187, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                                 .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                                 .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(174, 174, 174))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                         .addComponent(xd)
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(btn_añadir_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100)
                 .addComponent(btn_actualizar_informacion, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        cont_principalLayout.setVerticalGroup(
+            cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cont_principalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
                         .addComponent(etq_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(xd, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(181, 181, 181))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
+                        .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_añadir_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_actualizar_informacion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(96, 96, 96))))
         );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cont_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cont_principal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_actualizar_informacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_informacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_actualizar_informacionActionPerformed
-
     private void btn_añadir_proveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadir_proveedorActionPerformed
-
+        InsertarProveedor nuevo = new InsertarProveedor(menu);
+        nuevo.setPreferredSize(cont_principal.getPreferredSize());
+        nuevo.setSize(cont_principal.getSize());
+        
+        cont_principal.removeAll();
+        cont_principal.add(nuevo);
+        
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_añadir_proveedorActionPerformed
+
+    private void btn_actualizar_informacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizar_informacionActionPerformed
+        ActualizarProveedor nuevo = new ActualizarProveedor(menu);
+        nuevo.setPreferredSize(cont_principal.getPreferredSize());
+        nuevo.setSize(cont_principal.getSize());
+        
+        cont_principal.removeAll();
+        cont_principal.add(nuevo);
+        
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_btn_actualizar_informacionActionPerformed
 
     public void initAlternComponents() {
         setVisible(true);
@@ -179,6 +215,7 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
         tablaProveedores.getColumnModel().getColumn(4).setCellRenderer(centerRender);
         tablaProveedores.getColumnModel().getColumn(5).setCellRenderer(centerRender);
         tablaProveedores.getColumnModel().getColumn(6).setCellRenderer(centerRender);
+        
         tablaProveedores.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox()));
         tablaProveedores.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
         tablaProveedores.getColumnModel().getColumn(7).setPreferredWidth(10);
@@ -208,9 +245,10 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
             modelo.addRow((Object[]) dato);
 
             btnEliminar.addActionListener(new ActionListener() {
-
+                
+                @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    AlertaEliminarProveedor ventana = new AlertaEliminarProveedor(menu,nit,bdvaleria);
                 }
             });
 
@@ -221,6 +259,7 @@ public class Panel_listado_proveedores_admin extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar_informacion;
     private javax.swing.JButton btn_añadir_proveedor;
+    private javax.swing.JPanel cont_principal;
     private javax.swing.JLabel etq_logo;
     private javax.swing.JLabel etq_titulo;
     private javax.swing.JTable tablaProveedores;

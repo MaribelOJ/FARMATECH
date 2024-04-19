@@ -210,15 +210,15 @@ public class Panel_crearFarmacia extends javax.swing.JPanel {
             registrada = bd.registrarFarmacia(NIT, nombre, direccion, estado, telefono, imagenTemporal);
         }
         
-        campo_nit.setText("");
-        campo_nombre.setText("");
-        campo_direccion.setText("");
-        campo_estado.setText("");
-        campo_telefono.setText("");
-        etq_imagen.setIcon(null);
         
         if(registrada){
             Confirmacion aviso = new Confirmacion("¡Farmacia creada con éxito!");
+            campo_nit.setText("");
+            campo_nombre.setText("");
+            campo_direccion.setText("");
+            campo_estado.setText("");
+            campo_telefono.setText("");
+            etq_imagen.setIcon(null);
         }else{
             Alerta aviso2 = new Alerta("La farmacia no fué creada, intente de nuevo!");
         }

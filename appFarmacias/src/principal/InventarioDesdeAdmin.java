@@ -182,7 +182,7 @@ public class InventarioDesdeAdmin extends javax.swing.JPanel {
                 break;
             }
         }
-        System.out.println(indice);
+        System.out.println("indice lista en inventario: "+ indice);
         this.menu.btn_visualizar_farmaciasActionPerformed(indice,numContenedor);
     }//GEN-LAST:event_btn_volverActionPerformed
     

@@ -171,7 +171,10 @@ public class Panel_farmacia extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_ventasActionPerformed
 
     private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        String num = etq_nit.getText(); 
+        String num = etq_nit.getText();
+        
+        
+        
         panel.mostrarEditor(num,numContenedor);
     }//GEN-LAST:event_btn_editarActionPerformed
 

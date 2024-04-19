@@ -1,16 +1,16 @@
 package principal;
-
-import utils.BaseDatos;
 import utils.BaseDatosValeria;
 
 public class InsertarProveedor extends javax.swing.JPanel {
 
     BaseDatosValeria bdvaleria;
-    BaseDatos bd;
+    MenuAdmin menu;
 
-    public InsertarProveedor(BaseDatosValeria bdvaleria) {
-        this.bdvaleria = bdvaleria;
-        this.bd = bd;
+    public InsertarProveedor(MenuAdmin menu) {
+        this.menu = menu;
+        this.bdvaleria = menu.bdvaleria;
+        this.menu= menu;
+        
         initComponents();
     }
 
@@ -40,7 +40,7 @@ public class InsertarProveedor extends javax.swing.JPanel {
         jPanel_menu.setBackground(new java.awt.Color(79, 108, 210));
 
         campo_nit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_nit.setText("Nombre:");
+        campo_nit.setText("Nit:");
 
         campo_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         campo_nombre.setText("Nombre:");
@@ -74,6 +74,11 @@ public class InsertarProveedor extends javax.swing.JPanel {
         btn_volver.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_volver.setForeground(new java.awt.Color(255, 255, 255));
         btn_volver.setText("VOLVER");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_menuLayout = new javax.swing.GroupLayout(jPanel_menu);
         jPanel_menu.setLayout(jPanel_menuLayout);
@@ -181,6 +186,10 @@ public class InsertarProveedor extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btn_insertarActionPerformed
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.menu.btn_lista_proveedoresActionPerformed();
+    }//GEN-LAST:event_btn_volverActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

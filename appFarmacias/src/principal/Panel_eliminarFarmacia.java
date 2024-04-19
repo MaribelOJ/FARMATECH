@@ -169,8 +169,7 @@ public class Panel_eliminarFarmacia extends javax.swing.JPanel {
         eliminada = bd.eliminarFarmacia(NIT);
         
         if(eliminada){
-            Confirmacion aviso = new Confirmacion("La farmacia fue eliminada con exito!");
-            this.menu.btn_visualizar_farmaciasActionPerformed(indice,numContenedor);      
+            Confirmacion aviso = new Confirmacion("La farmacia fue eliminada con exito!");    
         }
         
     }//GEN-LAST:event_btn_siActionPerformed

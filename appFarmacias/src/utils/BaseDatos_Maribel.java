@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -51,9 +53,13 @@ public class BaseDatos_Maribel {
         try{
             int resp_consulta2 = 0;
             int resp_consulta3=0;
-            java.util.Date fechaHoy = new java.util.Date();
-            java.sql.Date fechaSQL = new java.sql.Date(fechaHoy.getTime());
             int i = 0;
+            
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
             
             Image image = imagen.getImage();
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -89,7 +95,7 @@ public class BaseDatos_Maribel {
 
                     String consulta2 = "INSERT INTO farmacia(NIT_farmacia,nombre,direccion,telefono) VALUES('"+NIT+"','"+nombre+"','"+direccion+"','"+telefono+"')";
                     resp_consulta2 =manipularDB.executeUpdate(consulta2);
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaSQL+"','estado de creacion')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaHoraActual+"','estado de creacion')";
                     resp_consulta3 =manipularDB.executeUpdate(consulta3); 
                 }
             }
@@ -112,7 +118,8 @@ public class BaseDatos_Maribel {
             }else{
                 if(resp_consulta2==0){
                     System.out.println("Registro farmacia no se realizó!");
-                }else if(resp_consulta3==0){
+                }
+                if(resp_consulta3==0){
                     System.out.println("Registro estado no se realizó!");
                 }
             }
@@ -149,7 +156,7 @@ public class BaseDatos_Maribel {
                     foto = new ImageIcon(bytes, NIT).getImage();
                 }
                 
-                String consulta2 = "SELECT nombre,comentario FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"')";
+                String consulta2 = "SELECT nombre,comentario FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '"+NIT+"')";
                 
                 ResultSet dato = manipularDB.executeQuery(consulta2);
                 dato.next();
@@ -197,26 +204,24 @@ public class BaseDatos_Maribel {
                         foto = new ImageIcon(bytes, NIT).getImage();
                     }
                     
-                   
+                    
                     String estado="";                   
                     arreglo[i] = new Farmacia(NIT, nombre, direccion, telefono,estado, foto,comentario);
                     
                     i++;
                 }while(registros.next());
                 
+                for(int j = 0; j < arreglo.length && arreglo[j] != null ; j++){
                 
-                String consulta2 = "SELECT DISTINCT NIT_farmacia,nombre FROM historialestados_farmacia WHERE fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia) ORDER BY NIT_farmacia ASC";
-                ResultSet dato = manipularDB.executeQuery(consulta2);
-                dato.next();
-                if(dato.getRow()==1){
-                    i=0;
-                    do{
-                        if(arreglo[i].getNIT().equalsIgnoreCase(dato.getString("NIT_farmacia"))){
-                            arreglo[i].setEstado(dato.getString("nombre"));
-                        }
-                        i++;
-                    }while(dato.next());
+                    String consulta2 = "SELECT NIT_farmacia,nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+ arreglo[j].getNIT() +"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia WHERE NIT_farmacia = '" +arreglo[j].getNIT()+"')";
+                    ResultSet dato = manipularDB.executeQuery(consulta2);
+                    dato.next();
+                    if(dato.getRow()==1){
+
+                        arreglo[j].setEstado(dato.getString("nombre"));
+                    }
                 }
+                
                 
                 return arreglo;
                 
@@ -238,8 +243,12 @@ public class BaseDatos_Maribel {
 
         try{
             
-            java.util.Date fechaHoy = new java.util.Date();
-            java.sql.Date fechaSQL = new java.sql.Date(fechaHoy.getTime());
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
+
             
             Image image = imagen.getImage(); 
             BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -263,12 +272,12 @@ public class BaseDatos_Maribel {
             
             respuesta=true;
            
-            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia)";
+            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia)";
             ResultSet dato = manipularDB.executeQuery(consulta2);
             dato.next();
             if(dato.getRow()==1){
                 if(!dato.getString("nombre").equalsIgnoreCase(estado)){
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaSQL+"','"+comentario+"')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaHoraActual+"','"+comentario+"')";
                     manipularDB.executeUpdate(consulta3);
                 }
             }
@@ -290,8 +299,12 @@ public class BaseDatos_Maribel {
 
         try{          
      
-            java.util.Date fechaHoy = new java.util.Date();
-            java.sql.Date fechaSQL = new java.sql.Date(fechaHoy.getTime());
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
+            
             
             String consulta = "UPDATE farmacia SET nombre ='"+ nombre +"',direccion = '"+ direccion +"', telefono = '"+ telefono +"' WHERE NIT_farmacia ='"+ NIT +"'";
             respuesta2 = manipularDB.executeUpdate(consulta);                       
@@ -300,12 +313,12 @@ public class BaseDatos_Maribel {
                 respuesta = true;
             }
             
-            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fecha_cambio = (SELECT MAX(fecha_cambio) FROM historialestados_farmacia)";
+            String consulta2 = "SELECT nombre FROM historialestados_farmacia WHERE NIT_farmacia ='"+NIT+"' AND fechaHora_cambio = (SELECT MAX(fechaHora_cambio) FROM historialestados_farmacia)";
             ResultSet dato = manipularDB.executeQuery(consulta2);
             dato.next();
             if(dato.getRow()==1){
                 if(!dato.getString("nombre").equalsIgnoreCase(estado)){
-                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fecha_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+fechaSQL+"','"+comentario+"')";
+                    String consulta3 = "INSERT INTO historialestados_farmacia(NIT_farmacia,nombre,fechaHora_cambio,comentario) VALUES('"+NIT+"','"+estado+"','"+ fechaHoraActual+"','"+comentario+"')";
                     manipularDB.executeUpdate(consulta3);
                 }
             }
@@ -501,5 +514,152 @@ public class BaseDatos_Maribel {
             System.out.println(ex.getMessage());
         }
         return arreglo;
+    }
+    
+    public String [] getFirstDatewithSalesRecords(String NIT){
+        String [] firstDate = new String[2];
+        try {
+            if(NIT != null){
+                String consulta = "SELECT YEAR(fecha) minYear ,MONTH(fecha) minMonth FROM factura WHERE fecha = (SELECT MIN(fecha)FROM factura WHERE NIT_farmacia = '"+NIT+"')";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    String firstYear=registros.getString("minYear");
+                    String firstMonth =registros.getString("minMonth");
+                    firstDate[0]=firstYear;
+                    firstDate[1]=firstMonth;
+                }
+            }else{
+                String consulta = "SELECT YEAR(fecha) minYear ,MONTH(fecha) minMonth FROM factura WHERE fecha = (SELECT MIN(fecha)FROM factura)";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    String firstYear=registros.getString("minYear");
+                    String firstMonth =registros.getString("minMonth");
+                    firstDate[0]=firstYear;
+                    firstDate[1]=firstMonth;
+                }
+            }
+            return firstDate;
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return firstDate;
+    }
+
+    public String [] calcularGananciasyPerdidas(String periodo, String NIT){
+        String [] calculos = new String [2];
+        try {
+            String ganancias=null;
+            String perdidas=null;
+            if(NIT != null){
+                
+                String consulta = "SELECT SUM(total) ganancias FROM factura WHERE NIT_farmacia = '"+ NIT +"' AND fecha LIKE '"+periodo+"%'";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    ganancias = registros.getString("ganancias");
+                }
+                
+                String consulta2 = "SELECT stock.id_producto , precio_unitario, SUM((precio_unitario * cant_restante)) perdidas FROM producto ";
+                consulta2 += "INNER JOIN stock ON (producto.id_producto = stock.id_producto) WHERE NIT_farmacia = '"+NIT+"' ";
+                consulta2 += "AND estado = 'inactivo' AND cant_restante > 0 AND fecha_descontinuacion LIKE '"+periodo+"%'"; 
+                ResultSet registros2 = manipularDB.executeQuery(consulta2);
+                registros2.next();
+                if(registros2.getRow()==1){
+                    perdidas = registros2.getString("perdidas");
+                }
+                calculos[0]=ganancias;
+                calculos[1]=perdidas;
+ 
+            }else{
+                
+                String consulta = "SELECT SUM(total) ganancias FROM factura WHERE fecha LIKE '"+periodo+"%'";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if(registros.getRow()==1){
+                    ganancias = registros.getString("ganancias");
+                }
+                
+                String consulta2 = "SELECT stock.id_producto , precio_unitario, SUM((precio_unitario * cant_restante)) perdidas FROM producto ";
+                consulta2 += "INNER JOIN stock ON (producto.id_producto = stock.id_producto) WHERE estado = 'inactivo' AND cant_restante > 0 AND fecha_descontinuacion LIKE '"+periodo+"%'";
+                ResultSet registros2 = manipularDB.executeQuery(consulta2);
+                registros2.next();
+                if(registros2.getRow()==1){
+                    perdidas = registros2.getString("perdidas");
+                }
+                calculos[0]=ganancias;
+                calculos[1]=perdidas;
+
+            }
+            return calculos;
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return calculos;
+    }
+
+    public String getLastYearwithSalesRecords(){
+        String lastDate =null;
+        try {
+            
+            String consulta = "SELECT YEAR(fecha) maxYear FROM factura WHERE fecha = (SELECT MAX(fecha)FROM factura) LIMIT 1";
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            if(registros.getRow()==1){
+                String firstYear=registros.getString("maxYear");
+
+                lastDate=firstYear;
+
+            }
+      
+            return lastDate;
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return lastDate;
+    }
+
+    public masVendidos [] getPopularProducts(){
+        masVendidos productos []= new masVendidos[3];
+         try {
+            
+            String consulta = "SELECT id_producto, SUM(cantidad) AS cant FROM facturaProducto group by id_producto order by cant DESC LIMIT 3";
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            
+            if (registros.getRow()==1) {
+                int i = 0;
+                do{
+
+                    String id_producto = registros.getString("id_producto");                
+                    String cantidad= registros.getString("cant");
+                    String nombre ="";
+                
+                    productos[i] = new masVendidos(id_producto,nombre,cantidad);
+                    i++;
+                }while(registros.next());
+                
+                for(int a = 0; a < productos.length && productos[a] != null ; a++){
+                    String consulta2 = "SELECT nombre_producto FROM producto WHERE id_producto = '"+ productos[a].getId()+"'";
+                    ResultSet dato = manipularDB.executeQuery(consulta2);
+                    dato.next();
+                    
+                    if(dato.getRow()==1){
+                        productos[a].setNombre(dato.getString("nombre_producto"));
+                    }
+                }
+                return productos;
+            }else{
+                return productos;
+            }
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return productos;
     }
 }

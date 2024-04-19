@@ -1,13 +1,9 @@
 
 package principal;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import utils.BaseDatos_Maribel;
 import utils.Farmacia;
 
@@ -36,8 +32,7 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
         
         
     }
-    
-   
+       
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -316,7 +311,9 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
         btn_buscar.setIcon(new ImageIcon(icono_buscar));
         btn_buscar.setForeground(new Color(0, 0, 200));
         
-        
+        for(int i=0; i < listaFarmacias.length && listaFarmacias[i] != null; i++){
+            cont++;                   
+        }
        
              
         if(listaFarmacias[indice] == null){
@@ -325,11 +322,19 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
             btn_rewind.setEnabled(false);
             btn_buscar.setEnabled(false);
             
-            cont_principal.setLayout(new BorderLayout());
-            Mensaje_informativo msj = new Mensaje_informativo("No se ha creado o registrado ninguna farmacia hasta el momento");
+            farmacia2.setBackground(Color.GRAY);
+            Image foto = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/no_disponible.png"));
+            foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            etq_img2.setIcon(new ImageIcon(foto));
+            btn_editar2.setEnabled(false);
+            btn_eliminar2.setEnabled(false);
+            btn_inventario2.setEnabled(false);
+            btn_ventas2.setEnabled(false);
+            
+            Mensaje_informativo msj = new Mensaje_informativo("No se ha registrado ninguna farmacia hasta el momento");
    
         }else{
-            System.out.println("estado: "+ listaFarmacias[indice].getNIT());
+            
             if(listaFarmacias[indice].getEstado().equalsIgnoreCase("activo")){
                 etq_estado2.setForeground(Color.GREEN);
                 etq_estado2.setText("Activo");
@@ -342,21 +347,14 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
             foto = foto.getScaledInstance(150, 150, Image.SCALE_SMOOTH);        
             etq_img2.setIcon(new ImageIcon(foto));
             etq_nit2.setText(listaFarmacias[indice].getNIT());
-            btn_rewind.setEnabled(false);
-            
-            if(listaFarmacias[indice + 1] == null || indice  == cont-1){
-                btn_next.setEnabled(false);
-                if(listaFarmacias[indice-1] != null){
-                    btn_rewind.setEnabled(true);
-                }
-            }
-            
+            btn_rewind.setEnabled(false);    
+            btn_next.setEnabled(false);    
             
                 
-            if((indice + 1) % 3 == 0){
+            if((indice + 1) % 3 == 0 && cont > 3){
                 
                 indice -=3;
-            }else if(((indice + 2) % 3 == 0) && indice < cont - 1){
+            }else if(((indice + 2) % 3 == 0) && indice < cont - 1 && cont > 3){
   
                 indice -= 2;
             
@@ -370,14 +368,18 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
             }
 
         }
-        
-        
-                
-    
-        for(int i=0; i < listaFarmacias.length && listaFarmacias[i] != null; i++){
-            cont++;                   
+
+        if(cont > 1){
+            btn_next.setEnabled(true);
+            
+            if(listaFarmacias[indice + 1] == null && !numContenedor.equals("1") || indice  == cont-1){
+                btn_next.setEnabled(false);
+                if(listaFarmacias[indice-1] != null && cont > 1){
+                    btn_rewind.setEnabled(true);
+                }
+            }
         }
-        
+         
         repaint();
         revalidate();
         
@@ -391,10 +393,15 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
                 btn_next.setEnabled(true);
                 btn_rewind.setEnabled(true);
             }
-            
-            if((indice + 3) % 3 == 0 && numContenedor.equals("2")){
+
+
+            if(indice < cont-2 && indice > (cont-1)/2 && numContenedor.equals("2")){
+                
                indice +=2;
+
             }
+            
+            
             
             if(listaFarmacias[indice+3] != null) {
 
@@ -430,7 +437,7 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
                 farmacia3.add(cont3);
 
 
-            }else if(listaFarmacias[indice + 2] == null && (indice + 1) == cont-1 ){
+            }else if(indice == cont-1 || listaFarmacias[indice + 2] == null && (indice + 1) == cont-1 ){
                 farmacia1.removeAll();
                 farmacia1.setBackground(Color.WHITE); 
                 farmacia3.removeAll();
@@ -447,6 +454,10 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
             }else{
                 farmacia3.removeAll();
                 farmacia3.setBackground(Color.WHITE);
+                
+                if(indice > cont -1 && numContenedor.equals("1")){
+                    indice-=3;
+                }
 
                 indice++;
                 numContenedor="2";
@@ -470,8 +481,7 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
                 btn_next.setEnabled(false);
                 btn_rewind.setEnabled(true);
             }
-            
-              
+                          
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_nextActionPerformed
@@ -564,7 +574,6 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
                btn_next.setEnabled(true);
             }
         }
-
             repaint();
             revalidate(); 
     }//GEN-LAST:event_btn_rewindActionPerformed
@@ -750,8 +759,9 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
     
     public void mostrarEditor(String num ,String contenedor){
         String NIT = num;
-       numContenedor=contenedor;
-        Panel_actualizarFarmacia ventana = new Panel_actualizarFarmacia(bd,NIT, menu,numContenedor);
+        numContenedor=contenedor;
+               
+        Panel_actualizarFarmacia ventana = new Panel_actualizarFarmacia(bd, NIT, menu, numContenedor);
         ventana.setPreferredSize(cont_principal.getPreferredSize());
         ventana.setSize(cont_principal.getSize());
 
