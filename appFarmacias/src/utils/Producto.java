@@ -14,7 +14,7 @@ public class Producto {
     private String usos;
     private Image medicamento;
     
-    public Producto(String id_producto, String nombre_producto, String volumen, String precio_unitario, String fecha_vencimiento,String ingredientes, String usos, Image medicamento) {
+    public Producto(String id_producto, String nombre_producto,Image medicamento, String volumen, String precio_unitario, String fecha_vencimiento,String ingredientes, String usos) {
         this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
         this.volumen = volumen;

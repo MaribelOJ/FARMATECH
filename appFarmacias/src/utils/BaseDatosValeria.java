@@ -144,6 +144,42 @@ public class BaseDatosValeria {
         }
 
     }
+    
+      /*public Stock1[] listaStock(id_producto) {
+
+        try {
+            Stock1 arreglo[] = new Stock1[100];
+            String consulta = "SELECT * stock.id_producto, stock.proveedor, stock.cant_entrante,stock.cant_restante, stock.estado, stock.comentario"
+                    + " FROM stock"
+                    + "WHERE id_producto='" + id_producto+ "' ";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow() == 1) {
+                int i = 0;
+                do {
+
+                    String id_productos = registros.getString("id_producto");
+                    String proveedor = registros.getString("proveedor");
+                    String cant_entrante = registros.getString("cant_entrante");
+                    String cant_restante = registros.getString("cant_restante");
+                    String estado = registros.getString("estado");
+                    String correo = registros.getString("correo");
+                    String comentario = registros.getString("comentario");
+                    arreglo[i] = new Stock1 (id_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
+                    i++;
+
+                } while (registros.next());
+                return arreglo;
+            } else {
+                return arreglo;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al imprimir el SELECT");
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }*/
 
     public boolean eliminarProveedor(String nit) {
         boolean respuesta = false;
@@ -212,7 +248,7 @@ public class BaseDatosValeria {
                     medicamento = new ImageIcon(bytes, id_productos).getImage();
                 }
 
-                encontrado = new Producto(id_productos, nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos,medicamento);
+                encontrado = new Producto(id_productos, nombre_producto,medicamento,volumen, precio_unitario, fecha_vencimiento, ingredientes, usos);
                 return encontrado;
             }
         } catch (IOException ex) {
@@ -225,23 +261,59 @@ public class BaseDatosValeria {
         return null;
     }
     
+    /*public Stock1 buscarProductoenStock(String nombre) throws IOException {
+        try {
+            Stock1 encontrado = null;
 
+            String consulta = "SELECT * FROM stock WHERE id_producto = '" + id_producto + "' ";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow() == 1) {
+                String id_productos = registros.getString("id_producto");
+                String proveedor = registros.getString("proveedor");
+                String cant_entrante = registros.getString("cant_entrante");
+                String cant_restante = registros.getString("cant_restante");
+                String estado = registros.getString("estado");
+                String comentario = registros.getString("comentario");
+                encontrado = new Stock1(id_productos, proveedor,cant_entrante,cant_restante, estado, comentario);
+                return encontrado;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return null;
+    }*/
+    
     
 
-    public boolean actualizarProductoEditar(String id_producto, String nombres, String medicamento, String volumen, String precio, String fecha, String ingredientes, String usos, String estado, String nit) {
+    public boolean actualizarProductoEditar(String id_producto, String nombres,ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
         boolean respuesta = false;
         try {
             String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', medicamento='" + medicamento + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "' WHERE id_producto='" + id_producto + "' ";
-            String consulta2 = "UPDATE stock SET estado='" + estado + "' WHERE id_producto='" + id_producto + "' WHERE stock.id_producto = '" + id_producto + "' AND stock.NIT_farmacia = '" + nit + "' ";
-            String consulta3 = "SELECT estado FROM stock WHERE id_producto='" + id_producto + "' WHERE stock.id_producto = '" + id_producto + "' AND stock.NIT_farmacia = '" + nit + "' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
-            int resp_consulta2 = manipularBD.executeUpdate(consulta2);
             if (resp_consulta == 1) {
                 respuesta = true;
             }
-            if (resp_consulta2 == 1 && consulta.equals(estado)) {
-                respuesta = true;
 
+        } catch (SQLException ex) {
+            System.out.println("--> Error Update: " + ex.getMessage());
+        }
+        if (respuesta) {
+            System.out.println("Editado con exito");
+        } else {
+            System.out.println("No se pudo Editar");
+        }
+        return respuesta;
+    }
+    public boolean actualizarProductoEditar(String id_producto, String nombres, String volumen, String precio, String fecha, String ingredientes, String usos) {
+        boolean respuesta = false;
+        try {
+            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "' WHERE id_producto='" + id_producto + "' ";
+            int resp_consulta = manipularBD.executeUpdate(consulta);
+            if (resp_consulta == 1) {
+                respuesta = true;
             }
 
         } catch (SQLException ex) {

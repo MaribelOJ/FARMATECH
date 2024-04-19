@@ -39,10 +39,11 @@ public class EditarProducto extends javax.swing.JPanel {
         campo_fecha = new javax.swing.JTextField();
         campo_ingredientes = new javax.swing.JTextField();
         campo_usos = new javax.swing.JTextField();
-        imagenLabel = new javax.swing.JLabel();
         btn_editar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
         btn_subirImagen = new javax.swing.JButton();
+        contenedor_editar = new javax.swing.JPanel();
+        imagenLabel = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -107,6 +108,21 @@ public class EditarProducto extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout contenedor_editarLayout = new javax.swing.GroupLayout(contenedor_editar);
+        contenedor_editar.setLayout(contenedor_editarLayout);
+        contenedor_editarLayout.setHorizontalGroup(
+            contenedor_editarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 326, Short.MAX_VALUE)
+            .addGroup(contenedor_editarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(imagenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+        );
+        contenedor_editarLayout.setVerticalGroup(
+            contenedor_editarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(contenedor_editarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(imagenLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel_menuLayout = new javax.swing.GroupLayout(jPanel_menu);
         jPanel_menu.setLayout(jPanel_menuLayout);
         jPanel_menuLayout.setHorizontalGroup(
@@ -120,9 +136,9 @@ public class EditarProducto extends javax.swing.JPanel {
                     .addComponent(campo_precio, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campo_volumen, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campo_nombre, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(50, 50, 50)
-                .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(47, 47, 47)
+                .addComponent(contenedor_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel_menuLayout.createSequentialGroup()
@@ -133,31 +149,28 @@ public class EditarProducto extends javax.swing.JPanel {
                         .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(162, 162, 162)
                         .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 79, Short.MAX_VALUE)))
                 .addGap(128, 128, 128))
         );
         jPanel_menuLayout.setVerticalGroup(
             jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_menuLayout.createSequentialGroup()
-                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel_menuLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
                         .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(campo_volumen, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(16, 16, 16)
                         .addComponent(campo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campo_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campo_ingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(imagenLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(campo_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contenedor_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
                 .addComponent(btn_subirImagen)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -217,7 +230,7 @@ public class EditarProducto extends javax.swing.JPanel {
             Alerta ventana = new Alerta("Se debe indicar el codigo de identificación del producto.");
         } else {
             try {
-                Producto temporal = bdvaleria.buscarProducto( id_producto );
+                Producto temporal = bdvaleria.buscarProducto(id_producto);
                 if (temporal != null) {
                     campo_nombre.setText(temporal.getNombre_producto());
                     campo_volumen.setText(temporal.getVolumen());
@@ -225,32 +238,32 @@ public class EditarProducto extends javax.swing.JPanel {
                     campo_fecha.setText(temporal.getFecha_vencimiento());
                     campo_ingredientes.setText(temporal.getIngredientes());
                     campo_usos.setText(temporal.getUsos());
-                    
+
                     campo_nombre.setEnabled(true);
                     campo_volumen.setEnabled(true);
                     campo_precio.setEnabled(true);
                     campo_fecha.setEnabled(true);
                     campo_ingredientes.setEnabled(true);
                     campo_usos.setEnabled(true);
-                    if ( temporal.getMedicamento() != null) {
+                    if (temporal.getMedicamento() != null) {
                         Image foto = temporal.getMedicamento();
                         foto = foto.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-                        
+
                         imagenLabel.setIcon(new ImageIcon(foto));
                     } else {
                         imagenLabel.setIcon(null);
                     }
-                    
+
                 } else {
                     Alerta ventana = new Alerta("El producto no existe.");
-                    
+
                     campo_nombre.setText("");
                     campo_volumen.setText("");
                     campo_precio.setText("");
                     campo_fecha.setText("");
                     campo_ingredientes.setText("");
                     campo_usos.setText("");
-                    
+
                     campo_nombre.setEnabled(false);
                     campo_volumen.setEnabled(false);
                     campo_precio.setEnabled(false);
@@ -268,30 +281,28 @@ public class EditarProducto extends javax.swing.JPanel {
 
         String id_producto = Campo_buscar.getText();
         String nombres = campo_nombre.getText();
+
         String volumen = campo_volumen.getText();
         String precio = campo_precio.getText();
         String fecha = campo_fecha.getText();
         String ingredientes = campo_ingredientes.getText();
         String usos = campo_usos.getText();
-        
-
-        
-
+        boolean proceso=false;
         if (nombres.equals("") || volumen.equals("") || precio.equals("") || fecha.equals("") || ingredientes.equals("") || usos.equals("")) {
             Alerta ventana = new Alerta("Todos los campos son Obligatorios.");
         } else {
-            /*if(imagenTemporal != null){
-                boolean proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, volumen, precio, fecha, ingredientes, usos, imagenTemporal);
-                    
-                }else{
-                    boolean proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, volumen, precio, fecha, ingredientes, usos);
-                }*/
-            
-            /*if (proceso) {
+            if (imagenTemporal != null) {
+                 proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, imagenTemporal, volumen, precio, fecha, ingredientes, usos);
+
+            } else {
+                 proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, volumen, precio, fecha, ingredientes, usos);
+            }
+
+            if (proceso) {
                 System.out.println("Producto " + id_producto + " editado con exito.");
             } else {
                 Alerta ventana = new Alerta("Error al editar a la persona");
-            }*/
+            }
         }
 
 
@@ -302,8 +313,8 @@ public class EditarProducto extends javax.swing.JPanel {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de Imagen", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(filter);
 
-        int seleccion = fileChooser.showOpenDialog(imagenLabel);
-        if(seleccion == JFileChooser.APPROVE_OPTION){
+        int seleccion = fileChooser.showOpenDialog(contenedor_editar);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
             String rutaImagen = fileChooser.getSelectedFile().getAbsolutePath();
             imagenTemporal = new ImageIcon(rutaImagen);
             Image imagen = imagenTemporal.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
@@ -313,7 +324,7 @@ public class EditarProducto extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_subirImagenActionPerformed
 
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Campo_buscar;
     private javax.swing.JButton btn_buscar;
@@ -326,6 +337,7 @@ public class EditarProducto extends javax.swing.JPanel {
     private javax.swing.JTextField campo_precio;
     private javax.swing.JTextField campo_usos;
     private javax.swing.JTextField campo_volumen;
+    private javax.swing.JPanel contenedor_editar;
     private javax.swing.JLabel etq_titulo;
     private javax.swing.JLabel imagenLabel;
     private javax.swing.JPanel jPanel1;
