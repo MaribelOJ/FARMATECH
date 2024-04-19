@@ -11,12 +11,12 @@ import utils.Proveedores;
 
 
 public class MenuEncargado extends javax.swing.JFrame {
-    BaseDatosCristian bdC;
+    BaseDatosCristian bdC =new BaseDatosCristian();
     BaseDatos bd;
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
     String id_usuario;
     
-    public MenuEncargado(BaseDatos bd, String nombre_usuario) {
+    public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario1) {
         this.bd = bd;
         
         initComponents();

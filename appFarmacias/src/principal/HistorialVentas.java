@@ -6,17 +6,18 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import utils.BaseDatos;
 import utils.BaseDatosCristian;
 import utils.ButtonRenderer;
 
 public class HistorialVentas extends javax.swing.JPanel {
     
-    BaseDatosCristian bd = new BaseDatosCristian();
+    BaseDatosCristian bd;
     HistorialVentas historialVentas = new HistorialVentas(bd);
     DefaultTableModel model;
     JTable tablaDatos;
   
-    public HistorialVentas(BaseDatosCristian bd) {
+    public HistorialVentas(BaseDatos bd) {
         this.bd = bd;
         initComponents();
         InitAlternComponents();
@@ -43,11 +44,11 @@ public class HistorialVentas extends javax.swing.JPanel {
         
         // Tamaño de Columnas
         tablaDatos.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tablaDatos.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tablaDatos.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tablaDatos.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tablaDatos.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tablaDatos.getColumnModel().getColumn(5).setPreferredWidth(10);
+        tablaDatos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tablaDatos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tablaDatos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tablaDatos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tablaDatos.getColumnModel().getColumn(5).setPreferredWidth(100);
         
         // Centrar contenido de columnas
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
