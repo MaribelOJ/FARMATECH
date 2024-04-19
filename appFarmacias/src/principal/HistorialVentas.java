@@ -25,7 +25,7 @@ public class HistorialVentas extends javax.swing.JPanel {
 
     public void InitAlternComponents(){
         setVisible(true);
-         model = (DefaultTableModel) HistorialDatos.getModel();
+        model = (DefaultTableModel) HistorialDatos.getModel();
         
         HistorialDatos.getColumnModel().getColumn(0).setPreferredWidth(200);
         HistorialDatos.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -38,7 +38,7 @@ public class HistorialVentas extends javax.swing.JPanel {
     public void imprimirHistorial(){
         utils.HistorialVentas lista[] = bdC.obtenerHistorialVentas;
         model.setRowCount(0);
-        System.out.println("lista : "+lista[0]);
+        //System.out.println("lista : "+lista[0]);
         for (int i = 0; i < lista.length && lista[i] != null; i++) {
             String numReferencia = lista[i].getNumReferencia();
             String nombre_producto = lista[i].getNombre_producto();
