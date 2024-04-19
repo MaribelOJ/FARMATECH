@@ -403,7 +403,7 @@ public class Panel_informeVentas extends javax.swing.JPanel {
         restricciones.gridy = 0;
         cont_datosExtra.add(izquierda,restricciones);
         
-        Panel_masVendidos derecha = new Panel_masVendidos();
+        Panel_masVendidos derecha = new Panel_masVendidos(this.menu);
         derecha.setPreferredSize(new Dimension(392, 316));  
 
         restricciones.gridx = 1;

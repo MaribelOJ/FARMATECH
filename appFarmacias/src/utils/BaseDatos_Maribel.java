@@ -622,4 +622,44 @@ public class BaseDatos_Maribel {
         }
         return lastDate;
     }
+
+    public masVendidos [] getPopularProducts(){
+        masVendidos productos []= new masVendidos[3];
+         try {
+            
+            String consulta = "SELECT id_producto, SUM(cantidad) AS cant FROM facturaProducto group by id_producto order by cant DESC LIMIT 3";
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            
+            if (registros.getRow()==1) {
+                int i = 0;
+                do{
+
+                    String id_producto = registros.getString("id_producto");                
+                    String cantidad= registros.getString("cant");
+                    String nombre ="";
+                
+                    productos[i] = new masVendidos(id_producto,nombre,cantidad);
+                    i++;
+                }while(registros.next());
+                
+                for(int a = 0; a < productos.length && productos[a] != null ; a++){
+                    String consulta2 = "SELECT nombre_producto FROM producto WHERE id_producto = '"+ productos[a].getId()+"'";
+                    ResultSet dato = manipularDB.executeQuery(consulta2);
+                    dato.next();
+                    
+                    if(dato.getRow()==1){
+                        productos[a].setNombre(dato.getString("nombre_producto"));
+                    }
+                }
+                return productos;
+            }else{
+                return productos;
+            }
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        return productos;
+    }
 }
