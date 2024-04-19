@@ -278,7 +278,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_catalogoActionPerformed
 
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
-        HistorialVentas historial = new HistorialVentas(bd);
+        HistorialVentas historial = new HistorialVentas(bdC);
         historial.setPreferredSize( panel_bienvenida.getPreferredSize() );
         historial.setSize( panel_bienvenida.getSize() );
         

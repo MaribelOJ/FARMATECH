@@ -17,7 +17,7 @@ public class HistorialVentas extends javax.swing.JPanel {
     DefaultTableModel model;
     JTable tablaDatos;
   
-    public HistorialVentas(BaseDatos bd) {
+    public HistorialVentas(BaseDatosCristian bd) {
         this.bd = bd;
         initComponents();
         InitAlternComponents();
