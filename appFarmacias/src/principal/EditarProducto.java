@@ -191,7 +191,7 @@ public class EditarProducto extends javax.swing.JPanel {
             Producto temporal = bdvaleria.buscarProducto(id_producto);
             if (temporal != null) {
                 campo_nombre.setText(temporal.getNombre_producto());
-                campo_medicamento.setText(temporal.getMedicamentos());
+                //campo_medicamento.setText(temporal.getMedicamentos());
                 campo_volumen.setText(temporal.getVolumen());
                 campo_precio.setText(temporal.getPrecio_unitario());
                 campo_fecha.setText(temporal.getFecha_vencimiento());

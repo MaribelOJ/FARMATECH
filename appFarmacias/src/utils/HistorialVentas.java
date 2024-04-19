@@ -1,5 +1,7 @@
 package utils;
 
+import utils.BaseDatosCristian;
+
 public class HistorialVentas {
     private String numReferencia;
     private String nombre_producto;
@@ -17,6 +19,8 @@ public class HistorialVentas {
        this.nombre_cliente = nombre_cliente;
        this.total = total; 
     }
+
+
     //Getters
     public String getNumReferencia(){
         return numReferencia;

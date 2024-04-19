@@ -1,24 +1,35 @@
 package principal;
 import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import utils.BaseDatos;
 import utils.BaseDatosCristian;
 import utils.Usuario;
 import utils.BaseDatosValeria;
 import utils.Producto;
+import utils.ProductosCristian;
 import utils.Proveedores;
+import utils.BaseDatosCristian;
 
 
 
 public class MenuEncargado extends javax.swing.JFrame {
-    BaseDatosCristian bd;
-    BaseDatosValeria bdvaleria = new BaseDatosValeria();
     
-    public MenuEncargado(BaseDatos bdValeria, String nombre_usuario) {
-        this.bd = bd;
-        initComponents();
-        initAlternComponents(nombre_usuario);
-    }
+    BaseDatosCristian bdC = new BaseDatosCristian();
+    BaseDatos bd;// Primera declaración de la variable bd
+    BaseDatosValeria bdvaleria = new BaseDatosValeria(); 
+
+    
+   public MenuEncargado(BaseDatos bd, String nombre_usuario){
+    this.bd = bd;
+    this.bd = bd;
+    initComponents();
+    initAlternComponents(nombre_usuario);
+}
+
+
     
     public void initAlternComponents(String nombre_usuario){
         setTitle("Menu Principal");
@@ -271,24 +282,26 @@ public class MenuEncargado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
-        CatalogoProducto catalogo = new CatalogoProducto(bd);
-        catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
-        catalogo.setSize( panel_bienvenida.getSize() );
-        
-        // Eliminar el contenido del contentPrincipal
-        panel_bienvenida.removeAll();
-        
-        // Agregar dentro de contentPrincipal el contenedor nuevo.
-        panel_bienvenida.add(catalogo);
-        
-        // repaint();
-        repaint();
-        revalidate();
-        
+        try {
+            CatalogoProducto catalogo = new CatalogoProducto(bd);
+            catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
+            catalogo.setSize( panel_bienvenida.getSize() );
+            
+            // Eliminar el contenido del contentPrincipal
+            panel_bienvenida.removeAll();
+            
+            // Agregar dentro de contentPrincipal el contenedor nuevo.
+            panel_bienvenida.add(catalogo);
+            
+            repaint();
+            revalidate();        
+        } catch (IOException ex) {
+            Logger.getLogger(MenuEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_catalogoActionPerformed
 
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
-        HistorialVentas historial = new HistorialVentas(bd);
+        HistorialVentas historial = new HistorialVentas(bdC);
         historial.setPreferredSize( panel_bienvenida.getPreferredSize() );
         historial.setSize( panel_bienvenida.getSize() );
         
@@ -298,7 +311,6 @@ public class MenuEncargado extends javax.swing.JFrame {
         // Agregar dentro de contentPrincipal el contenedor nuevo.
         panel_bienvenida.add(historial);
         
-        // repaint();
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_historial_ventasActionPerformed
@@ -319,7 +331,7 @@ public class MenuEncargado extends javax.swing.JFrame {
 
         // Agregar dentro del contenido principal el contenido nuevo
         panel_bienvenida.add(nuevo);
-        // Hacer Repaint() y Revalidate()
+        //Hacer Repaint() y Revalidate()
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_editar_prodActionPerformed

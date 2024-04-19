@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -168,15 +169,13 @@ public class BaseDatosValeria {
             if (registros.getRow()==1) {
                 String id_productos = registros.getString("id_producto");
                 String nombre_producto = registros.getString("nombre_producto");
-                String medicamentos = registros.getString("medicamento");
+                Image medicamentos =  null;
                 String volumen = registros.getString("volumen");
                 String precio_unitario = registros.getString("precio_unitario");
                 String fecha_vencimiento = registros.getString("fecha_vencimiento");
                 String ingredientes = registros.getString("ingredientes");
                 String usos = registros.getString("usos");
-                
-                
-                encontrado = new Producto(id_productos, nombre_producto, medicamentos, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos);
+                encontrado = new Producto(id_productos, nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos);
                 return encontrado;
             }else{
                 return encontrado;
