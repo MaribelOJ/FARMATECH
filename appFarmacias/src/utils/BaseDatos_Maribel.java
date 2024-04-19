@@ -662,4 +662,16 @@ public class BaseDatos_Maribel {
         }
         return productos;
     }
+    
+    public Catalogo[] getCatalogInfo(String producto){
+        Catalogo listaCatalogo [] = new Catalogo[100];
+        
+        return listaCatalogo;
+    }
+    
+    public Catalogo getProductInfo(String product){
+        Catalogo producto = null;
+        
+        return producto;
+    }
 }

@@ -11,6 +11,7 @@ import utils.BaseDatosValeria;
 import utils.Producto;
 import utils.Proveedores;
 import utils.BaseDatosCristian;
+import utils.BaseDatos_Maribel;
 
 
 
@@ -18,12 +19,14 @@ public class MenuEncargado extends javax.swing.JFrame {
     BaseDatosCristian bdC = new BaseDatosCristian();
     BaseDatos bd;
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
-    
+    BaseDatos_Maribel bdM =new BaseDatos_Maribel();
+    String NIT_farmacia;
     String id_usuario;
     
-    public MenuEncargado(BaseDatos bd, String nombre_usuario) {
+    public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario) {
         this.bd = bd;
-        
+        this.id_usuario = id_usuario;
+        this.NIT_farmacia = bdvaleria.buscarAsignacion(id_usuario);
         initComponents();
         initAlternComponents(nombre_usuario);
     }
@@ -265,8 +268,8 @@ public class MenuEncargado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
-        try {
-            CatalogoProducto catalogo = new CatalogoProducto(bd);
+            
+            CatalogoProducto catalogo = new CatalogoProducto(this);
             catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
             catalogo.setSize( panel_bienvenida.getSize() );
             
@@ -278,9 +281,6 @@ public class MenuEncargado extends javax.swing.JFrame {
             
             repaint();
             revalidate();        
-        } catch (IOException ex) {
-            Logger.getLogger(MenuEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_btn_catalogoActionPerformed
 
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
