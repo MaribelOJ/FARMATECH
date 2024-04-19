@@ -37,12 +37,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
-              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+              <Component id="etq_year" alignment="0" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="mes4" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="periodo4" min="-2" pref="79" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="bar_mes4" min="-2" pref="191" max="-2" attributes="0"/>
                       </Group>
@@ -51,18 +51,18 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="mes3" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <Component id="periodo3" min="-2" pref="79" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="bar_mes3" min="-2" pref="191" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="mes2" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <Component id="periodo2" min="-2" pref="79" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="bar_mes2" min="-2" pref="191" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="mes1" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <Component id="periodo1" min="-2" pref="79" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="32767" attributes="0"/>
                                   <Component id="bar_mes1" min="-2" pref="191" max="-2" attributes="0"/>
                               </Group>
@@ -79,12 +79,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="etq_year" min="-2" pref="21" max="-2" attributes="0"/>
                   <EmptySpace pref="38" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="bar_mes1" min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="mes1" min="-2" max="-2" attributes="0"/>
+                          <Component id="periodo1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -95,7 +95,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="mes2" min="-2" max="-2" attributes="0"/>
+                          <Component id="periodo2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -103,7 +103,7 @@
                       <Component id="bar_mes3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="mes3" min="-2" max="-2" attributes="0"/>
+                          <Component id="periodo3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="mes4" min="-2" max="-2" attributes="0"/>
+                          <Component id="periodo4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -131,7 +131,7 @@
             <Property name="text" type="java.lang.String" value="Progreso Mensual / Anual"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="mes1">
+        <Component class="javax.swing.JLabel" name="periodo1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -142,7 +142,7 @@
         </Component>
         <Component class="javax.swing.JProgressBar" name="bar_mes1">
         </Component>
-        <Component class="javax.swing.JLabel" name="mes2">
+        <Component class="javax.swing.JLabel" name="periodo2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -153,7 +153,7 @@
         </Component>
         <Component class="javax.swing.JProgressBar" name="bar_mes2">
         </Component>
-        <Component class="javax.swing.JLabel" name="mes3">
+        <Component class="javax.swing.JLabel" name="periodo3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -164,7 +164,7 @@
         </Component>
         <Component class="javax.swing.JProgressBar" name="bar_mes3">
         </Component>
-        <Component class="javax.swing.JLabel" name="mes4">
+        <Component class="javax.swing.JLabel" name="periodo4">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -175,7 +175,7 @@
         </Component>
         <Component class="javax.swing.JProgressBar" name="bar_mes4">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="etq_year">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="1"/>
