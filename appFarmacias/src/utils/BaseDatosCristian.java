@@ -90,6 +90,7 @@ public class BaseDatosCristian {
         }
     }
     public HistorialVentas[] obtenerHistorialVentas(){
+        
         try {
             HistorialVentas arreglo[] = new HistorialVentas[100];
             String consulta = "SELECT factura.numReferencia, producto.nombre_producto, factura.fecha, factura.id_cliente, factura.nombre_cliente, factura.total FROM factura  INNER JOIN facturaproducto ON factura.numReferencia = facturaproducto.numReferencia INNER JOIN producto ON facturaproducto.id_producto = producto.id_producto";
