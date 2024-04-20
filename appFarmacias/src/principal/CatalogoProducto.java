@@ -212,7 +212,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
             
             JPanel conten = null;
             if (indice<listaCatalogo.length && listaCatalogo[indice]!=null) {
-                conten = new Panel_productoCatalogo(bd, listaCatalogo,listaCatalogo[indice].getId_producto());
+                conten = new Panel_productoCatalogo(bd, NIT, listaCatalogo[indice].getId_producto());
             }else{
                 conten = new JPanel();
                 conten.setPreferredSize(new Dimension(233, 321));
@@ -251,7 +251,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
             btnSiguiente.setEnabled(false);
             btnAtras.setEnabled(false);
             String productName = campo_busqueda.getText();
-            Catalogo busqueda = bd.getProductInfo(productName,NIT);
+            Catalogo busqueda = bd.getProductInfo(NIT,productName,null);
 
 
             if (busqueda!=null && busqueda.getFoto()!=null) {
@@ -278,13 +278,12 @@ public class CatalogoProducto extends javax.swing.JPanel {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String productName = campo_busqueda.getText();
-        Catalogo busqueda = bd.getProductInfo(productName, NIT);
-
+        Catalogo busqueda = bd.getProductInfo(NIT,productName,null);
 
         if (busqueda!=null && busqueda.getFoto()!=null) {
 
-            //Panel_productoCatalogo displaySearch = new Panel_productoCatalogo(bd,productName,NIT);
-            //displaySearch.setPreferredSize(new Dimension(233, 321));
+            Panel_productoCatalogo displaySearch = new Panel_productoCatalogo(bd,NIT,busqueda.getId_producto());
+            displaySearch.setPreferredSize(new Dimension(233, 321));
                     
             contentPaginador.removeAll();
             
