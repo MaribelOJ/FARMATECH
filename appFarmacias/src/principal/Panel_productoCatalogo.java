@@ -12,14 +12,16 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
 
     BaseDatos_Maribel bd;
     Catalogo busqueda;
-    String nombre;
+    String id;
+    Catalogo listaCatalogo [];
     
 
         
-    public Panel_productoCatalogo(BaseDatos_Maribel bd, String producto, String NIT) {
+    public Panel_productoCatalogo(BaseDatos_Maribel bd, Catalogo [] lista, String id_producto) {
         this.bd = bd;
-        this.nombre = producto;
-        this.busqueda = bd.getProductInfo(this.nombre,NIT);
+        this.id = id_producto;
+        //this.busqueda = bd.getProductInfo(this.nombre,NIT);
+        this.listaCatalogo = lista;
         initComponents();
         initAlternComponents();
     }

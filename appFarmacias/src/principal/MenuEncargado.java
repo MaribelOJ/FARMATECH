@@ -69,6 +69,7 @@ public class MenuEncargado extends javax.swing.JFrame {
         btn_editar_prod = new javax.swing.JButton();
         btn_factura = new javax.swing.JButton();
         btn_lista_proveedores = new javax.swing.JButton();
+        btn_Stock = new javax.swing.JButton();
         panel_bienvenida = new javax.swing.JPanel();
         etq_logo = new javax.swing.JLabel();
         etq_titulo = new javax.swing.JLabel();
@@ -149,6 +150,16 @@ public class MenuEncargado extends javax.swing.JFrame {
             }
         });
 
+        btn_Stock.setBackground(new java.awt.Color(144, 177, 239));
+        btn_Stock.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_Stock.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Stock.setText("Stock");
+        btn_Stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_StockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_controlLayout = new javax.swing.GroupLayout(panel_control);
         panel_control.setLayout(panel_controlLayout);
         panel_controlLayout.setHorizontalGroup(
@@ -166,7 +177,8 @@ public class MenuEncargado extends javax.swing.JFrame {
                             .addComponent(btn_catalogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_historial_ventas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_añadir_prod_stock, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_Stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
             .addGroup(panel_controlLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -192,11 +204,13 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(btn_añadir_prod_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_editar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -360,9 +374,29 @@ public class MenuEncargado extends javax.swing.JFrame {
         revalidate();
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
+    private void btn_StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_StockActionPerformed
+        /* Stock1 id_producto =
+        Stock1 listado[] = bdvaleria.listaStock(id_producto);
+        StockPro nuevo = new StockPro(listado, bdvaleria);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();*/
+    }//GEN-LAST:event_btn_StockActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Stock;
     private javax.swing.JButton btn_añadir_prod_stock;
     private javax.swing.JButton btn_catalogo;
     private javax.swing.JButton btn_editar_prod;

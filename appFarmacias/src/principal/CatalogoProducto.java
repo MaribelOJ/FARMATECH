@@ -185,6 +185,12 @@ public class CatalogoProducto extends javax.swing.JPanel {
         icono_logo = icono_logo.getScaledInstance(90, 90, Image.SCALE_SMOOTH);
         etq_logo.setIcon(new ImageIcon(icono_logo));
         
+        btn_buscar.setBackground(Color.WHITE);
+        Image icono_buscar = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_busqueda.png"));
+        icono_buscar = icono_buscar.getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+        btn_buscar.setIcon(new ImageIcon(icono_buscar));
+        btn_buscar.setForeground(new Color(0, 0, 200));
+        
         contentPaginador.setLayout(new GridBagLayout());
         contentPaginador.setPreferredSize(new Dimension(715, 330));
         
@@ -206,7 +212,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
             
             JPanel conten = null;
             if (indice<listaCatalogo.length && listaCatalogo[indice]!=null) {
-                conten = new Panel_productoCatalogo(bd, listaCatalogo[indice].getNombre_producto(),NIT);
+                conten = new Panel_productoCatalogo(bd, listaCatalogo,listaCatalogo[indice].getId_producto());
             }else{
                 conten = new JPanel();
                 conten.setPreferredSize(new Dimension(233, 321));
@@ -277,8 +283,8 @@ public class CatalogoProducto extends javax.swing.JPanel {
 
         if (busqueda!=null && busqueda.getFoto()!=null) {
 
-            Panel_productoCatalogo displaySearch = new Panel_productoCatalogo(bd,productName,NIT);
-            displaySearch.setPreferredSize(new Dimension(233, 321));
+            //Panel_productoCatalogo displaySearch = new Panel_productoCatalogo(bd,productName,NIT);
+            //displaySearch.setPreferredSize(new Dimension(233, 321));
                     
             contentPaginador.removeAll();
             

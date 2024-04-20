@@ -671,7 +671,7 @@ public class BaseDatos_Maribel {
             String consulta = "SELECT id_producto, SUM(cant_restante)AS cant FROM stock WHERE NIT_farmacia = '"+NIT_farmacia+"'AND estado='activo' GROUP BY id_producto ORDER BY id_producto ASC";
             ResultSet registros = manipularDB.executeQuery(consulta);
             registros.next();
-            
+            Image foto = null;
             if (registros.getRow()==1) {
                 int i = 0;
                 do{
@@ -681,29 +681,41 @@ public class BaseDatos_Maribel {
                     String nombre_producto ="";
                     String volumen = "";
                     String precio_u = "";
-                    String usos = "";
-                    Image foto = null;
-
-                    InputStream inputStream = registros.getBinaryStream("foto");
-                    
-                    if (inputStream!=null) {
-                        byte[] bytes = new byte[inputStream.available()];
-                        inputStream.read(bytes);
-                        foto = new ImageIcon(bytes, NIT_farmacia).getImage();
-                    }
+                    String usos = "";          
                     
                     listaCatalogo[i] = new Catalogo(id,nombre_producto,foto,volumen, precio_u,usos, cant_restante);
                     i++;
                 }while(registros.next());
                 
+                for(int a=0; a < listaCatalogo.length && listaCatalogo[a] != null; a++){  
                     
+                    String consulta2 = "SELECT nombre_producto, volumen, precio_unitario, medicamento FROM producto "+
+                            "WHERE id_producto='"+ listaCatalogo[a].getId_producto()+"'";
                 
-                    
+                    ResultSet registros2 = manipularDB.executeQuery(consulta2);
+                    registros2.next();
+
+                    if(registros2.getRow()==1){
+                        listaCatalogo[a].setNombre_producto(registros2.getString("nombre_producto"));
+                        listaCatalogo[a].setVolumen(registros2.getString("volumen"));
+                        listaCatalogo[a].setPrecio_unitario(registros2.getString("precio_unitario"));
+                        
+                        InputStream inputStream = registros2.getBinaryStream("medicamento");
+
+                        if (inputStream!=null) {
+                            byte[] bytes = new byte[inputStream.available()];
+                            inputStream.read(bytes);
+                            foto = new ImageIcon(bytes, listaCatalogo[a].getId_producto()).getImage();
+                        }
+                        
+                        listaCatalogo[a].setFoto(foto);
+                    }
                 
-                return listaCatalogo;
-            }else{
-                return listaCatalogo;
-            }
+                }
+            }  
+            
+            return listaCatalogo;
+ 
         }catch (IOException ex) {
             System.out.println("Se presento un error al extraer la foto: "+ex.getMessage());
              
