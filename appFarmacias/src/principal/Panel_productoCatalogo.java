@@ -76,9 +76,9 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
                     .addComponent(etq_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(etq_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, farmaciaLayout.createSequentialGroup()
-                        .addComponent(etq_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addComponent(etq_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(etq_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(etq_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, farmaciaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -120,20 +120,15 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
         Image foto = listaCatalogo[indice].getFoto();
         foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);        
         etq_img.setIcon(new ImageIcon(foto));
-        System.out.println(listaCatalogo[1].toString());
         
         etq_cant.setText("Stock: "+listaCatalogo[indice].getCant_restante());
-        etq_nombre.setText(listaCatalogo[indice].getNombre_producto());
+        etq_nombre.setText(listaCatalogo[indice].getNombre_producto()+ " "+ listaCatalogo[indice].getVolumen());
         etq_precio.setText(listaCatalogo[indice].getPrecio_unitario());
     }
 
     
     private void btn_usosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usosActionPerformed
-        //String num = etq_nit.getText();
-        
-        
-        
-        //panel.mostrarEditor(num,numContenedor);
+       
     }//GEN-LAST:event_btn_usosActionPerformed
     
     

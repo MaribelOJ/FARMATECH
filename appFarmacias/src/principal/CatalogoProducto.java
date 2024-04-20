@@ -31,7 +31,6 @@ public class CatalogoProducto extends javax.swing.JPanel {
         this.menu = menu;
         this.NIT = menu.NIT_farmacia;
         this.letrasBorradas=0;
-        System.out.println(NIT);
         initComponents();
         initAlternComponents();
         
@@ -256,8 +255,11 @@ public class CatalogoProducto extends javax.swing.JPanel {
             btnAtras.setEnabled(false);
             pagina = 1;
             String productName = campo_busqueda.getText();
-            listaCatalogo = bd.getProductInfo(NIT,productName);       
-            cargarPagina();
+            if(!productName.equals("")){
+                listaCatalogo = bd.getProductInfo(NIT,productName);
+                cargarPagina();
+            }
+            
             
         }
     }//GEN-LAST:event_enterBuscar
@@ -272,16 +274,21 @@ public class CatalogoProducto extends javax.swing.JPanel {
                 btnSiguiente.setEnabled(true);
                 btnAtras.setEnabled(true);
             }
+            String productName=campo_busqueda.getText();
+            if(letrasBorradas < 4 && productName.equals("")){
+                this.menu.btn_catalogoActionPerformed();
+            }
         }
     }//GEN-LAST:event_borrarBusqueda
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String productName = campo_busqueda.getText();
         pagina = 1;
-        listaCatalogo = bd.getProductInfo(NIT,productName);
-        cargarPagina();
-        repaint();
-        revalidate();
+        if(!productName.equals("")){
+            listaCatalogo = bd.getProductInfo(NIT,productName);
+            cargarPagina();
+        }
+        
 
     }//GEN-LAST:event_btn_buscarActionPerformed
     
