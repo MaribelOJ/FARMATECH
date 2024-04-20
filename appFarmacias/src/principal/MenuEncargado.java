@@ -266,7 +266,11 @@ public class MenuEncargado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void btn_catalogoActionPerformed(){
+        btn_catalogoActionPerformed(null);
+    }
+    
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
             
             CatalogoProducto catalogo = new CatalogoProducto(this);

@@ -663,13 +663,58 @@ public class BaseDatos_Maribel {
         return productos;
     }
     
-    public Catalogo[] getCatalogInfo(String producto){
+    public Catalogo[] getCatalogInfo(String NIT_farmacia){
         Catalogo listaCatalogo [] = new Catalogo[100];
-        
+
+        try {
+            
+            String consulta = "SELECT id_producto, SUM(cant_restante)AS cant FROM stock WHERE NIT_farmacia = '"+NIT_farmacia+"'AND estado='activo' GROUP BY id_producto ORDER BY id_producto ASC";
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            
+            if (registros.getRow()==1) {
+                int i = 0;
+                do{
+                    
+                    String cant_restante = registros.getString("cant");
+                    String id = registros.getString("id_producto");
+                    String nombre_producto ="";
+                    String volumen = "";
+                    String precio_u = "";
+                    String usos = "";
+                    Image foto = null;
+
+                    InputStream inputStream = registros.getBinaryStream("foto");
+                    
+                    if (inputStream!=null) {
+                        byte[] bytes = new byte[inputStream.available()];
+                        inputStream.read(bytes);
+                        foto = new ImageIcon(bytes, NIT_farmacia).getImage();
+                    }
+                    
+                    listaCatalogo[i] = new Catalogo(id,nombre_producto,foto,volumen, precio_u,usos, cant_restante);
+                    i++;
+                }while(registros.next());
+                
+                    
+                
+                    
+                
+                return listaCatalogo;
+            }else{
+                return listaCatalogo;
+            }
+        }catch (IOException ex) {
+            System.out.println("Se presento un error al extraer la foto: "+ex.getMessage());
+             
+        }catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
         return listaCatalogo;
     }
     
-    public Catalogo getProductInfo(String product){
+    public Catalogo getProductInfo(String product, String NIT){
         Catalogo producto = null;
         
         return producto;

@@ -13,12 +13,13 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
     BaseDatos_Maribel bd;
     Catalogo busqueda;
     String nombre;
+    
 
         
-    public Panel_productoCatalogo(BaseDatos_Maribel bd, String producto) {
+    public Panel_productoCatalogo(BaseDatos_Maribel bd, String producto, String NIT) {
         this.bd = bd;
         this.nombre = producto;
-        this.busqueda = bd.getProductInfo(this.nombre);
+        this.busqueda = bd.getProductInfo(this.nombre,NIT);
         initComponents();
         initAlternComponents();
     }
@@ -29,103 +30,75 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
 
         farmacia = new javax.swing.JPanel();
         etq_img = new javax.swing.JLabel();
-        etq_nit = new javax.swing.JLabel();
-        etq_estado = new javax.swing.JLabel();
-        btn_inventario = new javax.swing.JButton();
-        btn_eliminar = new javax.swing.JButton();
-        btn_ventas = new javax.swing.JButton();
-        btn_editar = new javax.swing.JButton();
+        etq_nombre = new javax.swing.JLabel();
+        btn_usos = new javax.swing.JButton();
+        etq_precio = new javax.swing.JLabel();
+        etq_cant = new javax.swing.JLabel();
 
-        farmacia.setBackground(new java.awt.Color(43, 138, 250));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        farmacia.setBackground(new java.awt.Color(204, 204, 204));
         farmacia.setPreferredSize(new java.awt.Dimension(249, 332));
 
         etq_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        etq_nit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        etq_nit.setForeground(new java.awt.Color(75, 75, 75));
-        etq_nit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etq_nombre.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        etq_nombre.setForeground(new java.awt.Color(188, 13, 13));
+        etq_nombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        etq_estado.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        etq_estado.setForeground(new java.awt.Color(188, 13, 13));
-        etq_estado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        btn_inventario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_inventario.setForeground(new java.awt.Color(85, 115, 221));
-        btn_inventario.setText("Inventario");
-        btn_inventario.addActionListener(new java.awt.event.ActionListener() {
+        btn_usos.setBackground(new java.awt.Color(79, 108, 211));
+        btn_usos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_usos.setForeground(new java.awt.Color(255, 255, 255));
+        btn_usos.setText("Usos");
+        btn_usos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_inventarioActionPerformed(evt);
+                btn_usosActionPerformed(evt);
             }
         });
 
-        btn_eliminar.setBackground(new java.awt.Color(239, 30, 30));
-        btn_eliminar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_eliminar.setText("Eliminar");
-        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminarActionPerformed(evt);
-            }
-        });
+        etq_precio.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        etq_precio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etq_precio.setText("$0.0");
+        etq_precio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        btn_ventas.setBackground(new java.awt.Color(239, 218, 30));
-        btn_ventas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_ventas.setForeground(new java.awt.Color(255, 255, 255));
-        btn_ventas.setText("Ventas");
-        btn_ventas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ventasActionPerformed(evt);
-            }
-        });
-
-        btn_editar.setBackground(new java.awt.Color(144, 177, 239));
-        btn_editar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_editar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_editar.setText("Editar");
-        btn_editar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editarActionPerformed(evt);
-            }
-        });
+        etq_cant.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        etq_cant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etq_cant.setText("Stock: 0");
+        etq_cant.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         javax.swing.GroupLayout farmaciaLayout = new javax.swing.GroupLayout(farmacia);
         farmacia.setLayout(farmaciaLayout);
         farmaciaLayout.setHorizontalGroup(
             farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, farmaciaLayout.createSequentialGroup()
+            .addGroup(farmaciaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(farmaciaLayout.createSequentialGroup()
+                        .addComponent(etq_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(etq_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(etq_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                     .addComponent(etq_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(farmaciaLayout.createSequentialGroup()
-                        .addComponent(btn_ventas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(etq_nit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(etq_estado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(farmaciaLayout.createSequentialGroup()
-                        .addComponent(btn_inventario, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, farmaciaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)))
                 .addContainerGap())
         );
         farmaciaLayout.setVerticalGroup(
             farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(farmaciaLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(etq_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(etq_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(etq_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btn_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_inventario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(etq_precio)
+                    .addComponent(etq_cant))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -157,39 +130,21 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
     }
 
     
-    private void btn_inventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inventarioActionPerformed
-        String num = etq_nit.getText(); 
-        //panel.mostrarInventario(num, numContenedor);
-       
-    }//GEN-LAST:event_btn_inventarioActionPerformed
-
-    private void btn_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ventasActionPerformed
-        String num = etq_nit.getText(); 
-        //panel.mostrarFacturas(num, numContenedor);
-    }//GEN-LAST:event_btn_ventasActionPerformed
-
-    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
-        String num = etq_nit.getText();
+    private void btn_usosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usosActionPerformed
+        //String num = etq_nit.getText();
         
         
         
         //panel.mostrarEditor(num,numContenedor);
-    }//GEN-LAST:event_btn_editarActionPerformed
-
-    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        String num = etq_nit.getText(); 
-        //panel.mostrarValidacion(num,numContenedor);
-    }//GEN-LAST:event_btn_eliminarActionPerformed
+    }//GEN-LAST:event_btn_usosActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_eliminar;
-    private javax.swing.JButton btn_inventario;
-    private javax.swing.JButton btn_ventas;
-    private javax.swing.JLabel etq_estado;
+    private javax.swing.JButton btn_usos;
+    private javax.swing.JLabel etq_cant;
     private javax.swing.JLabel etq_img;
-    private javax.swing.JLabel etq_nit;
+    private javax.swing.JLabel etq_nombre;
+    private javax.swing.JLabel etq_precio;
     private javax.swing.JPanel farmacia;
     // End of variables declaration//GEN-END:variables
 }

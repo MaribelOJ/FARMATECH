@@ -178,16 +178,16 @@ VALUES
 --INSERTAR PRODUCTOS
 INSERT INTO producto (nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos)
 VALUES
-    ('Paracetamol', 'ml', 5999, '2026-12-31', 'Paracetamol', 'Alivio del dolor y fiebre'),
-    ('Amoxicilina', 'mg', 12999, '2024-06-30', 'Amoxicilina', 'Antibiotico para infecciones'),
-    ('Ibuprofeno', 'mg', 8500, '2026-11-15', 'Ibuprofeno', 'Antiinflamatorio y analgesico'),
-    ('Omeprazol', 'mg', 15750, '2026-09-30', 'Omeprazol', 'Alivio de acidez estomacal'),
-    ('Loratadina', 'mg', 9999, '2024-04-15', 'Loratadina', 'Antihistaminico para alergias'),
-    ('Vitamina C', 'mg', 7500, '2026-10-31', 'Acido ascórbico', 'Suplemento vitaminico'),
-    ('Aspirina', 'mg', 6250, '2024-01-20', 'Acido acetilsalicílico', 'Analgesico y antipiretico'),
-    ('Simvastatina', 'mg', 14999, '2026-08-31', 'Simvastatina', 'Reduccion de colesterol'),
-    ('Hidroclorotiazida', 'mg', 11500, '2026-12-01', 'Hidroclorotiazida', 'Diuretico'),
-    ('Sertralina', 'mg', 17500, '2024-03-01', 'Sertralina', 'Antidepresivo selectivo de la recaptacion de serotonina');
+    ('Paracetamol', '250 ml', 5999, '2026-12-31', 'Paracetamol', 'Alivio del dolor y fiebre'),
+    ('Amoxicilina', '500 mg', 12999, '2024-06-30', 'Amoxicilina', 'Antibiotico para infecciones'),
+    ('Ibuprofeno', '300 mg', 8500, '2026-11-15', 'Ibuprofeno', 'Antiinflamatorio y analgesico'),
+    ('Omeprazol', '150 mg', 15750, '2026-09-30', 'Omeprazol', 'Alivio de acidez estomacal'),
+    ('Loratadina', '200 mg', 9999, '2024-04-15', 'Loratadina', 'Antihistaminico para alergias'),
+    ('Vitamina C', '300 mg', 7500, '2026-10-31', 'Acido ascórbico', 'Suplemento vitaminico'),
+    ('Aspirina', '500 mg', 6250, '2024-01-20', 'Acido acetilsalicílico', 'Analgesico y antipiretico'),
+    ('Simvastatina', '80 mg', 14999, '2026-08-31', 'Simvastatina', 'Reduccion de colesterol'),
+    ('Hidroclorotiazida', '100 mg', 11500, '2026-12-01', 'Hidroclorotiazida', 'Diuretico'),
+    ('Sertralina', '90 mg', 17500, '2024-03-01', 'Sertralina', 'Antidepresivo selectivo de la recaptacion de serotonina');
 
 --INSERTAR  STOCK
 
