@@ -726,64 +726,58 @@ public class BaseDatos_Maribel {
         return listaCatalogo;
     }
     
-    public Catalogo getProductInfo(String NIT_farmacia,String product, String id){
-        Catalogo producto = null;
+    public Catalogo [] getProductInfo(String NIT_farmacia,String product){
+        Catalogo listaProductos [] = new Catalogo[5];
         try {
-            
-            String consulta = "SELECT id_producto, SUM(cant_restante)AS cant FROM stock WHERE NIT_farmacia = '"+NIT_farmacia+"'AND estado='activo' GROUP BY id_producto ORDER BY id_producto ASC";
-            ResultSet registros = manipularDB.executeQuery(consulta);
-            registros.next();
-            Image foto = null;
-            if (registros.getRow()==1) {
-                int i = 0;
-                do{
-                    
-                    String cant_restante = registros.getString("cant");
-                    String nombre_producto ="";
-                    String volumen = "";
-                    String precio_u = "";
-                    String usos = "";          
-                    
-                    producto = new Catalogo(id,nombre_producto,foto,volumen, precio_u,usos, cant_restante);
-                    i++;
-                }while(registros.next());
-                
-                    
-                    String consulta2 = "SELECT nombre_producto, volumen, precio_unitario, medicamento FROM producto "+
-                            "WHERE id_producto='"+ producto.getId_producto()+"'";
-                
-                    ResultSet registros2 = manipularDB.executeQuery(consulta2);
-                    registros2.next();
+                Image foto = null;
 
-                    if(registros2.getRow()==1){
-                        producto.setNombre_producto(registros2.getString("nombre_producto"));
-                        producto.setVolumen(registros2.getString("volumen"));
-                        producto.setPrecio_unitario(registros2.getString("precio_unitario"));
+                String consulta = "SELECT * FROM producto WHERE nombre_producto LIKE '"+product+"%'";
+                ResultSet registros = manipularDB.executeQuery(consulta);
+                registros.next();
+                if (registros.getRow()==1) {
+                    int i=0;
+                    do{
+                        String id_producto = registros.getString("id_producto");
+                        String cant_restante = "";
+                        String nombre_producto=registros.getString("nombre_producto");
+                        String volumen = registros.getString("volumen");
+                        String precio_u = registros.getString("precio_unitario");
+                        String usos = registros.getString("usos");
                         
-                        InputStream inputStream = registros2.getBinaryStream("medicamento");
+                        InputStream inputStream = registros.getBinaryStream("medicamento");
 
                         if (inputStream!=null) {
                             byte[] bytes = new byte[inputStream.available()];
                             inputStream.read(bytes);
-                            foto = new ImageIcon(bytes, producto.getId_producto()).getImage();
+                            foto = new ImageIcon(bytes, id_producto).getImage();
                         }
-                        
-                        producto.setFoto(foto);
+
+                        listaProductos[i] = new Catalogo(id_producto, nombre_producto, foto, volumen, precio_u, usos, cant_restante);
+                      
+                        i++;
+
+                    }while(registros.next());
+                    
+                    for(int a=0; a < listaProductos.length && listaProductos[a] != null; a++){
+                        String consulta2 = "SELECT SUM(cant_restante) AS cant FROM stock WHERE NIT_farmacia = '"+NIT_farmacia+"' AND id_producto = '"+listaProductos[a].getId_producto()+"'";
+                        ResultSet registros2 = manipularDB.executeQuery(consulta2);
+                        registros2.next();
+
+                        if(registros2.getRow()==1){
+                            listaProductos[a].setCant_restante(registros2.getString("cant"));                        
+                        }
                     }
-                
-                
-            }  
+                }
             
-            return producto;
- 
+            return listaProductos;
         }catch (IOException ex) {
             System.out.println("Se presento un error al extraer la foto: "+ex.getMessage());
              
         }catch (SQLException ex) {
-            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println("Error al ejecutar el SELECT de productInfo: ");
             System.out.println(ex.getMessage());
         }
         
-        return producto;
+        return listaProductos;
     }
 }

@@ -59,6 +59,8 @@ public class CatalogoProducto extends javax.swing.JPanel {
         contentFarmacias.setBackground(new java.awt.Color(255, 255, 255));
         contentFarmacias.setPreferredSize(new java.awt.Dimension(249, 332));
 
+        contentPaginador.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout contentPaginadorLayout = new javax.swing.GroupLayout(contentPaginador);
         contentPaginador.setLayout(contentPaginadorLayout);
         contentPaginadorLayout.setHorizontalGroup(
@@ -67,7 +69,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
         );
         contentPaginadorLayout.setVerticalGroup(
             contentPaginadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
+            .addGap(0, 321, Short.MAX_VALUE)
         );
 
         btnAtras.setText("ANTERIOR");
@@ -105,7 +107,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
             .addGroup(contentFarmaciasLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(contentPaginador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addGroup(contentFarmaciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,6 +195,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
         
         contentPaginador.setLayout(new GridBagLayout());
         contentPaginador.setPreferredSize(new Dimension(715, 330));
+        contentPaginador.setBackground(Color.WHITE);
         
         restricciones = new GridBagConstraints();
         restricciones.gridwidth = 1;
@@ -212,10 +215,11 @@ public class CatalogoProducto extends javax.swing.JPanel {
             
             JPanel conten = null;
             if (indice<listaCatalogo.length && listaCatalogo[indice]!=null) {
-                conten = new Panel_productoCatalogo(bd, NIT, listaCatalogo[indice].getId_producto());
+                conten = new Panel_productoCatalogo(bd, listaCatalogo,indice);
             }else{
                 conten = new JPanel();
-                conten.setPreferredSize(new Dimension(233, 321));
+                conten.setBackground(Color.WHITE);
+                conten.setPreferredSize(new Dimension(233, 328));
                 btnSiguiente.setEnabled(false);
             }
             
@@ -250,16 +254,11 @@ public class CatalogoProducto extends javax.swing.JPanel {
         if(teclado == 10){
             btnSiguiente.setEnabled(false);
             btnAtras.setEnabled(false);
+            pagina = 1;
             String productName = campo_busqueda.getText();
-            Catalogo busqueda = bd.getProductInfo(NIT,productName,null);
-
-
-            if (busqueda!=null && busqueda.getFoto()!=null) {
-                
-                repaint();
-                revalidate();
-
-            }
+            listaCatalogo = bd.getProductInfo(NIT,productName);       
+            cargarPagina();
+            
         }
     }//GEN-LAST:event_enterBuscar
 
@@ -278,19 +277,11 @@ public class CatalogoProducto extends javax.swing.JPanel {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String productName = campo_busqueda.getText();
-        Catalogo busqueda = bd.getProductInfo(NIT,productName,null);
-
-        if (busqueda!=null && busqueda.getFoto()!=null) {
-
-            Panel_productoCatalogo displaySearch = new Panel_productoCatalogo(bd,NIT,busqueda.getId_producto());
-            displaySearch.setPreferredSize(new Dimension(233, 321));
-                    
-            contentPaginador.removeAll();
-            
-            repaint();
-            revalidate();
-
-        }
+        pagina = 1;
+        listaCatalogo = bd.getProductInfo(NIT,productName);
+        cargarPagina();
+        repaint();
+        revalidate();
 
     }//GEN-LAST:event_btn_buscarActionPerformed
     

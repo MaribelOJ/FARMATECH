@@ -22,6 +22,13 @@ public class Catalogo {
         this.cant_restante = cant_restante;
     }
 
+    @Override
+    public String toString() {
+        return "Catalogo{" + "nombre_producto=" + nombre_producto + ", foto=" + foto + '}';
+    }
+    
+    
+
     public String getId_producto() {
         return id_producto;
     }

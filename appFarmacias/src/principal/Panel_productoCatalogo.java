@@ -11,14 +11,14 @@ import utils.Catalogo;
 public class Panel_productoCatalogo extends javax.swing.JPanel {
 
     BaseDatos_Maribel bd;
-    Catalogo busqueda;
-    String id;    
+    Catalogo [] listaCatalogo;
+    int indice;    
 
         
-    public Panel_productoCatalogo(BaseDatos_Maribel bd, String NIT, String id_producto) {
+    public Panel_productoCatalogo(BaseDatos_Maribel bd,Catalogo [] lista, int indice) {
         this.bd = bd;
-        this.id = id_producto;
-        this.busqueda = bd.getProductInfo(NIT,null,this.id);
+        this.indice = indice;
+        this.listaCatalogo =lista;
 
         initComponents();
         initAlternComponents();
@@ -38,7 +38,7 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         farmacia.setBackground(new java.awt.Color(204, 204, 204));
-        farmacia.setPreferredSize(new java.awt.Dimension(249, 332));
+        farmacia.setPreferredSize(new java.awt.Dimension(233, 330));
 
         etq_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -73,17 +73,17 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
             .addGroup(farmaciaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(farmaciaLayout.createSequentialGroup()
-                        .addComponent(etq_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(etq_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(etq_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                    .addComponent(etq_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(etq_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, farmaciaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)))
+                        .addComponent(etq_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addComponent(etq_cant, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, farmaciaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         farmaciaLayout.setVerticalGroup(
             farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,42 +91,40 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(etq_img, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(etq_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(etq_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(btn_usos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(farmaciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etq_precio)
                     .addComponent(etq_cant))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(farmacia, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(farmacia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(farmacia, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(farmacia, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
     public void initAlternComponents(){
         
-        Image foto = busqueda.getFoto();
+        Image foto = listaCatalogo[indice].getFoto();
         foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);        
         etq_img.setIcon(new ImageIcon(foto));
+        System.out.println(listaCatalogo[1].toString());
         
-        //etq_nit.setText(busqueda.getNIT());
-        
-//        if(busqueda.getEstado().equalsIgnoreCase("activo")){
-//            etq_estado.setForeground(Color.GREEN);
-//            etq_estado.setText("Activo");
-//        }else{
-//            etq_estado.setText("Inactivo");
-//        }  
+        etq_cant.setText("Stock: "+listaCatalogo[indice].getCant_restante());
+        etq_nombre.setText(listaCatalogo[indice].getNombre_producto());
+        etq_precio.setText(listaCatalogo[indice].getPrecio_unitario());
     }
 
     
