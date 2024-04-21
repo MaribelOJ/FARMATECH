@@ -12,13 +12,15 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
 
     BaseDatos_Maribel bd;
     Catalogo [] listaCatalogo;
-    int indice;    
+    int indice;
+    CatalogoProducto catalogo;
 
         
-    public Panel_productoCatalogo(BaseDatos_Maribel bd,Catalogo [] lista, int indice) {
+    public Panel_productoCatalogo(BaseDatos_Maribel bd,Catalogo [] lista, int indice, CatalogoProducto panel) {
         this.bd = bd;
         this.indice = indice;
         this.listaCatalogo =lista;
+        this.catalogo = panel;
 
         initComponents();
         initAlternComponents();
@@ -49,7 +51,7 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
         btn_usos.setBackground(new java.awt.Color(79, 108, 211));
         btn_usos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_usos.setForeground(new java.awt.Color(255, 255, 255));
-        btn_usos.setText("Usos");
+        btn_usos.setText("Detalles");
         btn_usos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_usosActionPerformed(evt);
@@ -120,15 +122,15 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
         Image foto = listaCatalogo[indice].getFoto();
         foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);        
         etq_img.setIcon(new ImageIcon(foto));
-        
+
         etq_cant.setText("Stock: "+listaCatalogo[indice].getCant_restante());
         etq_nombre.setText(listaCatalogo[indice].getNombre_producto()+ " "+ listaCatalogo[indice].getVolumen());
-        etq_precio.setText(listaCatalogo[indice].getPrecio_unitario());
+        etq_precio.setText("$"+listaCatalogo[indice].getPrecio_unitario());
     }
 
     
     private void btn_usosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usosActionPerformed
-       
+        this.catalogo.mostrarDetalleProducto(this.indice);
     }//GEN-LAST:event_btn_usosActionPerformed
     
     

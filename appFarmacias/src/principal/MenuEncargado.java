@@ -22,11 +22,13 @@ public class MenuEncargado extends javax.swing.JFrame {
     BaseDatos_Maribel bdM =new BaseDatos_Maribel();
     String NIT_farmacia;
     String id_usuario;
+    int pagina;
     
     public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario) {
         this.bd = bd;
         this.id_usuario = id_usuario;
         this.NIT_farmacia = bdvaleria.buscarAsignacion(id_usuario);
+        this.pagina = 1;
         initComponents();
         initAlternComponents(nombre_usuario);
     }
@@ -285,9 +287,14 @@ public class MenuEncargado extends javax.swing.JFrame {
         btn_catalogoActionPerformed(null);
     }
     
+    public void btn_catalogoActionPerformed(int pag){
+        this.pagina=pag;
+        btn_catalogoActionPerformed(null);
+    }
+    
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
             
-            CatalogoProducto catalogo = new CatalogoProducto(this);
+            CatalogoProducto catalogo = new CatalogoProducto(this,this.pagina);
             catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
             catalogo.setSize( panel_bienvenida.getSize() );
             

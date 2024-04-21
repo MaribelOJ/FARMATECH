@@ -681,15 +681,16 @@ public class BaseDatos_Maribel {
                     String nombre_producto ="";
                     String volumen = "";
                     String precio_u = "";
-                    String usos = "";          
+                    String usos = "";
+                    String ingredientes ="";
                     
-                    listaCatalogo[i] = new Catalogo(id,nombre_producto,foto,volumen, precio_u,usos, cant_restante);
+                    listaCatalogo[i] = new Catalogo(id,nombre_producto,foto,volumen,precio_u,usos,cant_restante,ingredientes);
                     i++;
                 }while(registros.next());
                 
                 for(int a=0; a < listaCatalogo.length && listaCatalogo[a] != null; a++){  
                     
-                    String consulta2 = "SELECT nombre_producto, volumen, precio_unitario, medicamento FROM producto "+
+                    String consulta2 = "SELECT nombre_producto, volumen, precio_unitario, medicamento, usos, ingredientes FROM producto "+
                             "WHERE id_producto='"+ listaCatalogo[a].getId_producto()+"'";
                 
                     ResultSet registros2 = manipularDB.executeQuery(consulta2);
@@ -699,6 +700,8 @@ public class BaseDatos_Maribel {
                         listaCatalogo[a].setNombre_producto(registros2.getString("nombre_producto"));
                         listaCatalogo[a].setVolumen(registros2.getString("volumen"));
                         listaCatalogo[a].setPrecio_unitario(registros2.getString("precio_unitario"));
+                        listaCatalogo[a].setUsos(registros2.getString("usos"));
+                        listaCatalogo[a].setIngredientes(registros2.getString("ingredientes"));
                         
                         InputStream inputStream = registros2.getBinaryStream("medicamento");
 
@@ -743,6 +746,7 @@ public class BaseDatos_Maribel {
                         String volumen = registros.getString("volumen");
                         String precio_u = registros.getString("precio_unitario");
                         String usos = registros.getString("usos");
+                        String ingredientes = registros.getString("ingredientes");
                         
                         InputStream inputStream = registros.getBinaryStream("medicamento");
 
@@ -752,7 +756,7 @@ public class BaseDatos_Maribel {
                             foto = new ImageIcon(bytes, id_producto).getImage();
                         }
 
-                        listaProductos[i] = new Catalogo(id_producto, nombre_producto, foto, volumen, precio_u, usos, cant_restante);
+                        listaProductos[i] = new Catalogo(id_producto, nombre_producto, foto, volumen, precio_u, usos, cant_restante,ingredientes);
                       
                         i++;
 

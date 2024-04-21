@@ -11,8 +11,9 @@ public class Catalogo {
     private String precio_unitario;
     private String usos;
     private String cant_restante;
+    private String ingredientes;
 
-    public Catalogo(String id_producto, String nombre_producto, Image foto, String volumen, String precio_unitario, String usos, String cant_restante) {
+    public Catalogo(String id_producto, String nombre_producto, Image foto, String volumen, String precio_unitario, String usos, String cant_restante, String ingredientes) {
         this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
         this.foto = foto;
@@ -20,6 +21,7 @@ public class Catalogo {
         this.precio_unitario = precio_unitario;
         this.usos = usos;
         this.cant_restante = cant_restante;
+        this.ingredientes = ingredientes;
     }
 
     @Override
@@ -84,6 +86,15 @@ public class Catalogo {
     public void setCant_restante(String cant_restante) {
         this.cant_restante = cant_restante;
     }
+
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+    
     
     
 }
