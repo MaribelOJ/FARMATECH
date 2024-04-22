@@ -176,6 +176,12 @@ public class MenuAdmin extends javax.swing.JFrame {
         panel_control.setLayout(panel_controlLayout);
         panel_controlLayout.setHorizontalGroup(
             panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_controlLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(etq_texto_admin, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(etq_logo_admin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_controlLayout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,18 +196,10 @@ public class MenuAdmin extends javax.swing.JFrame {
                             .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_visualizar_encargado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_administar_encargados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(32, 32, 32))))
-            .addGroup(panel_controlLayout.createSequentialGroup()
-                .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_controlLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(etq_texto_admin, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                            .addComponent(etq_logo_admin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panel_controlLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_controlLayout.createSequentialGroup()
+                        .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         panel_controlLayout.setVerticalGroup(
             panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,9 +222,9 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addComponent(btn_informe_ventas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -390,7 +388,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         revalidate();
     }//GEN-LAST:event_btn_administar_encargadosActionPerformed
 
-<<<<<<< HEAD
+
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
         // Establecer el texto de los botones y el estilo del cuadro de diálogo
         UIManager.put("OptionPane.yesButtonText", "Sí");
@@ -408,7 +406,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             dispose(); // Cerrar la ventana actual
         }
     }//GEN-LAST:event_cerrar_sesionActionPerformed
-=======
+
     private void btn_informe_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_informe_ventasActionPerformed
 
         Panel_informeVentas resumen = new Panel_informeVentas(this);
@@ -420,7 +418,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         revalidate();
         
     }//GEN-LAST:event_btn_informe_ventasActionPerformed
->>>>>>> dd6368f36029e86a58b7698e98885cf8ec6815a1
+
 
    
     
