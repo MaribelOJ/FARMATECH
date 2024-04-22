@@ -1,10 +1,14 @@
 package utils;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 
 public class BaseDatosValeria {
 
@@ -104,6 +108,7 @@ public class BaseDatosValeria {
         }
 
     }
+
     public Proveedores[] listaProveedores() {
 
         try {
@@ -139,46 +144,227 @@ public class BaseDatosValeria {
         }
 
     }
-    public boolean eliminarProveedor(String nit){
-        boolean respuesta = false;
+    
+      /*public Stock1[] listaStock(id_producto) {
+
         try {
-            String consulta = "DELETE FROM proveedor WHERE nit='"+nit+"' ";
+            Stock1 arreglo[] = new Stock1[100];
+            String consulta = "SELECT * stock.id_producto, stock.proveedor, stock.cant_entrante,stock.cant_restante, stock.estado, stock.comentario"
+                    + " FROM stock"
+                    + "WHERE id_producto='" + id_producto+ "' ";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow() == 1) {
+                int i = 0;
+                do {
+
+                    String id_productos = registros.getString("id_producto");
+                    String proveedor = registros.getString("proveedor");
+                    String cant_entrante = registros.getString("cant_entrante");
+                    String cant_restante = registros.getString("cant_restante");
+                    String estado = registros.getString("estado");
+                    String correo = registros.getString("correo");
+                    String comentario = registros.getString("comentario");
+                    arreglo[i] = new Stock1 (id_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
+                    i++;
+
+                } while (registros.next());
+                return arreglo;
+            } else {
+                return arreglo;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al imprimir el SELECT");
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }*/
+
+    public boolean eliminarProveedor(String nit) {
+        boolean respuesta = false;
+  
+        try {
+            String consulta2="DELETE FROM stock WHERE proveedor='" + nit + "' ";
+            int resp_consulta2 = manipularBD.executeUpdate(consulta2);
+            String consulta = "DELETE FROM proveedor WHERE NIT_proveedor='" + nit + "' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
-            if (resp_consulta==1) {
+            
+    
+            if (resp_consulta == 1  || resp_consulta2 > 0)  {
                 respuesta = true;
             }
+ 
         } catch (SQLException ex) {
             System.out.println("--> Error Delete: " + ex.getMessage());
         }
-        if (respuesta){
+        if (respuesta) {
             System.out.println("Eliminado con exito");
-        }else{
+        } else {
             System.out.println("No se pudo Eliminar");
         }
         return respuesta;
     }
-    
-    public Producto buscarProducto(String id_producto){
+
+    public String buscarAsignacion(String id_usuario) {
+
         try {
-            Producto encontrado = null;
-            
-            String consulta = "SELECT * FROM producto WHERE id_producto = '"+id_producto+"' ";
+
+            String consulta = "SELECT NIT_farmacia FROM usuariofarmacia WHERE usuariofarmacia.id_usuario = '" + id_usuario + "' ";
             ResultSet registros = manipularBD.executeQuery(consulta);
             registros.next();
-            if (registros.getRow()==1) {
+            if (registros.getRow() == 1) {
+                String nit = registros.getString("NIT_farmacia");
+                return nit;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+
+        }
+        return null;
+    }
+
+    public Producto buscarProducto(String id_producto) throws IOException {
+        try {
+            Producto encontrado = null;
+
+            String consulta = "SELECT * FROM producto WHERE id_producto = '" + id_producto + "' ";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow() == 1) {
                 String id_productos = registros.getString("id_producto");
                 String nombre_producto = registros.getString("nombre_producto");
-                String medicamentos = registros.getString("medicamento");
                 String volumen = registros.getString("volumen");
                 String precio_unitario = registros.getString("precio_unitario");
                 String fecha_vencimiento = registros.getString("fecha_vencimiento");
                 String ingredientes = registros.getString("ingredientes");
                 String usos = registros.getString("usos");
-                
-                
-                encontrado = new Producto(id_productos, nombre_producto, medicamentos, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos);
+                Image medicamento = null;
+                InputStream inputStream = registros.getBinaryStream("medicamento");
+                if (inputStream != null) {
+                    byte[] bytes = new byte[inputStream.available()];
+                    inputStream.read(bytes);
+                    medicamento = new ImageIcon(bytes, id_productos).getImage();
+                }
+
+                encontrado = new Producto(id_productos, nombre_producto,medicamento,volumen, precio_unitario, fecha_vencimiento, ingredientes, usos);
                 return encontrado;
-            }else{
+            }
+        } catch (IOException ex) {
+            System.out.println("Se presento un error al extraer la foto: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return null;
+    }
+    
+    /*public Stock1 buscarProductoenStock(String nombre) throws IOException {
+        try {
+            Stock1 encontrado = null;
+
+            String consulta = "SELECT * FROM stock WHERE id_producto = '" + id_producto + "' ";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow() == 1) {
+                String id_productos = registros.getString("id_producto");
+                String proveedor = registros.getString("proveedor");
+                String cant_entrante = registros.getString("cant_entrante");
+                String cant_restante = registros.getString("cant_restante");
+                String estado = registros.getString("estado");
+                String comentario = registros.getString("comentario");
+                encontrado = new Stock1(id_productos, proveedor,cant_entrante,cant_restante, estado, comentario);
+                return encontrado;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return null;
+    }*/
+    
+    
+
+    public boolean actualizarProductoEditar(String id_producto, String nombres,ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
+        boolean respuesta = false;
+        try {
+            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', medicamento='" + medicamento + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "' WHERE id_producto='" + id_producto + "' ";
+            int resp_consulta = manipularBD.executeUpdate(consulta);
+            if (resp_consulta == 1) {
+                respuesta = true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("--> Error Update: " + ex.getMessage());
+        }
+        if (respuesta) {
+            System.out.println("Editado con exito");
+        } else {
+            System.out.println("No se pudo Editar");
+        }
+        return respuesta;
+    }
+    public boolean actualizarProductoEditar(String id_producto, String nombres, String volumen, String precio, String fecha, String ingredientes, String usos) {
+        boolean respuesta = false;
+        try {
+            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "' WHERE id_producto='" + id_producto + "' ";
+            int resp_consulta = manipularBD.executeUpdate(consulta);
+            if (resp_consulta == 1) {
+                respuesta = true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("--> Error Update: " + ex.getMessage());
+        }
+        if (respuesta) {
+            System.out.println("Editado con exito");
+        } else {
+            System.out.println("No se pudo Editar");
+        }
+        return respuesta;
+    }
+
+    public boolean insertarProveedor(String nit, String nombre, String direccion, String telefono, String correo, String persona, String estado) {
+        boolean respuesta = false;
+        try {
+            String consulta = "INSERT INTO proveedor (nit_proveedor,nombre_proveedor, direccion, telefono, correo, persona_contacto, estado) VALUES ('" + nit + "','" + nombre + "','" + direccion + "','" + telefono + "','" + correo + "','" + persona + "','" + estado + "')";
+            int resp_consulta = manipularBD.executeUpdate(consulta);
+            if (resp_consulta == 1) {
+                respuesta = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("--> Error Insert: " + ex.getMessage());
+        }
+        if (respuesta) {
+            System.out.println("Insertado con exito");
+        } else {
+            System.out.println("No se pudo insertar");
+        }
+        return respuesta;
+    }
+
+    public Proveedores buscarProveedor(String nit) {
+        try {
+            Proveedores encontrado = null;
+
+            String consulta = "SELECT * FROM proveedor WHERE NIT_proveedor = '" + nit + "' ";
+            ResultSet registros = manipularBD.executeQuery(consulta);
+            registros.next();
+            if (registros.getRow() == 1) {
+                String nit_proveedor = registros.getString("NIT_proveedor");
+                String nombre_proveedor = registros.getString("nombre_proveedor");
+                String direccion = registros.getString("direccion");
+                String telefono = registros.getString("telefono");
+                String correo = registros.getString("correo");
+                String persona_contacto = registros.getString("persona_contacto");
+                String estado = registros.getString("estado");
+
+                encontrado = new Proveedores(nit_proveedor, nombre_proveedor, direccion, telefono, correo, persona_contacto, estado);
+                return encontrado;
+            } else {
                 return encontrado;
             }
         } catch (SQLException ex) {
@@ -188,10 +374,10 @@ public class BaseDatosValeria {
         }
     }
     
-    public boolean actualizarProductoEditar(String id_producto, String nombres, String medicamento, String volumen, String precio, String fecha, String ingredientes, String usos){
+    public boolean actualizarProveedor(String nit, String nombre, String direccion, String telefono, String correo, String persona, String estado){
         boolean respuesta = false;
         try {
-            String consulta = "UPDATE producto SET nombre_producto='"+nombres+"', medicamento='"+medicamento+"', volumen='"+volumen+"', precio_unitario='"+precio+"', fecha_vencimiento='"+fecha+"', ingredientes='"+ingredientes+"', usos='"+usos+"' WHERE id_producto='"+id_producto+"' ";
+            String consulta = "UPDATE proveedor SET NIT_proveedor='"+nit+"', nombre_proveedor='"+nombre+"', direccion='"+direccion+"', telefono='"+telefono+"', correo='"+correo+"', persona_contacto='"+persona+"', estado='"+estado+"' WHERE NIT_proveedor='"+nit+"' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
             if (resp_consulta==1) {
                 respuesta = true;
@@ -206,73 +392,6 @@ public class BaseDatosValeria {
         }
         return respuesta;
     }
-    
-    public boolean eliminarProducto(String id_producto){
-        boolean respuesta = false;
-        try {
-            String consulta = "DELETE FROM producto WHERE id_producto='"+id_producto+"' ";
-            int resp_consulta = manipularBD.executeUpdate(consulta);
-            if (resp_consulta==1) {
-                respuesta = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("--> Error Delete: " + ex.getMessage());
-        }
-        if (respuesta){
-            System.out.println("Eliminado con exito");
-        }else{
-            System.out.println("No se pudo Eliminar");
-        }
-        return respuesta;
-    }
-    public boolean insertarProveedor(String nit,String nombre, String direccion, String telefono, String correo, String persona, String estado){
-        boolean respuesta = false;
-        try {
-            String consulta = "INSERT INTO proveedor (nit_proveedor,nombre_proveedor, direccion, telefono, correo, persona_contacto, estado) VALUES ('"+nit+"','"+nombre+"','"+direccion+"','"+telefono+"','"+correo+"','"+persona+"','"+estado+"')";
-            int resp_consulta = manipularBD.executeUpdate(consulta);
-            if (resp_consulta==1) {
-                respuesta = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("--> Error Insert: " + ex.getMessage());
-        }
-        if (respuesta){
-            System.out.println("Insertado con exito");
-        }else{
-            System.out.println("No se pudo insertar");
-        }
-        return respuesta;
-    }
-    
-    public Proveedores buscarProveedor(String nit){
-        try {
-            Proveedores encontrado = null;
-            
-            String consulta = "SELECT * FROM proveedor WHERE NIT_proveedor = '"+nit+"' ";
-            ResultSet registros = manipularBD.executeQuery(consulta);
-            registros.next();
-            if (registros.getRow()==1) {
-                String nit_proveedor = registros.getString("NIT_proveedor");
-                String nombre_proveedor = registros.getString("nombre_proveedor");
-                String direccion = registros.getString("direccion");
-                String telefono = registros.getString( "telefono");
-                String correo = registros.getString("correo");
-                String persona_contacto = registros.getString("persona_contacto");
-                String estado = registros.getString("estado");
-   
-                
-                
-                encontrado = new Proveedores(nit_proveedor, nombre_proveedor, direccion, telefono, correo, persona_contacto, estado);
-                return encontrado;
-            }else{
-                return encontrado;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al ejecutar el SELECT: ");
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
 
     public Connection getConexion() {
         return conexion;
@@ -282,5 +401,5 @@ public class BaseDatosValeria {
         return manipularBD;
 
     }
-    
+
 }

@@ -1,6 +1,9 @@
 
 package utils;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,10 +12,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import principal.HistorialVentas;
+import utils.Producto;
+
 
 public class BaseDatos {
     Connection conexion;
     Statement manipularDB;
+    
+    
+    
     
     public BaseDatos(){
         String hostname = "localhost";
@@ -90,4 +101,6 @@ public class BaseDatos {
             throw new RuntimeException(e);
         }
     }
+    
+    
 }

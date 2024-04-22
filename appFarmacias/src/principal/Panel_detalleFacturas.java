@@ -42,7 +42,7 @@ public class Panel_detalleFacturas extends javax.swing.JPanel {
         etq_logo.setIcon(new ImageIcon(icono_logo));
         
         
-        
+        etq_numReferencia.setText("Numero de Referencia: "+ this.numFactura);
         tabla_detalles.setRowHeight(25);
         tabla_detalles.setBackground(Color.decode("#4F6CD3"));
         tabla_detalles.setGridColor(Color.WHITE);

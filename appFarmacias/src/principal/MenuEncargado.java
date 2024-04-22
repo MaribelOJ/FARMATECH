@@ -2,23 +2,37 @@ package principal;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import utils.BaseDatos;
+import utils.BaseDatosCristian;
 import utils.Usuario;
 import utils.BaseDatosValeria;
 import utils.Producto;
 import utils.Proveedores;
+import utils.BaseDatosCristian;
+import utils.BaseDatos_Maribel;
 
 
 
 public class MenuEncargado extends javax.swing.JFrame {
+    BaseDatosCristian bdC = new BaseDatosCristian();
     BaseDatos bd;
     BaseDatosValeria bdvaleria = new BaseDatosValeria();
+    BaseDatos_Maribel bdM =new BaseDatos_Maribel();
+    String NIT_farmacia;
+    String id_usuario;
+    int pagina;
     
-    public MenuEncargado(BaseDatos bd, String nombre_usuario) {
+    public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario) {
         this.bd = bd;
+        this.id_usuario = id_usuario;
+        this.NIT_farmacia = bdvaleria.buscarAsignacion(id_usuario);
+        this.pagina = 1;
         initComponents();
         initAlternComponents(nombre_usuario);
     }
@@ -63,10 +77,10 @@ public class MenuEncargado extends javax.swing.JFrame {
         btn_catalogo = new javax.swing.JButton();
         btn_añadir_prod_stock = new javax.swing.JButton();
         btn_editar_prod = new javax.swing.JButton();
-        btn_eliminar_prod = new javax.swing.JButton();
         btn_factura = new javax.swing.JButton();
         btn_lista_proveedores = new javax.swing.JButton();
         cerrar_sesion = new javax.swing.JButton();
+        btn_Stock = new javax.swing.JButton();
         panel_bienvenida = new javax.swing.JPanel();
         etq_logo = new javax.swing.JLabel();
         etq_titulo = new javax.swing.JLabel();
@@ -127,16 +141,6 @@ public class MenuEncargado extends javax.swing.JFrame {
             }
         });
 
-        btn_eliminar_prod.setBackground(new java.awt.Color(144, 177, 239));
-        btn_eliminar_prod.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_eliminar_prod.setForeground(new java.awt.Color(255, 255, 255));
-        btn_eliminar_prod.setText("Eliminar Producto");
-        btn_eliminar_prod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminar_prodActionPerformed(evt);
-            }
-        });
-
         btn_factura.setBackground(new java.awt.Color(144, 177, 239));
         btn_factura.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_factura.setForeground(new java.awt.Color(255, 255, 255));
@@ -161,6 +165,13 @@ public class MenuEncargado extends javax.swing.JFrame {
         cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cerrar_sesionActionPerformed(evt);
+        btn_Stock.setBackground(new java.awt.Color(144, 177, 239));
+        btn_Stock.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_Stock.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Stock.setText("Stock");
+        btn_Stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_StockActionPerformed(evt);
             }
         });
 
@@ -183,12 +194,12 @@ public class MenuEncargado extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btn_factura, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_eliminar_prod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_editar_prod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_catalogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_historial_ventas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_añadir_prod_stock, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_Stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_controlLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -214,6 +225,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(btn_editar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_eliminar_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -221,6 +233,7 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -290,13 +303,45 @@ public class MenuEncargado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void btn_catalogoActionPerformed(){
+        btn_catalogoActionPerformed(null);
+    }
+    
+    public void btn_catalogoActionPerformed(int pag){
+        this.pagina=pag;
+        btn_catalogoActionPerformed(null);
+    }
+    
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
-        // TODO add your handling code here:
+            
+            CatalogoProducto catalogo = new CatalogoProducto(this,this.pagina);
+            catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
+            catalogo.setSize( panel_bienvenida.getSize() );
+            
+            // Eliminar el contenido del contentPrincipal
+            panel_bienvenida.removeAll();
+            
+            // Agregar dentro de contentPrincipal el contenedor nuevo.
+            panel_bienvenida.add(catalogo);
+            
+            repaint();
+            revalidate();        
     }//GEN-LAST:event_btn_catalogoActionPerformed
 
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
-        // TODO add your handling code here:
+        HistorialVentas historial = new HistorialVentas(bdC);
+        historial.setPreferredSize( panel_bienvenida.getPreferredSize() );
+        historial.setSize( panel_bienvenida.getSize() );
+        
+        // Eliminar el contenido del contentPrincipal
+        panel_bienvenida.removeAll();
+        
+        // Agregar dentro de contentPrincipal el contenedor nuevo.
+        panel_bienvenida.add(historial);
+        
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_historial_ventasActionPerformed
 
     private void btn_añadir_prod_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_añadir_prod_stockActionPerformed
@@ -319,7 +364,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
 
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
-        EditarProducto nuevo = new EditarProducto(bdvaleria);
+        EditarProducto nuevo = new EditarProducto(bdvaleria,id_usuario);
 
         // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
@@ -330,30 +375,13 @@ public class MenuEncargado extends javax.swing.JFrame {
 
         // Agregar dentro del contenido principal el contenido nuevo
         panel_bienvenida.add(nuevo);
-        // Hacer Repaint() y Revalidate()
+        //Hacer Repaint() y Revalidate()
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_editar_prodActionPerformed
 
-    private void btn_eliminar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_prodActionPerformed
-        EliminarProducto nuevo = new EliminarProducto(bdvaleria);
-
-        // Ajustar el tamaño del contenedor nuevo
-        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
-        nuevo.setSize(panel_bienvenida.getSize());
-
-        // Eliminar el contenido del principal
-        panel_bienvenida.removeAll();
-
-        // Agregar dentro del contenido principal el contenido nuevo
-        panel_bienvenida.add(nuevo);
-        // Hacer Repaint() y Revalidate()
-        repaint();
-        revalidate();
-    }//GEN-LAST:event_btn_eliminar_prodActionPerformed
-
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        // TODO add your handling code here:
+        GenerarFactura factura = new GenerarFactura(bd);
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed
@@ -391,14 +419,32 @@ public class MenuEncargado extends javax.swing.JFrame {
             dispose(); // Cerrar la ventana actual
         }
     }//GEN-LAST:event_cerrar_sesionActionPerformed
+    private void btn_StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_StockActionPerformed
+        /* Stock1 id_producto =
+        Stock1 listado[] = bdvaleria.listaStock(id_producto);
+        StockPro nuevo = new StockPro(listado, bdvaleria);
+
+        // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();*/
+    }//GEN-LAST:event_btn_StockActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Stock;
     private javax.swing.JButton btn_añadir_prod_stock;
     private javax.swing.JButton btn_catalogo;
     private javax.swing.JButton btn_editar_prod;
-    private javax.swing.JButton btn_eliminar_prod;
     private javax.swing.JButton btn_factura;
     private javax.swing.JButton btn_historial_ventas;
     private javax.swing.JButton btn_lista_proveedores;

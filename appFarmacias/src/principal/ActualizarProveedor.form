@@ -16,10 +16,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -39,28 +36,25 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="etq_titulo" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="etq_titulo" alignment="0" min="-2" pref="778" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="337" max="-2" attributes="0"/>
-                          <Component id="btn_buscar" min="-2" pref="101" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="Campo_buscar" min="-2" pref="305" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                           <Component id="jPanel_menu" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="227" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="Campo_buscar" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="btn_buscar" min="-2" pref="101" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
+                  <EmptySpace pref="107" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -71,9 +65,9 @@
                   <Component id="etq_titulo" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Campo_buscar" min="-2" pref="31" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_buscar" min="-2" pref="31" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="jPanel_menu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="83" max="32767" attributes="0"/>
               </Group>
@@ -87,7 +81,7 @@
               <Font name="Arial" size="24" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="ELIMINAR PRODUCTO"/>
+            <Property name="text" type="java.lang.String" value="ACTUALIZAR PROVEEDOR"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="Campo_buscar">
@@ -124,59 +118,67 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="campo_nit" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
+                                  <Component id="campo_telefono" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
+                                  <Component id="campo_correo" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
+                                  <Component id="campoPersona" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
+                                  <Component id="campo_Estado" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
+                                  <Component id="campo_direccion" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
                                   <Component id="campo_nombre" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                                  <Component id="campo_volumen" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                                  <Component id="campo_precio" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                                  <Component id="campo_fecha" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                                  <Component id="campo_ingredientes" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                                  <Component id="campo_medicamento" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
-                                  <Component id="campo_usos" alignment="0" min="-2" pref="500" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                              <Component id="btn_eliminar" min="-2" pref="112" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                              <Component id="btn_actualizar" min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                               <Component id="btn_volver" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="campo_nombre" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campo_medicamento" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="campo_volumen" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campo_precio" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campo_fecha" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campo_ingredientes" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campo_usos" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                      <Component id="campo_nit" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campo_nombre" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campo_direccion" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campo_telefono" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campo_correo" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campoPersona" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Component id="campo_Estado" min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btn_eliminar" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="btn_actualizar" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="btn_volver" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JTextField" name="campo_nit">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="NIT:"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JTextField" name="campo_nombre">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -185,55 +187,47 @@
                 <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campo_medicamento">
+            <Component class="javax.swing.JTextField" name="campo_direccion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="medicamento:"/>
+                <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campo_volumen">
+            <Component class="javax.swing.JTextField" name="campo_telefono">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="volumen:"/>
+                <Property name="text" type="java.lang.String" value="Telefono:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campo_precio">
+            <Component class="javax.swing.JTextField" name="campo_correo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Precio unitario:"/>
+                <Property name="text" type="java.lang.String" value="Correo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campo_fecha">
+            <Component class="javax.swing.JTextField" name="campoPersona">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fecha vencimiento:"/>
+                <Property name="text" type="java.lang.String" value="persona_contacto"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campo_ingredientes">
+            <Component class="javax.swing.JTextField" name="campo_Estado">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ingredientes:"/>
+                <Property name="text" type="java.lang.String" value="Estado:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="campo_usos">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="14" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Usos:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btn_eliminar">
+            <Component class="javax.swing.JButton" name="btn_actualizar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="e9" green="2d" red="2c" type="rgb"/>
@@ -244,10 +238,10 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="ELIMINAR"/>
+                <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_actualizarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_volver">
@@ -263,6 +257,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="VOLVER"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_volverActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -3,6 +3,7 @@ package principal;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import utils.BaseDatos;
+
 import utils.Usuario;
 
 
@@ -197,7 +198,8 @@ public class InicioSesion extends javax.swing.JFrame {
                 }else{
                     System.out.println("Encargado:" + usuario.getNombre());
                     nombre_usuario = usuario.getNombre();
-                    MenuEncargado menu = new MenuEncargado (bd, nombre_usuario);
+                    String id_usuario=usuario.getId_usuario();
+                    MenuEncargado menu = new MenuEncargado (bd, nombre_usuario,id_usuario);
                     dispose();
                 }
                 campo_usuario.setText("");

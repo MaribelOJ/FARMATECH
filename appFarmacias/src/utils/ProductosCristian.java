@@ -3,10 +3,10 @@ package utils;
 
 import java.awt.Image;
 
-public class Producto {
+public class ProductosCristian {
     private String id_producto;
     private String nombre_producto;
-    private String medicamentos;
+    private Image medicamentos;
     private String volumen;
     private String precio_unitario;
     private String fecha_vencimiento;
@@ -14,27 +14,18 @@ public class Producto {
     private String usos;
     private Image medicamento;
     
-    public Producto(String id_producto, String nombre_producto,Image medicamento, String volumen, String precio_unitario, String fecha_vencimiento,String ingredientes, String usos) {
+    public ProductosCristian(String id_producto, String nombre_producto, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String medicamentos) {
         this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
+        this.medicamento = medicamento;
         this.volumen = volumen;
         this.precio_unitario = precio_unitario;
         this.fecha_vencimiento = fecha_vencimiento;
         this.ingredientes = ingredientes;
         this.usos = usos;
-        this.medicamento = medicamento;
+        
         
     }
-
-    public Image getMedicamento() {
-        return medicamento;
-    }
-
-    public void setMedicamento(Image medicamento) {
-        this.medicamento = medicamento;
-    }
-
-
     public String getId_producto() {
         return id_producto;
     }
@@ -50,7 +41,14 @@ public class Producto {
     public void setNombre_producto(String nombre_producto) {
         this.nombre_producto = nombre_producto;
     }
+    
+    public Image getMedicamento(){
+        return medicamento;
+    }
 
+    public void setMeedicamentos(Image medicamento){
+        this.medicamento = medicamento;
+    }
   
 
     public String getVolumen() {

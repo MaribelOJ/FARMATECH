@@ -3,37 +3,33 @@ package utils;
 
 import java.awt.Image;
 
-public class Producto {
+public class Catalogo {
     private String id_producto;
     private String nombre_producto;
-    private String medicamentos;
+    private Image foto;
     private String volumen;
     private String precio_unitario;
-    private String fecha_vencimiento;
-    private String ingredientes;
     private String usos;
-    private Image medicamento;
-    
-    public Producto(String id_producto, String nombre_producto,Image medicamento, String volumen, String precio_unitario, String fecha_vencimiento,String ingredientes, String usos) {
+    private String cant_restante;
+    private String ingredientes;
+
+    public Catalogo(String id_producto, String nombre_producto, Image foto, String volumen, String precio_unitario, String usos, String cant_restante, String ingredientes) {
         this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
+        this.foto = foto;
         this.volumen = volumen;
         this.precio_unitario = precio_unitario;
-        this.fecha_vencimiento = fecha_vencimiento;
-        this.ingredientes = ingredientes;
         this.usos = usos;
-        this.medicamento = medicamento;
-        
+        this.cant_restante = cant_restante;
+        this.ingredientes = ingredientes;
     }
 
-    public Image getMedicamento() {
-        return medicamento;
+    @Override
+    public String toString() {
+        return "Catalogo{" + "nombre_producto=" + nombre_producto + ", foto=" + foto + '}';
     }
-
-    public void setMedicamento(Image medicamento) {
-        this.medicamento = medicamento;
-    }
-
+    
+    
 
     public String getId_producto() {
         return id_producto;
@@ -51,7 +47,13 @@ public class Producto {
         this.nombre_producto = nombre_producto;
     }
 
-  
+    public Image getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Image foto) {
+        this.foto = foto;
+    }
 
     public String getVolumen() {
         return volumen;
@@ -60,29 +62,13 @@ public class Producto {
     public void setVolumen(String volumen) {
         this.volumen = volumen;
     }
-
+    
     public String getPrecio_unitario() {
         return precio_unitario;
     }
 
     public void setPrecio_unitario(String precio_unitario) {
         this.precio_unitario = precio_unitario;
-    }
-
-    public String getFecha_vencimiento() {
-        return fecha_vencimiento;
-    }
-
-    public void setFecha_vencimiento(String fecha_vencimiento) {
-        this.fecha_vencimiento = fecha_vencimiento;
-    }
-
-    public String getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
     }
 
     public String getUsos() {
@@ -92,4 +78,23 @@ public class Producto {
     public void setUsos(String usos) {
         this.usos = usos;
     }
+
+    public String getCant_restante() {
+        return cant_restante;
+    }
+
+    public void setCant_restante(String cant_restante) {
+        this.cant_restante = cant_restante;
+    }
+
+    public String getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+    
+    
+    
 }

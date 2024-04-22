@@ -640,7 +640,12 @@ public class Panel_visualizarFarmacias extends javax.swing.JPanel {
                 this.menu.btn_visualizar_farmaciasActionPerformed(0,numContenedor);
                 btn_next.setEnabled(true);
                 btn_rewind.setEnabled(true);
-            }            
+            }
+            
+            String NIT=campo_busqueda.getText();
+            if(letrasBorradas <4 && NIT.equals("")){
+                this.menu.btn_visualizar_farmaciasActionPerformed(0,numContenedor);
+            }
         }
     }//GEN-LAST:event_borrarBusqueda
 
