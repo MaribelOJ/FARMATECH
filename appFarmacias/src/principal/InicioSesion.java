@@ -182,8 +182,7 @@ public class InicioSesion extends javax.swing.JFrame {
         String user = campo_usuario.getText();
         String password = new String(campo_clave.getPassword());
         String nombre_usuario;
-              
-        
+
         if(user.equals("")|| password.equals("")){
             System.out.println("Las dos credenciales son requeridas!");
             Alerta ventana = new Alerta("¡Las dos credenciales son requeridas!.");
