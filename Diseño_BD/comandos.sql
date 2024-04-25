@@ -202,7 +202,17 @@ VALUES
     ('1006',7,'NIT10',90,90,'activo', CURDATE()),
     ('1002',8,'NIT5',86,86,'activo', CURDATE()),
     ('1005',9,'NIT7',100,100,'activo', CURDATE()),
-    ('1001',10,'NIT7',20,20,'activo', CURDATE());
+    ('1001',10,'NIT7',20,20,'activo', CURDATE()),
+    ('1001',2,'NIT6',50,50,'activo', CURDATE()),
+    ('1001',3,'NIT6',100,100,'activo', CURDATE()),
+    ('1001',5,'NIT4',120,120,'activo', CURDATE()),
+    ('1002',10,'NIT1',30,30,'activo', CURDATE()),
+    ('1002',5,'NIT9',10,10,'activo', CURDATE()),
+    ('1002',6,'NIT3',10,10,'activo', CURDATE()),
+    ('1003',7,'NIT10',90,90,'activo', CURDATE()),
+    ('1003',8,'NIT5',86,86,'activo', CURDATE()),
+    ('1003',9,'NIT7',100,100,'activo', CURDATE()),
+    ('1004',10,'NIT7',20,20,'activo', CURDATE());
     
 
 --INSERTAR FACTURAS

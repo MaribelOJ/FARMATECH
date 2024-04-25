@@ -10,6 +10,7 @@ import utils.Usuario;
 
 public class InicioSesion extends javax.swing.JFrame {
     BaseDatos bd;
+
     
     public InicioSesion(BaseDatos bd) {
         this.bd = bd;
@@ -178,7 +179,7 @@ public class InicioSesion extends javax.swing.JFrame {
     }
     
     private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
-        
+      
         String user = campo_usuario.getText();
         String password = new String(campo_clave.getPassword());
         String nombre_usuario;

@@ -26,17 +26,17 @@ public class CatalogoProducto extends javax.swing.JPanel {
     GridBagConstraints restricciones;
     
             
-    public CatalogoProducto(MenuEncargado menu) {
+    public CatalogoProducto(MenuEncargado menu, int pagina) {
         this.bd=menu.bdM;
         this.menu = menu;
         this.NIT = menu.NIT_farmacia;
         this.letrasBorradas=0;
-        System.out.println(NIT);
         initComponents();
         initAlternComponents();
         
         this.listaCatalogo = this.bd.getCatalogInfo(NIT);
-        this.pagina = 1;
+        this.pagina = pagina;
+        
         cargarPagina();
     }
     
@@ -57,17 +57,19 @@ public class CatalogoProducto extends javax.swing.JPanel {
         cont_principal.setBackground(new java.awt.Color(255, 255, 255));
 
         contentFarmacias.setBackground(new java.awt.Color(255, 255, 255));
-        contentFarmacias.setPreferredSize(new java.awt.Dimension(249, 332));
+        contentFarmacias.setPreferredSize(new java.awt.Dimension(791, 509));
+
+        contentPaginador.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout contentPaginadorLayout = new javax.swing.GroupLayout(contentPaginador);
         contentPaginador.setLayout(contentPaginadorLayout);
         contentPaginadorLayout.setHorizontalGroup(
             contentPaginadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+            .addGap(0, 711, Short.MAX_VALUE)
         );
         contentPaginadorLayout.setVerticalGroup(
             contentPaginadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
+            .addGap(0, 327, Short.MAX_VALUE)
         );
 
         btnAtras.setText("ANTERIOR");
@@ -89,23 +91,22 @@ public class CatalogoProducto extends javax.swing.JPanel {
         contentFarmaciasLayout.setHorizontalGroup(
             contentFarmaciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentFarmaciasLayout.createSequentialGroup()
-                .addGroup(contentFarmaciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentFarmaciasLayout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentFarmaciasLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(contentPaginador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(245, 245, 245)
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentFarmaciasLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(contentPaginador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
         contentFarmaciasLayout.setVerticalGroup(
             contentFarmaciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentFarmaciasLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addGap(56, 56, 56)
                 .addComponent(contentPaginador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(contentFarmaciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,7 +144,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(etq_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(contentFarmacias, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+            .addComponent(contentFarmacias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(cont_principalLayout.createSequentialGroup()
                 .addGap(230, 230, 230)
                 .addComponent(campo_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,7 +166,7 @@ public class CatalogoProducto extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addComponent(campo_busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(contentFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(contentFarmacias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -192,7 +193,8 @@ public class CatalogoProducto extends javax.swing.JPanel {
         btn_buscar.setForeground(new Color(0, 0, 200));
         
         contentPaginador.setLayout(new GridBagLayout());
-        contentPaginador.setPreferredSize(new Dimension(715, 330));
+        contentPaginador.setPreferredSize(new Dimension(711, 327));
+        contentPaginador.setBackground(Color.WHITE);
         
         restricciones = new GridBagConstraints();
         restricciones.gridwidth = 1;
@@ -212,10 +214,11 @@ public class CatalogoProducto extends javax.swing.JPanel {
             
             JPanel conten = null;
             if (indice<listaCatalogo.length && listaCatalogo[indice]!=null) {
-                conten = new Panel_productoCatalogo(bd, listaCatalogo,listaCatalogo[indice].getId_producto());
+                conten = new Panel_productoCatalogo(bd, listaCatalogo,indice,this);
             }else{
                 conten = new JPanel();
-                conten.setPreferredSize(new Dimension(233, 321));
+                conten.setBackground(Color.WHITE);
+                conten.setPreferredSize(new Dimension(233, 328));
                 btnSiguiente.setEnabled(false);
             }
             
@@ -250,16 +253,14 @@ public class CatalogoProducto extends javax.swing.JPanel {
         if(teclado == 10){
             btnSiguiente.setEnabled(false);
             btnAtras.setEnabled(false);
+            pagina = 1;
             String productName = campo_busqueda.getText();
-            Catalogo busqueda = bd.getProductInfo(productName,NIT);
-
-
-            if (busqueda!=null && busqueda.getFoto()!=null) {
-                
-                repaint();
-                revalidate();
-
+            if(!productName.equals("")){
+                listaCatalogo = bd.getProductInfo(NIT,productName);
+                cargarPagina();
             }
+            
+            
         }
     }//GEN-LAST:event_enterBuscar
 
@@ -273,27 +274,40 @@ public class CatalogoProducto extends javax.swing.JPanel {
                 btnSiguiente.setEnabled(true);
                 btnAtras.setEnabled(true);
             }
+            String productName=campo_busqueda.getText();
+            if(letrasBorradas < 4 && productName.equals("")){
+                this.menu.btn_catalogoActionPerformed();
+            }
         }
     }//GEN-LAST:event_borrarBusqueda
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         String productName = campo_busqueda.getText();
-        Catalogo busqueda = bd.getProductInfo(productName, NIT);
-
-
-        if (busqueda!=null && busqueda.getFoto()!=null) {
-
-            //Panel_productoCatalogo displaySearch = new Panel_productoCatalogo(bd,productName,NIT);
-            //displaySearch.setPreferredSize(new Dimension(233, 321));
-                    
-            contentPaginador.removeAll();
-            
-            repaint();
-            revalidate();
-
+        pagina = 1;
+        if(!productName.equals("")){
+            listaCatalogo = bd.getProductInfo(NIT,productName);
+            cargarPagina();
         }
-
     }//GEN-LAST:event_btn_buscarActionPerformed
+    
+    public void mostrarDetalleProducto(int i){
+        
+        contentFarmacias.removeAll();
+        //CatalogoProducto panelActual = this;
+        Panel_detalleProducto display = new Panel_detalleProducto(listaCatalogo,i,this);
+        display.setPreferredSize(contentFarmacias.getPreferredSize());
+        display.setSize(contentFarmacias.getSize());
+
+        
+        contentFarmacias.add(display);
+        repaint();
+        revalidate();
+    }
+    
+    public void volverAlPaginador(){
+        contentFarmacias.removeAll();
+        this.menu.btn_catalogoActionPerformed(pagina);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;

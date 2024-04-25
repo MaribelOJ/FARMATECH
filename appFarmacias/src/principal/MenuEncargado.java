@@ -1,12 +1,16 @@
 package principal;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import utils.BaseDatos;
 import utils.BaseDatosCristian;
 import utils.Usuario;
+import javax.swing.UIManager;
 import utils.BaseDatosValeria;
 import utils.Producto;
 import utils.Proveedores;
@@ -22,11 +26,13 @@ public class MenuEncargado extends javax.swing.JFrame {
     BaseDatos_Maribel bdM =new BaseDatos_Maribel();
     String NIT_farmacia;
     String id_usuario;
+    int pagina;
     
     public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario) {
         this.bd = bd;
         this.id_usuario = id_usuario;
         this.NIT_farmacia = bdvaleria.buscarAsignacion(id_usuario);
+        this.pagina = 1;
         initComponents();
         initAlternComponents(nombre_usuario);
     }
@@ -47,6 +53,10 @@ public class MenuEncargado extends javax.swing.JFrame {
         Image icono_logo_admin = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_menu.png"));
         icono_logo_admin = icono_logo_admin.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         etq_logo_encargado.setIcon(new ImageIcon(icono_logo_admin));
+        
+        Image icono_logo_cerrar = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_cerrar.png"));
+        icono_logo_cerrar = icono_logo_cerrar.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        cerrar_sesion.setIcon(new ImageIcon(icono_logo_cerrar));
         
         etq_nombre.setText(nombre_usuario);
         
@@ -70,6 +80,7 @@ public class MenuEncargado extends javax.swing.JFrame {
         btn_factura = new javax.swing.JButton();
         btn_lista_proveedores = new javax.swing.JButton();
         btn_Stock = new javax.swing.JButton();
+        cerrar_sesion = new javax.swing.JButton();
         panel_bienvenida = new javax.swing.JPanel();
         etq_logo = new javax.swing.JLabel();
         etq_titulo = new javax.swing.JLabel();
@@ -160,6 +171,13 @@ public class MenuEncargado extends javax.swing.JFrame {
             }
         });
 
+        cerrar_sesion.setBorder(null);
+        cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrar_sesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_controlLayout = new javax.swing.GroupLayout(panel_control);
         panel_control.setLayout(panel_controlLayout);
         panel_controlLayout.setHorizontalGroup(
@@ -181,10 +199,15 @@ public class MenuEncargado extends javax.swing.JFrame {
                             .addComponent(btn_Stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
             .addGroup(panel_controlLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
                 .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(etq_texto_encargado)
-                    .addComponent(etq_logo_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_controlLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(panel_controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(etq_texto_encargado)
+                            .addComponent(etq_logo_encargado, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_controlLayout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_controlLayout.setVerticalGroup(
@@ -210,7 +233,9 @@ public class MenuEncargado extends javax.swing.JFrame {
                 .addComponent(btn_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_lista_proveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         panel_bienvenida.setBackground(new java.awt.Color(255, 255, 255));
@@ -285,9 +310,14 @@ public class MenuEncargado extends javax.swing.JFrame {
         btn_catalogoActionPerformed(null);
     }
     
+    public void btn_catalogoActionPerformed(int pag){
+        this.pagina=pag;
+        btn_catalogoActionPerformed(null);
+    }
+    
     private void btn_catalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_catalogoActionPerformed
             
-            CatalogoProducto catalogo = new CatalogoProducto(this);
+            CatalogoProducto catalogo = new CatalogoProducto(this,this.pagina);
             catalogo.setPreferredSize( panel_bienvenida.getPreferredSize() );
             catalogo.setSize( panel_bienvenida.getSize() );
             
@@ -393,6 +423,24 @@ public class MenuEncargado extends javax.swing.JFrame {
         revalidate();*/
     }//GEN-LAST:event_btn_StockActionPerformed
 
+    private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
+        // Establecer el texto de los botones y el estilo del cuadro de diálogo
+        UIManager.put("OptionPane.yesButtonText", "Sí");
+        UIManager.put("OptionPane.noButtonText", "No");
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 18)); // Cambiar la fuente del mensaje
+        UIManager.put("Button.background", new Color(255,255,255)); // Color de fondo del botón No
+        UIManager.put("Button.foreground", Color.BLACK); // Color de texto del botón No
+        UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.BOLD, 18)); // Cambiar la fuente de los botones del cuadro de diálogo
+
+        // Mostrar el cuadro de diálogo de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas cerrar sesión?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Cerrar sesión y volver a la ventana de inicio de sesión
+            InicioSesion ventana_sesion = new InicioSesion(bd);
+            dispose(); // Cerrar la ventana actual
+        }
+    }//GEN-LAST:event_cerrar_sesionActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -403,6 +451,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     private javax.swing.JButton btn_factura;
     private javax.swing.JButton btn_historial_ventas;
     private javax.swing.JButton btn_lista_proveedores;
+    private javax.swing.JButton cerrar_sesion;
     private javax.swing.JLabel etq_logo;
     private javax.swing.JLabel etq_logo_encargado;
     private javax.swing.JLabel etq_nombre;
