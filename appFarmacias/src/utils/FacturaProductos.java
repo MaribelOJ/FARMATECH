@@ -8,7 +8,7 @@ public class FacturaProductos {
     String suma_total;
     String total;
 
-    public FacturaProductos(String idProducto, String producto, String precioUnitario, String cantidad, String suma_total, String total) {
+    public FacturaProductos(String idProducto, String producto, String precioUnitario, String cantidad, String suma_total) {
         this.idProducto = idProducto;
         this.producto = producto;
         this.precioUnitario = precioUnitario;

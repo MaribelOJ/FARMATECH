@@ -1,22 +1,37 @@
 package principal;
 
+import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import utils.BaseDatos;
 import utils.BaseDatosCristian;
+import utils.ButtonEditor;
 import utils.ButtonRenderer;
+import utils.ButtonRenderer;
+import utils.ButtonEditor;
+import utils.ButtonRenderDetalle;
+
 
 
 public class HistorialVentas extends javax.swing.JPanel {
     
     BaseDatosCristian bdC;
-    
+    HistorialVentas [] lista;
     DefaultTableModel model;
+    JPanel panelBienvenida;
+
 
   
     public HistorialVentas(BaseDatosCristian bd) {
         this.bdC = bd;
         initComponents();
+        this.panelBienvenida = panelBienvenida;
         InitAlternComponents();
         imprimirHistorial();
     }
@@ -27,28 +42,51 @@ public class HistorialVentas extends javax.swing.JPanel {
         setVisible(true);
         model = (DefaultTableModel) HistorialDatos.getModel();
         
-        HistorialDatos.getColumnModel().getColumn(0).setPreferredWidth(200);
-        HistorialDatos.getColumnModel().getColumn(1).setPreferredWidth(200);
-        HistorialDatos.getColumnModel().getColumn(2).setPreferredWidth(300);
-        HistorialDatos.getColumnModel().getColumn(3).setPreferredWidth(300);
-        HistorialDatos.getColumnModel().getColumn(4).setPreferredWidth(200);
-        HistorialDatos.getColumnModel().getColumn(5).setPreferredWidth(200);
+        HistorialDatos.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
+        HistorialDatos.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderDetalle());
+        
+        HistorialDatos.getColumnModel().getColumn(0).setPreferredWidth(150);
+        HistorialDatos.getColumnModel().getColumn(1).setPreferredWidth(180);
+        HistorialDatos.getColumnModel().getColumn(2).setPreferredWidth(270);
+        HistorialDatos.getColumnModel().getColumn(3).setPreferredWidth(290);
+        HistorialDatos.getColumnModel().getColumn(4).setPreferredWidth(250);
+        HistorialDatos.getColumnModel().getColumn(5).setPreferredWidth(100);
+        HistorialDatos.getColumnModel().getColumn(6).setPreferredWidth(100);
     }
     
     public void imprimirHistorial(){
-        utils.HistorialVentas lista[] = bdC.obtenerHistorialVentas;
+        utils.HistorialVentas lista[] = bdC.obtenerHistorialVentas();
         model.setRowCount(0);
-        //System.out.println("lista : "+lista[0]);
+        
         for (int i = 0; i < lista.length && lista[i] != null; i++) {
-            String numReferencia = lista[i].getNumReferencia();
-            String nombre_producto = lista[i].getNombre_producto();
-            String fecha = lista[i].getFecha();
-            String id_cliente = lista[i].getId_cliente();
-            String nombre_cliente = lista[i].getNombre_cliente();
-            String total = lista[i].getTotal();
+            String NumReferencia = lista[i].getNumReferencia();
+            String Nombre_producto = lista[i].getNombre_producto();
+            String Fecha = lista[i].getFecha();
+            String Id_cliente = lista[i].getId_cliente();
+            String Nombre_cliente = lista[i].getNombre_cliente();
+            String Total = lista[i].getTotal();
             
-            Object historial[] = new Object[]{ (i+1), numReferencia, nombre_producto, fecha, id_cliente,nombre_cliente,  total};
+            JButton btnDetalle = new JButton();
+            btnDetalle.setBackground(Color.white);
+            Image VerDetalle = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/VerDetalle.png"));
+            VerDetalle = VerDetalle.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            btnDetalle.setIcon(new ImageIcon(VerDetalle));
+            
+            
+            Object historial[] = new Object[]{ NumReferencia, Nombre_producto, Fecha, Id_cliente, Nombre_cliente,  Total, btnDetalle};
             model.addRow(historial);
+            
+            btnDetalle.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   VerDetalle panel = new VerDetalle(panelBienvenida);
+                   JPanel parent = (JPanel) getParent();
+                   parent.removeAll();
+                   parent.add(panel);
+                   parent.revalidate();
+                   parent.repaint();
+                }
+            });
         }
     } 
     @SuppressWarnings("unchecked")
@@ -88,14 +126,14 @@ public class HistorialVentas extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "numReferencia", "nombre_producto", "fecha", "id_cliente", "nombre_cliente", "total", "Ver detalle"
+                "NumReferencia", "Nombre_producto", "Fecha", "Id_cliente", "Nombre_cliente", "Total", "Ver"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -27,52 +27,49 @@ public class HistorialVentas {
         return numReferencia;
     }
     
+    public void setNumReferencia(String numReferencia){
+        this.numReferencia = numReferencia; 
+    }
+    
     public String getNombre_producto(){
         return nombre_producto;
+    }
+    
+    public void setNombre_Producto(String nombre_Producto){
+        this.nombre_producto = nombre_Producto;
     }
     
     public String getFecha(){
         return fecha;
     }
     
+    public void setFecha(String fcha){
+        this.fecha= fecha;
+    }
+    
     public String getId_cliente(){
         return id_cliente;
+    }
+    public void setId_cliente(String id_cliente){
+        this.id_cliente = id_cliente;
     }
     
     public String getNombre_cliente(){
         return nombre_cliente;
     }
     
+    public void setNombre_cliente(String nombre_cliente){
+        this.nombre_cliente = nombre_cliente;
+    }
+    
     public String getTotal(){
         return total;
     }
     
-    //Setters
-    
-    public void setNumReferencia( String numReferencia){
-        this.numReferencia = numReferencia;
-    }
-    
-    public void setNombre_producto( String nombre_producto){
-        this.nombre_producto = nombre_producto;
-    }
-    
-    public void setFecha( String fecha){
-        this.fecha = fecha;
-    }
-    
-    public void setId_cliente( String id_cliente){
-        this.id_cliente = id_cliente;
-    }
-    
-    public void setNombre_cliente( String nombre_cliente){
-        this.nombre_cliente = nombre_cliente;
-    }
-    
-    public void setTotal( String total){
+    public void setTotal(String total){
         this.total = total;
     }
     
-
-   
+    
+    
 }

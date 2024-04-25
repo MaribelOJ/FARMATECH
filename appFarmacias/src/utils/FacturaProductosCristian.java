@@ -8,6 +8,6 @@ package utils;
  *
  * @author Cristian
  */
-public class ButtonEditar {
+public class FacturaProductosCristian {
     
 }
