@@ -479,7 +479,7 @@ public class BaseDatos_Maribel {
                     String suma_total= registros.getString("suma_total");
                     valor_total += Integer.parseInt(suma_total);
                     
-                    arreglo[i] = new FacturaProductos(idProducto,producto,precio,cantidad,suma_total);
+                    arreglo[i] = new FacturaProductos(idProducto,producto,precio,cantidad,suma_total,total);
                     i++;
                 }while(registros.next());
                 total= ""+valor_total;

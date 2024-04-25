@@ -330,9 +330,14 @@ public class MenuEncargado extends javax.swing.JFrame {
             repaint();
             revalidate();        
     }//GEN-LAST:event_btn_catalogoActionPerformed
-
+    
+    public void btn_historial_ventasActionPerformed(){
+        btn_historial_ventasActionPerformed(null);
+    }
+    
+    
     private void btn_historial_ventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_ventasActionPerformed
-        HistorialVentas historial = new HistorialVentas(bdC);
+        HistorialVentas historial = new HistorialVentas(NIT_farmacia,this);
         historial.setPreferredSize( panel_bienvenida.getPreferredSize() );
         historial.setSize( panel_bienvenida.getSize() );
         
