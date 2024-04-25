@@ -16,6 +16,7 @@ import utils.Producto;
 import utils.Proveedores;
 import utils.BaseDatosCristian;
 import utils.BaseDatos_Maribel;
+import utils.Stock1;
 
 
 
@@ -410,9 +411,9 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
 
     private void btn_StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_StockActionPerformed
-        /* Stock1 id_producto =
-        Stock1 listado[] = bdvaleria.listaStock(id_producto);
-        StockPro nuevo = new StockPro(listado, bdvaleria);
+
+        Stock1 listado[] = bdvaleria.listaStock(NIT_farmacia);
+        Panel_listado_stock nuevo = new Panel_listado_stock(listado, this);
 
         // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
@@ -425,7 +426,7 @@ public class MenuEncargado extends javax.swing.JFrame {
         panel_bienvenida.add(nuevo);
         // Hacer Repaint() y Revalidate()
         repaint();
-        revalidate();*/
+        revalidate();
     }//GEN-LAST:event_btn_StockActionPerformed
 
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed

@@ -13,6 +13,7 @@ public class Stock1 {
     private String id_stock;
     private String NIT_farmacia;
     private String id_producto;
+    private String nombre_producto;
     private String proveedor;
     private String cant_entrante;
     private String cant_restante;
@@ -21,10 +22,11 @@ public class Stock1 {
     private String fecha_descontinuacion;
     private String comentario;
     
-    public Stock1(String id_stock, String NIT_farmacia, String id_producto, String proveedor, String cant_entrante,String cant_restante, String estado, String fecha_registro, String fecha_descontinuacion,String comentario) {
+    public Stock1(String id_stock, String NIT_farmacia, String id_producto,  String nombre_producto,String proveedor, String cant_entrante,String cant_restante, String estado, String fecha_registro, String fecha_descontinuacion,String comentario) {
         this.id_stock = id_stock;
         this.NIT_farmacia = NIT_farmacia;
         this.id_producto = id_producto;
+        this.nombre_producto=nombre_producto;
         this.proveedor = proveedor;
         this.cant_entrante = cant_entrante;
         this.cant_restante = cant_restante;
@@ -35,9 +37,17 @@ public class Stock1 {
         
         
     }
-    public Stock1( String id_producto,String proveedor, String cant_entrante, String cant_restante,String estado, String comentario) {
+
+    public String getNombre_producto() {
+        return nombre_producto;
+    }
+
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    }
+    public Stock1( String nombre_producto,String proveedor, String cant_entrante, String cant_restante,String estado, String comentario) {
       
-        this.id_producto = id_producto;
+        this.nombre_producto = nombre_producto;
         this.proveedor = proveedor;
         this.cant_entrante = cant_entrante;
         this.cant_restante = cant_restante;
