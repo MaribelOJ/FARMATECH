@@ -22,17 +22,14 @@ public class Stock1 {
     private String fecha_descontinuacion;
     private String comentario;
     
-    public Stock1(String id_stock, String NIT_farmacia, String id_producto,  String nombre_producto,String proveedor, String cant_entrante,String cant_restante, String estado, String fecha_registro, String fecha_descontinuacion,String comentario) {
+    public Stock1( String id_stock,String nombre_producto,String proveedor, String cant_entrante,String cant_restante, String estado,String comentario) {
+       
         this.id_stock = id_stock;
-        this.NIT_farmacia = NIT_farmacia;
-        this.id_producto = id_producto;
         this.nombre_producto=nombre_producto;
         this.proveedor = proveedor;
         this.cant_entrante = cant_entrante;
         this.cant_restante = cant_restante;
         this.estado = estado;
-        this.fecha_registro = fecha_registro;
-        this.fecha_descontinuacion = fecha_descontinuacion;
         this.comentario = comentario;
         
         

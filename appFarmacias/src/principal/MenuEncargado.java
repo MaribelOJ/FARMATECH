@@ -372,7 +372,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
 
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
-        EditarProducto nuevo = new EditarProducto(bdvaleria,id_usuario);
+        EditarProducto nuevo = new EditarProducto(id_usuario,this);
 
         // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
@@ -431,7 +431,9 @@ public class MenuEncargado extends javax.swing.JFrame {
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_StockActionPerformed
-
+private void btn_StockActionPerformed() {  
+    btn_StockActionPerformed(null);
+}
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
         // Establecer el texto de los botones y el estilo del cuadro de diálogo
         UIManager.put("OptionPane.yesButtonText", "Sí");
