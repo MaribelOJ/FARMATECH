@@ -474,7 +474,9 @@ public class Panel_factura_final extends javax.swing.JPanel {
         double iva = Integer.parseInt(etq_iva.getText());
         System.out.println("iva: "+iva);
         double total = subtotal + iva;
-
+        
+        insertarvalores();
+         
         try {
             // Insertar nueva fila en la tabla factura
             bdmiguel.insertarFactura(NITFarmacia, fechaActual, horaActual, bdmiguel.obtenerIdClientePorNombre(nombreCliente), nombreCliente, subtotal, iva, total);
@@ -482,7 +484,7 @@ public class Panel_factura_final extends javax.swing.JPanel {
             Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, exx);
         }
         
-        insertarvalores();
+       
         
         habilitarBotonGenerarFactura();
         reiniciarValores();
