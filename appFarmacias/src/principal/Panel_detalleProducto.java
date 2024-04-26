@@ -2,6 +2,7 @@
 package principal;
 
 import java.awt.Image;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import utils.Catalogo;
 
@@ -157,7 +158,7 @@ public class Panel_detalleProducto extends javax.swing.JPanel {
                 .addComponent(cont_Detalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -177,15 +178,19 @@ public class Panel_detalleProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_volverActionPerformed
     
     public void initAlternComponents(){
+        DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
         Image foto = listaCatalogo[indice].getFoto();
         foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);        
         etq_img.setIcon(new ImageIcon(foto));
         
         etq_cant.setText("Disponible: "+listaCatalogo[indice].getCant_restante());
         etq_nombre.setText(listaCatalogo[indice].getNombre_producto()+ " "+ listaCatalogo[indice].getVolumen());
-        etq_precio.setText("Precio: $"+listaCatalogo[indice].getPrecio_unitario());
+        String valorU = formatoDinero.format(Double.parseDouble(listaCatalogo[indice].getPrecio_unitario()));
+        etq_precio.setText("Precio: $"+valorU);
         usos.setText(listaCatalogo[indice].getUsos());
         ingredientes.setText(listaCatalogo[indice].getIngredientes());
+        usos.setEditable(false);
+        ingredientes.setEditable(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

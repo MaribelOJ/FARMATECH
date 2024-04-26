@@ -158,7 +158,7 @@ public class BaseDatosCristian {
         FacturaProductosCristian lista[] = new FacturaProductosCristian[100];
         
         try {
-            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,factura.sub_total, factura.iva, factura.total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto" 
+            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,facturaproducto.suma_total, factura.iva, factura.total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto" 
                                + " INNER JOIN factura ON facturaproducto.numReferencia = factura.numreferencia WHERE factura.numReferencia = '"+ numReferencia+"'";
             ResultSet registros = manipularDB.executeQuery(consulta1);
             registros.next();
@@ -170,7 +170,7 @@ public class BaseDatosCristian {
                     String nombre_producto = registros.getString("nombre_producto");
                     String precio_unitario = registros.getString("precio_unitario");
                     String cantidad = registros.getString("cantidad");
-                    String sub_total = registros.getString("sub_total");
+                    String sub_total = registros.getString("suma_total");
                     String iva = registros.getString("iva");
                     String total = registros.getString("total");
                     
