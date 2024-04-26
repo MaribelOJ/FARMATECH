@@ -383,7 +383,20 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_editar_prodActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        GenerarFactura factura = new GenerarFactura(bd);
+        Panel_factura nuevo = new Panel_factura(this);
+        
+         // Ajustar el tamaño del contenedor nuevo
+        nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());
+        nuevo.setSize(panel_bienvenida.getSize());
+
+        // Eliminar el contenido del principal
+        panel_bienvenida.removeAll();
+
+        // Agregar dentro del contenido principal el contenido nuevo
+        panel_bienvenida.add(nuevo);
+        // Hacer Repaint() y Revalidate()
+        repaint();
+        revalidate();
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void btn_lista_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lista_proveedoresActionPerformed

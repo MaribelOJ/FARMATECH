@@ -47,6 +47,110 @@ public class BaseDatosMiguel {
         }
     }
     
+    public List<String> obtenerListaDeProductos() {
+        List<String> listaDeProductos = new ArrayList<>();
+
+        // Consulta SQL para obtener la lista de productos desde la base de datos
+        String consulta = "SELECT nombre_producto FROM producto";
+
+        try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+            // Ejecutar la consulta
+            ResultSet rs = ps.executeQuery();
+
+            // Recorrer el resultado y agregar cada nombre de producto a la lista
+            while (rs.next()) {
+                String nombreProducto = rs.getString("nombre_producto");
+                listaDeProductos.add(nombreProducto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de errores, puedes cambiar esto según tu necesidad
+        }
+
+        return listaDeProductos;
+    }
+    
+    public int obtenerPrecioUnitario(String nombreProducto) {
+    int precioUnitario = 0; // Valor por defecto si no se encuentra el producto
+    
+        try {
+            String query = "SELECT precio_unitario FROM producto WHERE nombre_producto = ?";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, nombreProducto);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                precioUnitario = resultSet.getInt("precio_unitario");
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // Manejar la excepción según lo necesites
+        }
+
+        return precioUnitario;
+    }
+    
+    // Método para agregar un cliente a la base de datos
+    public void agregarCliente(String cedula, String nombre) {
+        // Establecer la conexión con la base de datos
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/farmatech", "root", "")) {
+            // Consulta SQL para insertar el cliente en la tabla cliente
+            String sql = "INSERT INTO cliente (cedula, nombre) VALUES (?, ?)";
+            
+            // Crear una declaración preparada con la consulta SQL
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                // Establecer los parámetros de la consulta
+                stmt.setString(1, cedula);
+                stmt.setString(2, nombre);
+                
+                // Ejecutar la consulta
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Manejo de excepciones, por ejemplo, imprimir un mensaje de error
+            e.printStackTrace();
+        }
+    }
+    
+    // Método para buscar si el cliente está registrado por su cédula
+    public boolean buscarCliente(String cedula) {
+        boolean clienteRegistrado = false;
+        String query = "SELECT COUNT(*) AS count FROM cliente WHERE cedula = ?";
+        
+        try (PreparedStatement stmt = conexion.prepareStatement(query)) {
+            stmt.setString(1, cedula);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                clienteRegistrado = count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return clienteRegistrado;
+    }
+    
+    // Método para obtener el nombre del cliente por su cédula
+    public String obtenerNombreCliente(String cedula) {
+        String nombre = "";
+        String query = "SELECT nombre FROM cliente WHERE cedula = ?";
+        
+        try (PreparedStatement stmt = conexion.prepareStatement(query)) {
+            stmt.setString(1, cedula);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                nombre = rs.getString("nombre");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return nombre;
+    }
+    
     public void desasignarEncargadoFarmacia(String cedula) {
         try {
             // Obtener la fecha actual
