@@ -47,6 +47,213 @@ public class BaseDatosMiguel {
         }
     }
     
+    public int insertarFacturaProducto(int idProducto, int cantidad, int sumaTotal) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int idFacturaProducto = -1; // Inicializar como -1 en caso de error
+
+        try {
+            conn = conexion;
+
+            // Obtener el número de referencia de la factura
+            int numReferencia = obtenerUltimoNumeroReferenciaFactura();
+
+            // Preparar la consulta de inserción
+            String query = "INSERT INTO facturaProducto (numReferencia, id_producto, cantidad, suma_total) VALUES (?, ?, ?, ?)";
+            stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, numReferencia);
+            stmt.setInt(2, idProducto);
+            stmt.setInt(3, cantidad);
+            stmt.setInt(4, sumaTotal);
+
+            // Ejecutar la consulta
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Error al insertar el registro en facturaProducto, no se han realizado cambios.");
+            }
+
+            // Obtener el ID generado para el registro insertado
+            rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                idFacturaProducto = rs.getInt(1);
+            } else {
+                throw new SQLException("Error al obtener el ID generado para el registro insertado en facturaProducto.");
+            }
+        } finally {
+            // Cerrar los recursos en el bloque finally para asegurar que se cierren siempre
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    // Manejo de errores al cerrar el ResultSet
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    // Manejo de errores al cerrar el Statement
+                }
+            }
+            // No se cierra la conexión aquí, ya que es proporcionada por fuera de este método
+        }
+
+        return idFacturaProducto;
+    }
+    
+    
+    public int obtenerIdProductoPorNombre(String nombreProducto) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int idProducto = -1; // Inicializar como -1 en caso de error
+
+        try {
+            conn = conexion;
+            String query = "SELECT id_producto FROM producto WHERE nombre_producto = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, nombreProducto);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idProducto = rs.getInt("id_producto");
+            }
+        } finally {
+            // Cerrar los recursos en el bloque finally para asegurar que se cierren siempre
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    // Manejo de errores al cerrar el ResultSet
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    // Manejo de errores al cerrar el Statement
+                }
+            }
+            // No se cierra la conexión aquí, ya que es proporcionada por fuera de este método
+        }
+
+        return idProducto;
+    }
+    
+    public int obtenerUltimoNumeroReferenciaFactura() throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int ultimoNumeroReferencia = -1; // Inicializar como -1 en caso de error
+
+        try {
+            conn = conexion;
+            String query = "SELECT MAX(numReferencia) AS max_num_referencia FROM factura";
+            stmt = conn.prepareStatement(query);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                ultimoNumeroReferencia = rs.getInt("max_num_referencia");
+            }
+        } finally {
+            // Cerrar los recursos en el bloque finally para asegurar que se cierren siempre
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    // Manejo de errores al cerrar el ResultSet
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    // Manejo de errores al cerrar el Statement
+                }
+            }
+            // No se cierra la conexión aquí, ya que es proporcionada por fuera de este método
+        }
+
+        // Incrementar el número de referencia para el nuevo registro
+        return ultimoNumeroReferencia;
+    }
+    
+    // Método para obtener el ID del cliente por su nombre
+    public int obtenerIdClientePorNombre(String nombreCliente) throws SQLException {
+        int idCliente = -1; // Valor por defecto si no se encuentra ningún cliente con ese nombre
+        
+        // Consulta SQL para obtener el ID del cliente por su nombre
+        String sql = "SELECT cedula FROM cliente WHERE nombre = ?";
+        
+        // Crear una declaración preparada
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            // Establecer el parámetro del nombre del cliente en la consulta
+            statement.setString(1, nombreCliente);
+            
+            // Ejecutar la consulta
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Si se encuentra un resultado, obtener el ID del cliente
+                if (resultSet.next()) {
+                    idCliente = resultSet.getInt("cedula");
+                }
+            }
+        }
+        
+        return idCliente;
+    }
+    
+    public String obtenerNITFarmaciaPorNombreUsuario(String nombreUsuario) {
+    String NIT = null;
+    try {
+        // Consulta SQL para obtener el NIT de la farmacia asociada al nombre de usuario
+        String query = "SELECT uf.NIT_farmacia " +
+                       "FROM usuarioFarmacia uf " +
+                       "JOIN usuario u ON uf.id_usuario = u.id_usuario " +
+                       "WHERE u.nombre_usuario = ? " +  // Buscar por nombre de usuario
+                       "AND uf.estado = 'activo' " +
+                       "ORDER BY uf.fecha_inicio DESC, uf.id_usuarioFarmacia DESC " + // Ajuste en el orden
+                       "LIMIT 1";
+        
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setString(1, nombreUsuario);
+        ResultSet rs = statement.executeQuery();
+        
+        if (rs.next()) {
+            NIT = rs.getString("NIT_farmacia");
+        }
+        
+        rs.close();
+        statement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return NIT;
+    }
+    
+    public void insertarFactura(String NITFarmacia, java.sql.Date fecha, java.sql.Time hora, int idCliente, String nombre_cliente, double subtotal, double iva, double total) {
+        try {
+            // Query para insertar en la tabla factura
+            String query = "INSERT INTO factura (NIT_farmacia, fecha, hora, id_cliente, nombre_cliente, sub_total, iva, total) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, NITFarmacia);
+            statement.setDate(2, fecha);
+            statement.setTime(3, hora);
+            statement.setInt(4, idCliente);
+            statement.setString(5, nombre_cliente);
+            statement.setDouble(6, subtotal);
+            statement.setDouble(7, iva);
+            statement.setDouble(8, total);
+
+            statement.executeUpdate();
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public List<String> obtenerListaDeProductos() {
         List<String> listaDeProductos = new ArrayList<>();
 

@@ -27,14 +27,16 @@ public class MenuEncargado extends javax.swing.JFrame {
     String NIT_farmacia;
     String id_usuario;
     int pagina;
+    private String nombreUsuario;
     
-    public MenuEncargado(BaseDatos bd, String nombre_usuario, String id_usuario) {
+    public MenuEncargado(BaseDatos bd, String nombreUsuario, String id_usuario) {
         this.bd = bd;
         this.id_usuario = id_usuario;
         this.NIT_farmacia = bdvaleria.buscarAsignacion(id_usuario);
         this.pagina = 1;
         initComponents();
-        initAlternComponents(nombre_usuario);
+        initAlternComponents(nombreUsuario);
+        this.nombreUsuario = nombreUsuario;
     }
     
     public void initAlternComponents(String nombre_usuario){
@@ -383,7 +385,7 @@ public class MenuEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_editar_prodActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
-        Panel_factura nuevo = new Panel_factura(this);
+        Panel_factura nuevo = new Panel_factura(this, nombreUsuario);
         
          // Ajustar el tamaño del contenedor nuevo
         nuevo.setPreferredSize(panel_bienvenida.getPreferredSize());

@@ -8,7 +8,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -26,9 +29,14 @@ public class Panel_factura_final extends javax.swing.JPanel {
     private EliminarProductoTabla ventanaEliminacion;
     int contador_subtotal = 0;
     
-    public Panel_factura_final(MenuEncargado menu) {
+    private String nombreUsuario;
+    private String nombreCliente;
+    
+    public Panel_factura_final(MenuEncargado menu, String nombreCliente, String nombreUsuario) {
         initComponents();
         this.bdmiguel = new BaseDatosMiguel();
+        this.nombreUsuario = nombreUsuario;
+        this.nombreCliente = nombreCliente;
         initAlternComponents();
        
        
@@ -36,7 +44,7 @@ public class Panel_factura_final extends javax.swing.JPanel {
     
     
     public void initAlternComponents(){
-         setVisible(true);
+        setVisible(true);
         Image icono_logo = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/logoFT.png"));
         icono_logo = icono_logo.getScaledInstance(75, 75, Image.SCALE_SMOOTH);
         etq_logo.setIcon(new ImageIcon(icono_logo));
@@ -92,7 +100,9 @@ public class Panel_factura_final extends javax.swing.JPanel {
 
             }
         });
-
+        
+        btn_generar_factura.setEnabled(false);
+        
         revalidate();
         repaint();
     }
@@ -117,6 +127,9 @@ public class Panel_factura_final extends javax.swing.JPanel {
         etq_iva = new javax.swing.JLabel();
         etq_total = new javax.swing.JLabel();
         btn_generar_factura = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -244,23 +257,40 @@ public class Panel_factura_final extends javax.swing.JPanel {
 
         etq_subtotal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         etq_subtotal.setForeground(new java.awt.Color(0, 0, 0));
-        etq_subtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etq_subtotal.setText("SUBTOTAL: $");
+        etq_subtotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etq_subtotal.setText("- ");
 
         etq_iva.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         etq_iva.setForeground(new java.awt.Color(0, 0, 0));
-        etq_iva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etq_iva.setText("IVA: $");
+        etq_iva.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etq_iva.setText("-");
 
         etq_total.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         etq_total.setForeground(new java.awt.Color(0, 0, 0));
-        etq_total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etq_total.setText("TOTAL: $");
+        etq_total.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        etq_total.setText("-");
 
         btn_generar_factura.setBackground(new java.awt.Color(144, 177, 239));
         btn_generar_factura.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btn_generar_factura.setForeground(new java.awt.Color(255, 255, 255));
         btn_generar_factura.setText("Generar Factura");
+        btn_generar_factura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_generar_facturaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Subtotal:");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("IVA:");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Total:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -274,14 +304,24 @@ public class Panel_factura_final extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(etq_iva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(etq_subtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-                            .addComponent(etq_total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel3))
+                            .addGap(29, 29, 29)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(etq_total, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(etq_iva, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(etq_subtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(16, 16, 16))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(21, 21, 21)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(scrollpane, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(294, 294, 294)
                         .addComponent(btn_generar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -300,11 +340,17 @@ public class Panel_factura_final extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addComponent(scrollpane, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(etq_subtotal)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etq_subtotal)
+                    .addComponent(jLabel1))
                 .addGap(12, 12, 12)
-                .addComponent(etq_iva)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etq_iva)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(etq_total)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etq_total)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(btn_generar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
@@ -382,9 +428,9 @@ public class Panel_factura_final extends javax.swing.JPanel {
                     // Calcular total
                     int total = contador_subtotal + iva;
 
-                    etq_subtotal.setText("SUBTOTAL: $" + contador_subtotal);
-                    etq_iva.setText("IVA: $" + iva);
-                    etq_total.setText("TOTAL: $" + total);
+                    etq_subtotal.setText("" + contador_subtotal);
+                    etq_iva.setText("" + iva);
+                    etq_total.setText("" + total);
 
                     // Agregar el producto a la tabla
                     imprimirtabla(nombreProducto, cantidad, subtotal);
@@ -409,6 +455,42 @@ public class Panel_factura_final extends javax.swing.JPanel {
     private void campo_cantidad_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_cantidad_productoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_cantidad_productoActionPerformed
+
+    private void btn_generar_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_generar_facturaActionPerformed
+        String nombreUsuario = this.nombreUsuario;
+        String nombreCliente = this.nombreCliente;
+
+        // Obtener el NIT de la farmacia asociada al nombre de usuario
+        String NITFarmacia = bdmiguel.obtenerNITFarmaciaPorNombreUsuario(nombreUsuario);
+
+        // Obtener la fecha actual
+        java.sql.Date fechaActual = new java.sql.Date(System.currentTimeMillis());
+
+        // Obtener la hora actual
+        java.sql.Time horaActual = new java.sql.Time(System.currentTimeMillis());
+        
+        // Calcular subtotal, iva y total
+        int subtotal = Integer.parseInt(etq_subtotal.getText());
+        double iva = Integer.parseInt(etq_iva.getText());
+        System.out.println("iva: "+iva);
+        double total = subtotal + iva;
+
+        try {
+            // Insertar nueva fila en la tabla factura
+            bdmiguel.insertarFactura(NITFarmacia, fechaActual, horaActual, bdmiguel.obtenerIdClientePorNombre(nombreCliente), nombreCliente, subtotal, iva, total);
+        } catch (SQLException exx) {
+            Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, exx);
+        }
+        
+        insertarvalores();
+        
+        habilitarBotonGenerarFactura();
+        reiniciarValores();
+        Confirmacion nuevo = new Confirmacion("Factura generada con éxito!");
+        
+        
+        
+    }//GEN-LAST:event_btn_generar_facturaActionPerformed
     
     public void imprimirtabla(String nombreProducto, int cantidad, int subtotal) {
        DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
@@ -459,6 +541,8 @@ public class Panel_factura_final extends javax.swing.JPanel {
            }
        });
        actualizarTotales();
+       
+       habilitarBotonGenerarFactura();
     
    }
     
@@ -475,11 +559,57 @@ public class Panel_factura_final extends javax.swing.JPanel {
 
         // Calcular total
         int total = subtotal + iva;
+        
+       
+        String test = String.valueOf(subtotal);
+        String test01 = String.valueOf(iva);
+        String test02 = String.valueOf(total);
 
         // Actualizar etiquetas
-        etq_subtotal.setText("SUBTOTAL: $" + subtotal);
-        etq_iva.setText("IVA: $" + iva);
-        etq_total.setText("TOTAL: $" + total);
+        etq_subtotal.setText(test);
+        etq_iva.setText(test01);
+        etq_total.setText(test02);
+        
+        habilitarBotonGenerarFactura();
+    }
+    
+    public void habilitarBotonGenerarFactura() {
+        btn_generar_factura.setEnabled(tabla_productos.getRowCount() > 0);
+    }
+    
+    public void reiniciarValores() {
+        // Limpiar la tabla
+        DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
+        model.setRowCount(0);
+
+        // Reiniciar etiquetas
+        etq_subtotal.setText("0");
+        etq_iva.setText("0");
+        etq_total.setText("0");
+
+        // Deshabilitar el botón de generar factura
+        btn_generar_factura.setEnabled(false);
+    }
+    
+    public void insertarvalores(){
+        // Insertar productos en la tabla facturaProducto
+        DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
+        int rowCount = model.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+           
+            String nombreProducto = (String) model.getValueAt(i, 0);
+            int cantidad = (int) model.getValueAt(i, 1);
+            int sumaTotal = (int) model.getValueAt(i, 3);
+                
+
+            try {
+                int idProducto = bdmiguel.obtenerIdProductoPorNombre(nombreProducto);
+                bdmiguel.insertarFacturaProducto(idProducto, cantidad, sumaTotal);
+            } catch (SQLException ex) {
+                Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -495,6 +625,9 @@ public class Panel_factura_final extends javax.swing.JPanel {
     private javax.swing.JLabel etq_subtotal;
     private javax.swing.JLabel etq_titulo;
     private javax.swing.JLabel etq_total;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> lista_productos;
     private javax.swing.JScrollPane scrollpane;

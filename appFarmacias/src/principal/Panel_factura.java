@@ -13,10 +13,12 @@ public class Panel_factura extends javax.swing.JPanel {
     BaseDatosMiguel bdmiguel;
     private Alerta ventanaAlerta;
     MenuEncargado menu;
+    private String nombreUsuario;
     
-    public Panel_factura(MenuEncargado menu) {
+    public Panel_factura(MenuEncargado menu, String nombreUsuario) {
         this.bdmiguel = new BaseDatosMiguel();
         this.menu = menu;
+        this.nombreUsuario = nombreUsuario;
         initComponents();
         initAlternComponents();
     }
@@ -99,6 +101,7 @@ public class Panel_factura extends javax.swing.JPanel {
         campo_nombre.setBackground(new java.awt.Color(255, 255, 255));
         campo_nombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         campo_nombre.setForeground(new java.awt.Color(0, 0, 0));
+        campo_nombre.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         campo_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_nombreActionPerformed(evt);
@@ -228,7 +231,7 @@ public class Panel_factura extends javax.swing.JPanel {
                 // Mostrar un mensaje o realizar alguna acción adicional si lo deseas
             }
             
-            Panel_factura_final nuevo = new Panel_factura_final(menu);
+            Panel_factura_final nuevo = new Panel_factura_final(menu, nombre, nombreUsuario);
             nuevo.setPreferredSize(contenido_p.getPreferredSize());
             nuevo.setSize(contenido_p.getSize());
 
