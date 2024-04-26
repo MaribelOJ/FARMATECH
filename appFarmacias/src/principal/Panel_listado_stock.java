@@ -241,7 +241,9 @@ public class Panel_listado_stock extends javax.swing.JPanel {
             String cant_restante = listaStock[i].getCant_restante();
             String estado = listaStock[i].getEstado();
             String comentario = listaStock[i].getComentario();
+            String id_stock = listaStock[i].getId_stock();
 
+            
             JButton btnEditar = new JButton();
             btnEditar.setBackground(Color.white);
             Image icono_editar = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_editar.png"));
@@ -255,7 +257,8 @@ public class Panel_listado_stock extends javax.swing.JPanel {
                 btnEditar.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        editarStock ventana = new editarStock( ventanaActual, posicion,listaStock[posicion].getId_stock(),menu);
+                        
+                        editarStock ventana = new editarStock( ventanaActual, posicion,id_stock,menu);
                         menu.setVisible(false);
                     }
                 });

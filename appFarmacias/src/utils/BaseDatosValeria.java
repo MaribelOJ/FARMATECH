@@ -262,21 +262,22 @@ public class BaseDatosValeria {
         try {
             Stock1 encontrado []= new Stock1[10];
 
-            String consulta = "SELECT producto.nombre_producto, stock.proveedor, stock.cant_entrante, stock.cant_restante,stock.estado,stock.comentario  FROM stock ";
+            String consulta = "SELECT stock.id_stock, producto.nombre_producto, stock.proveedor, stock.cant_entrante, stock.cant_restante,stock.estado,stock.comentario  FROM stock ";
             consulta += "INNER JOIN producto ON (producto.id_producto = stock.id_producto) WHERE nombre_producto LIKE '"+nombreP +"%' AND NIT_farmacia = '" + NIT + "'";
 
             ResultSet registros = manipularBD.executeQuery(consulta);
             registros.next();
             if (registros.getRow() == 1) {
                 int i = 0;
-                do{                
+                do{ 
+                    String id_stock = registros.getString("id_stock");
                     String nombre_productos = registros.getString("nombre_producto");
                     String proveedor = registros.getString("proveedor");
                     String cant_entrante = registros.getString("cant_entrante");
                     String cant_restante = registros.getString("cant_restante");
                     String estado = registros.getString("estado");
                     String comentario = registros.getString("comentario");
-                    encontrado [i]= new Stock1(nombre_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
+                    encontrado [i]= new Stock1(id_stock, nombre_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
                     i++;
                 }while(registros.next());
                 return encontrado;
@@ -352,21 +353,20 @@ public class BaseDatosValeria {
                     respuesta = true;
                 }
             }else{
-            String consulta = "UPDATE stock SET proveedor='" + proveedor + "', cant_entrante='" + cant_entrante + "', cant_restante='" + cant_restante + "', estado='" + estado + "', comentario='" + comentario +  "' WHERE id_stock='" + id_stock + "' ";
+                String consulta = "UPDATE stock SET proveedor='" + proveedor + "', cant_entrante='" + cant_entrante + "', cant_restante='" + cant_restante + "', estado='" + estado + "', comentario='" + comentario +  "' WHERE id_stock='" + id_stock + "' ";
                 int resp_consulta = manipularBD.executeUpdate(consulta);
+                System.out.println(resp_consulta);
                 if (resp_consulta == 1) {
                     respuesta = true;
                 }
             }
 
+            return respuesta;
+
         } catch (SQLException ex) {
             System.out.println("--> Error Update: " + ex.getMessage());
         }
-        if (respuesta) {
-            System.out.println("Editado con exito");
-        } else {
-            System.out.println("No se pudo Editar");
-        }
+
         return respuesta;
     }
 

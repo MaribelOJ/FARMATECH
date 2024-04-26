@@ -209,7 +209,7 @@ public class editarStock extends javax.swing.JFrame {
         } else {
 
             proceso = bdvaleria.actualizarStock(id_stock, nombres, proveedor, cant_entrantes, cant_restantes, estado, comentario);
-
+            
             if (proceso) {
                 dispose();
                 menu.btn_StockActionPerformed();
