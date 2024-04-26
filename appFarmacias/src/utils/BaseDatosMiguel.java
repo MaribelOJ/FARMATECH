@@ -47,6 +47,82 @@ public class BaseDatosMiguel {
         }
     }
     
+    public void restarCantidadStock(String NITFarmacia, int id_producto, int cantidad) {
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            // Verificar si el producto está disponible en la farmacia
+            String checkAvailabilitySQL = "SELECT cant_restante FROM stock WHERE NIT_farmacia = ? AND id_producto = ?";
+            stmt = conexion.prepareStatement(checkAvailabilitySQL);
+            stmt.setString(1, NITFarmacia);
+            stmt.setInt(2, id_producto);
+            rs = stmt.executeQuery();
+
+            if (!rs.next()) {
+                // El producto no está disponible en el establecimiento
+                System.out.println("El producto con ID " + id_producto + " no está disponible en el establecimiento.");
+                return;
+            }
+
+            int cantidadDisponible = rs.getInt("cant_restante");
+
+            if (cantidadDisponible < cantidad) {
+                // No hay suficiente cantidad para ese producto en el establecimiento
+                System.out.println("No hay suficiente cantidad del producto '" + obtenerNombreProductoPorID(id_producto) + "' en el establecimiento.");
+                return;
+            }
+
+            // El producto está disponible y hay suficiente cantidad, proceder con la actualización del stock
+            String updateStockSQL = "UPDATE stock SET cant_restante = cant_restante - ? WHERE NIT_farmacia = ? AND id_producto = ?";
+            stmt = conexion.prepareStatement(updateStockSQL);
+            stmt.setInt(1, cantidad);
+            stmt.setString(2, NITFarmacia);
+            stmt.setInt(3, id_producto);
+
+            // Ejecutar la consulta
+            stmt.executeUpdate();
+
+            System.out.println("Se ha restado " + cantidad + " unidades del producto '" + obtenerNombreProductoPorID(id_producto) + "' en el stock.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar ResultSet y PreparedStatement
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    // Método para obtener el nombre del producto por su ID
+    public String obtenerNombreProductoPorID(int id_producto) {
+        String nombreProducto = null;
+        try {
+            String query = "SELECT nombre_producto FROM producto WHERE id_producto = ?";
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setInt(1, id_producto);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                nombreProducto = rs.getString("nombre_producto");
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombreProducto;
+    }
+    
     public int insertarFacturaProducto(int idProducto, int cantidad, int sumaTotal) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -254,27 +330,32 @@ public class BaseDatosMiguel {
         }
     }
     
-    public List<String> obtenerListaDeProductos() {
-        List<String> listaDeProductos = new ArrayList<>();
+    public List<String> obtenerListaDeProductosEnStock(int NITFarmacia) {
+    List<String> listaDeProductos = new ArrayList<>();
 
-        // Consulta SQL para obtener la lista de productos desde la base de datos
-        String consulta = "SELECT nombre_producto FROM producto";
+    // Consulta SQL para obtener la lista de productos en stock de la farmacia específica
+    String consulta = "SELECT p.nombre_producto FROM producto p " +
+                      "INNER JOIN stock s ON p.id_producto = s.id_producto " +
+                      "WHERE s.NIT_farmacia = ?";
 
-        try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
-            // Ejecutar la consulta
-            ResultSet rs = ps.executeQuery();
+    try (PreparedStatement ps = conexion.prepareStatement(consulta)) {
+        // Establecer el parámetro del NIT de la farmacia en la consulta
+        ps.setInt(1, NITFarmacia);
 
-            // Recorrer el resultado y agregar cada nombre de producto a la lista
-            while (rs.next()) {
-                String nombreProducto = rs.getString("nombre_producto");
-                listaDeProductos.add(nombreProducto);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de errores, puedes cambiar esto según tu necesidad
+        // Ejecutar la consulta
+        ResultSet rs = ps.executeQuery();
+
+        // Recorrer el resultado y agregar cada nombre de producto a la lista
+        while (rs.next()) {
+            String nombreProducto = rs.getString("nombre_producto");
+            listaDeProductos.add(nombreProducto);
         }
-
-        return listaDeProductos;
+    } catch (SQLException e) {
+        e.printStackTrace(); // Manejo de errores, puedes cambiar esto según tu necesidad
     }
+
+    return listaDeProductos;
+}
     
     public int obtenerPrecioUnitario(String nombreProducto) {
     int precioUnitario = 0; // Valor por defecto si no se encuentra el producto

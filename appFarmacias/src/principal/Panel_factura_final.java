@@ -79,14 +79,20 @@ public class Panel_factura_final extends javax.swing.JPanel {
         tabla_productos.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
         tabla_productos.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
         tabla_productos.getColumnModel().getColumn(5).setPreferredWidth(25);
-
+        
+        String NITFarmacia_str = bdmiguel.obtenerNITFarmaciaPorNombreUsuario(nombreUsuario);
+        int NITFarmacia = Integer.parseInt(NITFarmacia_str);
+        
+        
         lista_productos.removeAllItems(); // Limpiar el JComboBox
-        List<String> listaDeProductos = bdmiguel.obtenerListaDeProductos();
+        
+        List<String> listaDeProductos = bdmiguel.obtenerListaDeProductosEnStock(NITFarmacia); // Cambiar la llamada al método
         for (String producto : listaDeProductos) {
             lista_productos.addItem(producto);
-        }
+}
 
         String productoSeleccionado = (String) lista_productos.getSelectedItem();
+        
 
         campo_nombre_producto.setText(productoSeleccionado);
 
@@ -487,6 +493,7 @@ public class Panel_factura_final extends javax.swing.JPanel {
        
         
         habilitarBotonGenerarFactura();
+        
         reiniciarValores();
         Confirmacion nuevo = new Confirmacion("Factura generada con éxito!");
         
@@ -593,26 +600,29 @@ public class Panel_factura_final extends javax.swing.JPanel {
         btn_generar_factura.setEnabled(false);
     }
     
-    public void insertarvalores(){
-        // Insertar productos en la tabla facturaProducto
-        DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
-        int rowCount = model.getRowCount();
-        for (int i = 0; i < rowCount; i++) {
-           
-            String nombreProducto = (String) model.getValueAt(i, 0);
-            int cantidad = (int) model.getValueAt(i, 1);
-            int sumaTotal = (int) model.getValueAt(i, 3);
-                
-
-            try {
-                int idProducto = bdmiguel.obtenerIdProductoPorNombre(nombreProducto);
-                bdmiguel.insertarFacturaProducto(idProducto, cantidad, sumaTotal);
-            } catch (SQLException ex) {
-                Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, ex);
-           }
+   public void insertarvalores(){
+    // Insertar productos en la tabla facturaProducto
+    DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
+    int rowCount = model.getRowCount();
+    for (int i = 0; i < rowCount; i++) {
+       
+        String nombreProducto = (String) model.getValueAt(i, 0);
+        int cantidad = (int) model.getValueAt(i, 1);
+        int sumaTotal = (int) model.getValueAt(i, 3);
             
-        }
+        try {
+            int idProducto = bdmiguel.obtenerIdProductoPorNombre(nombreProducto);
+            bdmiguel.insertarFacturaProducto(idProducto, cantidad, sumaTotal);
+            String NITFarmacia = bdmiguel.obtenerNITFarmaciaPorNombreUsuario(nombreUsuario);
+            // Aquí llamas al método para restar la cantidad del producto en la base de datos
+            // Este método debe recibir como parámetros el nombre del producto y la cantidad a restar
+            bdmiguel.restarCantidadStock(NITFarmacia,bdmiguel.obtenerIdProductoPorNombre(nombreProducto), cantidad);
+        } catch (SQLException ex) {
+            Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
     }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
