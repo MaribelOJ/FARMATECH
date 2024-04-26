@@ -45,13 +45,8 @@ public class BaseDatosCristian {
     public HistorialVentas[] obtenerHistorialVentas(String NIT) {
         try {
             HistorialVentas[] arreglo = new HistorialVentas[100];
-            String consulta = "SELECT factura.numReferencia, producto.nombre_producto, factura.fecha, factura.id_cliente, factura.nombre_cliente, factura.total \n" +
-                           "FROM factura \n" +
-                           "INNER JOIN facturaproducto ON factura.numReferencia = facturaproducto.numReferencia \n" +
-                           "INNER JOIN producto ON facturaproducto.id_producto = producto.id_producto\n" +
-                           "INNER JOIN stock ON producto.id_producto = stock.id_producto\n" +
-                           "INNER JOIN farmacia ON stock.NIT_farmacia = farmacia.NIT_farmacia\n" +
-                           "WHERE farmacia.NIT_farmacia = '"+NIT+"'";
+            String consulta = "SELECT numReferencia, fecha, id_cliente, nombre_cliente, total \n" +
+                           "FROM factura WHERE NIT_farmacia = '"+NIT+"'";
         
             ResultSet registros = manipularDB.executeQuery(consulta);
             registros.next();
@@ -59,15 +54,13 @@ public class BaseDatosCristian {
             if(registros.getRow() == 1){
                  do{ 
                     String numReferencia = registros.getString("numReferencia");
-                    String nombre_producto = registros.getString("nombre_producto");
                     String fecha = registros.getString("fecha");
                     String id_cliente = registros.getString("id_cliente");
                     String nombre_cliente = registros.getString("nombre_cliente");
                     String total = registros.getString("total");
 
-                   arreglo[i] = new HistorialVentas(numReferencia, nombre_producto, fecha, id_cliente, nombre_cliente, total);
+                   arreglo[i] = new HistorialVentas(numReferencia, fecha, id_cliente, nombre_cliente, total);
                    i++;
-                   System.out.println(" "+arreglo[i]);
                 }while((registros.next()));   
                  return arreglo;
             }else{

@@ -42,6 +42,7 @@ public class HistorialVentas extends javax.swing.JPanel {
 
 
     public void InitAlternComponents(){
+
         model = (DefaultTableModel) HistorialDatos.getModel();
         
         HistorialDatos.getColumnModel().getColumn(4).setCellEditor(new ButtonEditorDetalle(new JCheckBox()));
