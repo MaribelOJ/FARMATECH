@@ -47,7 +47,7 @@ public class BaseDatosMiguel {
         }
     }
     
-    public void restarCantidadStock(String NITFarmacia, int id_producto, int cantidad) {
+    public boolean restarCantidadStock(String NITFarmacia, int id_producto, int cantidad) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -61,7 +61,7 @@ public class BaseDatosMiguel {
             if (!rs.next()) {
                 // El producto no está disponible en el establecimiento
                 System.out.println("El producto con ID " + id_producto + " no está disponible en el establecimiento.");
-                return;
+                return false;
             }
 
             int cantidadDisponible = rs.getInt("cant_restante");
@@ -69,7 +69,7 @@ public class BaseDatosMiguel {
             if (cantidadDisponible < cantidad) {
                 // No hay suficiente cantidad para ese producto en el establecimiento
                 System.out.println("No hay suficiente cantidad del producto '" + obtenerNombreProductoPorID(id_producto) + "' en el establecimiento.");
-                return;
+                return false;
             }
 
             // El producto está disponible y hay suficiente cantidad, proceder con la actualización del stock
@@ -83,8 +83,10 @@ public class BaseDatosMiguel {
             stmt.executeUpdate();
 
             System.out.println("Se ha restado " + cantidad + " unidades del producto '" + obtenerNombreProductoPorID(id_producto) + "' en el stock.");
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         } finally {
             // Cerrar ResultSet y PreparedStatement
             if (rs != null) {

@@ -27,6 +27,7 @@ public class Panel_factura_final extends javax.swing.JPanel {
     private Alerta ventanaAlerta;
     private FormularioEdicion ventanaEdicion;
     private EliminarProductoTabla ventanaEliminacion;
+    private boolean sePuedeGenerarFactura = true;
     int contador_subtotal = 0;
     
     private String nombreUsuario;
@@ -474,29 +475,30 @@ public class Panel_factura_final extends javax.swing.JPanel {
 
         // Obtener la hora actual
         java.sql.Time horaActual = new java.sql.Time(System.currentTimeMillis());
-        
+
         // Calcular subtotal, iva y total
         int subtotal = Integer.parseInt(etq_subtotal.getText());
         double iva = Integer.parseInt(etq_iva.getText());
-        System.out.println("iva: "+iva);
         double total = subtotal + iva;
-        
-        insertarvalores();
-         
-        try {
-            // Insertar nueva fila en la tabla factura
-            bdmiguel.insertarFactura(NITFarmacia, fechaActual, horaActual, bdmiguel.obtenerIdClientePorNombre(nombreCliente), nombreCliente, subtotal, iva, total);
-        } catch (SQLException exx) {
-            Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, exx);
+
+        // Variable para indicar si se debe realizar la inserción en la tabla de factura
+        boolean realizarInsercion = true;
+
+        insertarvalores(); // Verificará si hay suficiente cantidad de productos en stock y actualizará la interfaz
+
+        // Verificar si se debe realizar la inserción en la tabla de factura
+        if (!sePuedeGenerarFactura) {
+            realizarInsercion = false;
         }
-        
-       
-        
-        habilitarBotonGenerarFactura();
-        
-        reiniciarValores();
-        Confirmacion nuevo = new Confirmacion("Factura generada con éxito!");
-        
+
+        if (realizarInsercion) {
+            try {
+                // Insertar nueva fila en la tabla factura
+                bdmiguel.insertarFactura(NITFarmacia, fechaActual, horaActual, bdmiguel.obtenerIdClientePorNombre(nombreCliente), nombreCliente, subtotal, iva, total);
+            } catch (SQLException exx) {
+                Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, exx);
+            }
+        }
         
         
     }//GEN-LAST:event_btn_generar_facturaActionPerformed
@@ -600,29 +602,51 @@ public class Panel_factura_final extends javax.swing.JPanel {
         btn_generar_factura.setEnabled(false);
     }
     
-   public void insertarvalores(){
-    // Insertar productos en la tabla facturaProducto
-    DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
-    int rowCount = model.getRowCount();
-    for (int i = 0; i < rowCount; i++) {
-       
-        String nombreProducto = (String) model.getValueAt(i, 0);
-        int cantidad = (int) model.getValueAt(i, 1);
-        int sumaTotal = (int) model.getValueAt(i, 3);
-            
-        try {
-            int idProducto = bdmiguel.obtenerIdProductoPorNombre(nombreProducto);
-            bdmiguel.insertarFacturaProducto(idProducto, cantidad, sumaTotal);
-            String NITFarmacia = bdmiguel.obtenerNITFarmaciaPorNombreUsuario(nombreUsuario);
-            // Aquí llamas al método para restar la cantidad del producto en la base de datos
-            // Este método debe recibir como parámetros el nombre del producto y la cantidad a restar
-            bdmiguel.restarCantidadStock(NITFarmacia,bdmiguel.obtenerIdProductoPorNombre(nombreProducto), cantidad);
-        } catch (SQLException ex) {
-            Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        
+   public void insertarvalores() {
+        // Verificar si hay suficiente cantidad de todos los productos en el stock
+        DefaultTableModel model = (DefaultTableModel) tabla_productos.getModel();
+        int rowCount = model.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            try {
+                String nombreProducto = (String) model.getValueAt(i, 0);
+                int cantidad = (int) model.getValueAt(i, 1);
+                String NITFarmacia = bdmiguel.obtenerNITFarmaciaPorNombreUsuario(nombreUsuario);
+                int idProducto = bdmiguel.obtenerIdProductoPorNombre(nombreProducto);
+                if (!bdmiguel.restarCantidadStock(NITFarmacia, idProducto, cantidad)) {
+                    // No se pudo restar la cantidad del stock para algún producto, mostrar alerta y marcar que no se puede generar la factura
+                    Alerta ventana = new Alerta("No hay suficiente cantidad del producto '" + nombreProducto + "' en el stock.");
+                    sePuedeGenerarFactura = false; // Variable booleana para indicar que no se puede generar la factura
+                    return; // Detener la ejecución del resto del método
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        // Si se ha verificado que hay suficiente cantidad de todos los productos en el stock, proceder con la inserción en la tabla facturaProducto
+        for (int i = 0; i < rowCount; i++) {
+            String nombreProducto = (String) model.getValueAt(i, 0);
+            int cantidad = (int) model.getValueAt(i, 1);
+            int sumaTotal = (int) model.getValueAt(i, 3);
+
+            try {
+                String NITFarmacia = bdmiguel.obtenerNITFarmaciaPorNombreUsuario(nombreUsuario);
+
+                int idProducto = bdmiguel.obtenerIdProductoPorNombre(nombreProducto);
+                bdmiguel.insertarFacturaProducto(idProducto, cantidad, sumaTotal);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Panel_factura_final.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        // Si se ha insertado correctamente todo en la factura, continuar con el resto del proceso
+        sePuedeGenerarFactura = true;
+        actualizarTotales();
+        habilitarBotonGenerarFactura();
+        reiniciarValores();
+        Confirmacion nuevo = new Confirmacion("Factura generada con éxito!");
     }
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
