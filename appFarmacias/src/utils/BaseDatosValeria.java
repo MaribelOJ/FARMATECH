@@ -258,7 +258,6 @@ public class BaseDatosValeria {
         return null;
     }
 
-<<<<<<< HEAD
     public Stock1 [] buscarProductoenStock(String nombreP, String NIT){
         try {
             Stock1 encontrado []= new Stock1[10];
@@ -290,11 +289,10 @@ public class BaseDatosValeria {
         return null;
     }
 
-    public boolean actualizarProductoEditar(String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
-=======
+
     
     public boolean actualizarProductoEditar(String nit,String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
->>>>>>> valeria
+
         boolean respuesta = false;
         try {
             

@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package principal;
 
 import utils.BaseDatosValeria;
 import utils.Stock1;
 
-/**
- *
- * @author vcarv
- */
+
 public class editarStock extends javax.swing.JFrame {
 
     BaseDatosValeria bdvaleria;
@@ -63,7 +57,7 @@ public class editarStock extends javax.swing.JFrame {
         btn_editar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel_menu.setBackground(new java.awt.Color(79, 108, 210));
 
@@ -128,7 +122,7 @@ public class editarStock extends javax.swing.JFrame {
         jPanel_menuLayout.setHorizontalGroup(
             jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+                .addContainerGap(126, Short.MAX_VALUE)
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel_menuLayout.createSequentialGroup()
                         .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,7 +178,7 @@ public class editarStock extends javax.swing.JFrame {
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,7 +189,7 @@ public class editarStock extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel_menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -217,7 +211,10 @@ public class editarStock extends javax.swing.JFrame {
             proceso = bdvaleria.actualizarStock(id_stock, nombres, proveedor, cant_entrantes, cant_restantes, estado, comentario);
 
             if (proceso) {
-                System.out.println("Producto " + nombres + " editado con exito.");
+                dispose();
+                menu.btn_StockActionPerformed();
+                menu.setVisible(true);
+                Confirmacion resp = new Confirmacion("Producto " + nombres + " editado");
             } else {
                 Alerta ventana = new Alerta("Error al editar en el stock");
             }
@@ -227,6 +224,9 @@ public class editarStock extends javax.swing.JFrame {
 
     private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
         dispose();
+        menu.btn_StockActionPerformed();
+        menu.setVisible(true);
+        
     }//GEN-LAST:event_btn_volverActionPerformed
 
 
