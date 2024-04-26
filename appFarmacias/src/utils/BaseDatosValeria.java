@@ -149,21 +149,21 @@ public class BaseDatosValeria {
 
         try {
             Stock1 arreglo[] = new Stock1[100];
-            String consulta = "SELECT producto.nombre_producto, stock.proveedor, stock.cant_entrante, stock.cant_restante,stock.estado,stock.comentario  FROM stock ";
+            String consulta = "SELECT stock.id_stock, producto.nombre_producto, stock.proveedor, stock.cant_entrante, stock.cant_restante,stock.estado,stock.comentario  FROM stock ";
             consulta += "INNER JOIN producto ON (producto.id_producto = stock.id_producto) WHERE NIT_farmacia = '" + NIT + "' ";
             ResultSet registros = manipularBD.executeQuery(consulta);
             registros.next();
             if (registros.getRow() == 1) {
                 int i = 0;
                 do {
-
+                    String id_stocks = registros.getString("id_stock");
                     String nombre_productos = registros.getString("nombre_producto");
                     String proveedor = registros.getString("proveedor");
                     String cant_entrante = registros.getString("cant_entrante");
                     String cant_restante = registros.getString("cant_restante");
                     String estado = registros.getString("estado");
                     String comentario = registros.getString("comentario");
-                    arreglo[i] = new Stock1(nombre_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
+                    arreglo[i] = new Stock1(id_stocks, nombre_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
                     i++;
 
                 } while (registros.next());
@@ -222,11 +222,11 @@ public class BaseDatosValeria {
         return null;
     }
 
-    public Producto buscarProducto(String id_producto) throws IOException {
+    public Producto buscarProducto(String nombres) throws IOException {
         try {
             Producto encontrado = null;
 
-            String consulta = "SELECT * FROM producto WHERE id_producto = '" + id_producto + "' ";
+            String consulta = "SELECT * FROM producto WHERE nombre_producto = '" + nombres + "' ";
             ResultSet registros = manipularBD.executeQuery(consulta);
             registros.next();
             if (registros.getRow() == 1) {
@@ -258,6 +258,7 @@ public class BaseDatosValeria {
         return null;
     }
 
+<<<<<<< HEAD
     public Stock1 [] buscarProductoenStock(String nombreP, String NIT){
         try {
             Stock1 encontrado []= new Stock1[10];
@@ -290,9 +291,16 @@ public class BaseDatosValeria {
     }
 
     public boolean actualizarProductoEditar(String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
+=======
+    
+    public boolean actualizarProductoEditar(String nit,String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
+>>>>>>> valeria
         boolean respuesta = false;
         try {
-            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', medicamento='" + medicamento + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "' WHERE id_producto='" + id_producto + "' ";
+            
+            String consulta = "UPDATE producto INNER JOIN stock ON (producto.id_producto = stock.id_producto ";
+            consulta += "SET nombre_producto='" + nombres + "', medicamento='" + medicamento + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "'";
+            consulta +="WHERE id_producto='" + id_producto  + "'AND NIT_farmacia='" + nit+"' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
             if (resp_consulta == 1) {
                 respuesta = true;
@@ -309,13 +317,48 @@ public class BaseDatosValeria {
         return respuesta;
     }
 
-    public boolean actualizarProductoEditar(String id_producto, String nombres, String volumen, String precio, String fecha, String ingredientes, String usos) {
+    public boolean actualizarProductoEditar(String nit,String id_producto, String nombres, String volumen, String precio, String fecha, String ingredientes, String usos) {
         boolean respuesta = false;
         try {
-            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "' WHERE id_producto='" + id_producto + "' ";
+            String consulta = "UPDATE producto INNER JOIN stock ON (producto.id_producto = stock.id_producto ";
+            consulta += "SET nombre_producto='" + nombres + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "'";
+            consulta +="WHERE id_producto='" + id_producto  + "'AND NIT_farmacia='" + nit+"' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
             if (resp_consulta == 1) {
                 respuesta = true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("--> Error Update: " + ex.getMessage());
+        }
+        if (respuesta) {
+            System.out.println("Editado con exito");
+        } else {
+            System.out.println("No se pudo Editar");
+        }
+        return respuesta;
+    }
+
+    public boolean actualizarStock(String id_stock, String nombre, String proveedor, String cant_entrante, String cant_restante, String estado, String comentario) {
+        boolean respuesta = false;
+        try {
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss");
+
+            String fechaHoraActual = sdf.format(dt);
+            if (estado.equals("inactivo")) {
+                String consulta = "UPDATE stock SET proveedor='" + proveedor + "', cant_entrante='" + cant_entrante + "', cant_restante='" + cant_restante + "', estado='" + estado + "', comentario='" + comentario +  "', fecha_descontinuacion='" + fechaHoraActual +  "' WHERE id_stock='" + id_stock + "' ";
+                int resp_consulta = manipularBD.executeUpdate(consulta);
+                if (resp_consulta == 1) {
+                    respuesta = true;
+                }
+            }else{
+            String consulta = "UPDATE stock SET proveedor='" + proveedor + "', cant_entrante='" + cant_entrante + "', cant_restante='" + cant_restante + "', estado='" + estado + "', comentario='" + comentario +  "' WHERE id_stock='" + id_stock + "' ";
+                int resp_consulta = manipularBD.executeUpdate(consulta);
+                if (resp_consulta == 1) {
+                    respuesta = true;
+                }
             }
 
         } catch (SQLException ex) {

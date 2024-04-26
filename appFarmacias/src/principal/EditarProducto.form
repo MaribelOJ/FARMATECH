@@ -115,16 +115,37 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="campo_usos" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campo_ingredientes" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campo_fecha" alignment="0" pref="297" max="32767" attributes="0"/>
-                          <Component id="campo_precio" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campo_volumen" alignment="0" max="32767" attributes="0"/>
-                          <Component id="campo_nombre" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="Label_volumen" alignment="1" min="-2" pref="94" max="-2" attributes="0"/>
+                                  <Component id="Label_nombre" alignment="1" min="-2" pref="94" max="-2" attributes="0"/>
+                                  <Component id="Label_nombre2" alignment="1" min="-2" pref="111" max="-2" attributes="0"/>
+                                  <Component id="Label_fecha" alignment="1" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="Label_ingredientes" max="32767" attributes="0"/>
+                                  <Component id="Usos" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="campo_usos" min="-2" pref="206" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="campo_ingredientes" alignment="1" max="32767" attributes="0"/>
+                              <Component id="campo_fecha" alignment="1" max="32767" attributes="0"/>
+                              <Component id="campo_precio" alignment="1" max="32767" attributes="0"/>
+                              <Component id="campo_volumen" alignment="1" max="32767" attributes="0"/>
+                              <Component id="campo_nombre" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="contenedor_editar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -149,20 +170,38 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="campo_nombre" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campo_nombre" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="Label_nombre" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="campo_volumen" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campo_volumen" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="Label_volumen" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                              <Component id="campo_precio" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campo_precio" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="Label_nombre2" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="campo_fecha" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campo_fecha" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="Label_fecha" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="campo_ingredientes" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campo_ingredientes" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="Label_ingredientes" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="campo_usos" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="campo_usos" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                                  <Component id="Usos" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="contenedor_editar" max="32767" attributes="0"/>
                       </Group>
@@ -179,12 +218,33 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JLabel" name="Label_nombre">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nombre:"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JTextField" name="campo_nombre">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nombre:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Label_volumen">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Volumen:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campo_volumen">
@@ -192,7 +252,17 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="volumen:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Label_nombre2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Precio Unitario:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campo_precio">
@@ -200,7 +270,17 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Precio unitario:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Label_fecha">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Fecha vencimiento:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campo_fecha">
@@ -208,7 +288,17 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fecha vencimiento:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Label_ingredientes">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ingredientes:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campo_ingredientes">
@@ -216,7 +306,17 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ingredientes:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="Usos">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="16" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Usos:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="campo_usos">
@@ -224,7 +324,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Usos:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btn_editar">

@@ -36,6 +36,7 @@ public class Panel_listado_stock extends javax.swing.JPanel {
         initAlternComponents();
         imprimirTabla();
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -171,6 +172,7 @@ public class Panel_listado_stock extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+<<<<<<< HEAD
         String name = Campo_buscar.getText();
         this.listaStock = this.bdvaleria.buscarProductoenStock(name, this.NIT);
         
@@ -202,6 +204,9 @@ public class Panel_listado_stock extends javax.swing.JPanel {
             });
         }
         
+=======
+ 
+>>>>>>> valeria
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void Campo_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Campo_buscarActionPerformed
@@ -257,13 +262,18 @@ public class Panel_listado_stock extends javax.swing.JPanel {
 
     public void imprimirTabla() {
         modelo.setRowCount(0);
+<<<<<<< HEAD
         for (int i = 0; i < listaStock.length && listaStock[i] != null; i++) {
+=======
+        for (int i = 0; listaStock[i] != null; i++) {
+            String id_stock = listaStock[i].getId_stock();
+>>>>>>> valeria
             String nombre = listaStock[i].getNombre_producto();
             String proveedor = listaStock[i].getProveedor();
             String cant_entrante = listaStock[i].getCant_entrante();
             String cant_restante = listaStock[i].getCant_restante();
             String estado = listaStock[i].getEstado();
-            String comentario = listaStock[i].getEstado();
+            String comentario = listaStock[i].getComentario();
 
             JButton btnEditar = new JButton();
             btnEditar.setBackground(Color.white);
@@ -273,14 +283,14 @@ public class Panel_listado_stock extends javax.swing.JPanel {
 
             Object dato = new Object[]{nombre, proveedor, cant_entrante, cant_restante, estado,comentario, btnEditar};
             modelo.addRow((Object[]) dato);
-
-            btnEditar.addActionListener(new ActionListener() {
-                
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                   
-                }
-            });
+            Panel_listado_stock ventanaActual = this;
+            final int posicion = i;
+                btnEditar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        editarStock ventana = new editarStock( ventanaActual, posicion,id_stock,menu);
+                    }
+                });
 
         }
     }
