@@ -409,7 +409,10 @@ public class MenuEncargado extends javax.swing.JFrame {
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_lista_proveedoresActionPerformed
-
+    public void btn_StockActionPerformed(){
+        btn_StockActionPerformed(null);
+    }
+    
     private void btn_StockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_StockActionPerformed
 
         Stock1 listado[] = bdvaleria.listaStock(NIT_farmacia);

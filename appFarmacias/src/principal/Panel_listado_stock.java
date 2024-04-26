@@ -24,12 +24,14 @@ public class Panel_listado_stock extends javax.swing.JPanel {
     DefaultTableModel modelo;
     MenuEncargado menu;
     String NIT;
+    int letrasBorradas;
     
     public Panel_listado_stock(Stock1[] listado, MenuEncargado menu) {
         this.bdvaleria = menu.bdvaleria;
         this.menu = menu;
         this.listaStock = listado;
         this.NIT = menu.NIT_farmacia;
+        this.letrasBorradas = 0;
         initComponents();
         initAlternComponents();
         imprimirTabla();
@@ -87,6 +89,16 @@ public class Panel_listado_stock extends javax.swing.JPanel {
 
         Campo_buscar.setBackground(new java.awt.Color(230, 230, 230));
         Campo_buscar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        Campo_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Campo_buscarActionPerformed(evt);
+            }
+        });
+        Campo_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                borrarBusqueda(evt);
+            }
+        });
 
         btn_buscar.setBackground(new java.awt.Color(78, 75, 242));
         btn_buscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -159,58 +171,58 @@ public class Panel_listado_stock extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        /*String id_nombre = Campo_buscar.getText();
+        String name = Campo_buscar.getText();
+        this.listaStock = this.bdvaleria.buscarProductoenStock(name, this.NIT);
+        
+        modelo.setRowCount(0);
+        for (int i = 0; i < listaStock.length && listaStock[i] != null; i++) {
+            String nombre = listaStock[i].getNombre_producto();
+            String proveedor = listaStock[i].getProveedor();
+            String cant_entrante = listaStock[i].getCant_entrante();
+            String cant_restante = listaStock[i].getCant_restante();
+            String estado = listaStock[i].getEstado();
+            String comentario = listaStock[i].getEstado();
 
-        if (id_nombre.equals("")) {
-            Alerta ventana = new Alerta("Se debe indicar el codigo de identificación del producto.");
-        } else {
-            try {
-                Stock1 temporal = bdvaleria.buscarProducto(id_producto);
-                if (temporal != null) {
-                    campo_nombre.setText(temporal.getNombre_producto());
-                    campo_volumen.setText(temporal.getVolumen());
-                    campo_precio.setText(temporal.getPrecio_unitario());
-                    campo_fecha.setText(temporal.getFecha_vencimiento());
-                    campo_ingredientes.setText(temporal.getIngredientes());
-                    campo_usos.setText(temporal.getUsos());
+            JButton btnEditar = new JButton();
+            btnEditar.setBackground(Color.white);
+            Image icono_editar = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_editar.png"));
+            icono_editar = icono_editar.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            btnEditar.setIcon(new ImageIcon(icono_editar));
 
-                    campo_nombre.setEnabled(true);
-                    campo_volumen.setEnabled(true);
-                    campo_precio.setEnabled(true);
-                    campo_fecha.setEnabled(true);
-                    campo_ingredientes.setEnabled(true);
-                    campo_usos.setEnabled(true);
-                    if (temporal.getMedicamento() != null) {
-                        Image foto = temporal.getMedicamento();
-                        foto = foto.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+            Object dato = new Object[]{nombre, proveedor, cant_entrante, cant_restante, estado,comentario, btnEditar};
+            modelo.addRow((Object[]) dato);
 
-                        imagenLabel.setIcon(new ImageIcon(foto));
-                    } else {
-                        imagenLabel.setIcon(null);
-                    }
-
-                } else {
-                    Alerta ventana = new Alerta("El producto no existe.");
-
-                    campo_nombre.setText("");
-                    campo_volumen.setText("");
-                    campo_precio.setText("");
-                    campo_fecha.setText("");
-                    campo_ingredientes.setText("");
-                    campo_usos.setText("");
-
-                    campo_nombre.setEnabled(false);
-                    campo_volumen.setEnabled(false);
-                    campo_precio.setEnabled(false);
-                    campo_fecha.setEnabled(false);
-                    campo_ingredientes.setEnabled(false);
-                    campo_usos.setEnabled(false);
+            btnEditar.addActionListener(new ActionListener() {
+                
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(EditarProducto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }*/
+            
+            });
+        }
+        
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void Campo_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Campo_buscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Campo_buscarActionPerformed
+
+    private void borrarBusqueda(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_borrarBusqueda
+        int teclado = evt.getKeyCode();
+        
+        if(teclado == 8){
+            letrasBorradas++;
+            if(letrasBorradas == 4){
+                this.menu.btn_StockActionPerformed();
+
+            }
+            String productName=Campo_buscar.getText();
+            if(letrasBorradas < 4 && productName.equals("")){
+                this.menu.btn_StockActionPerformed();
+            }
+        }
+    }//GEN-LAST:event_borrarBusqueda
 
     public void initAlternComponents() {
         setVisible(true);
@@ -245,7 +257,7 @@ public class Panel_listado_stock extends javax.swing.JPanel {
 
     public void imprimirTabla() {
         modelo.setRowCount(0);
-        for (int i = 0; listaStock[i] != null; i++) {
+        for (int i = 0; i < listaStock.length && listaStock[i] != null; i++) {
             String nombre = listaStock[i].getNombre_producto();
             String proveedor = listaStock[i].getProveedor();
             String cant_entrante = listaStock[i].getCant_entrante();

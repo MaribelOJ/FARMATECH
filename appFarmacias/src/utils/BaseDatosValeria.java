@@ -258,23 +258,27 @@ public class BaseDatosValeria {
         return null;
     }
 
-    /*public Stock1 buscarProductoenStock(String id_producto, String NIT) throws IOException {
+    public Stock1 [] buscarProductoenStock(String nombreP, String NIT){
         try {
-            Stock1 encontrado = null;
+            Stock1 encontrado []= new Stock1[10];
 
-            String consulta = "SELECT producto.nombre_producto, stock.proveedor, stock.cant_entrante, stock.cant_restante,stock.estado,stock.comentario  , precio_unitario FROM stock ";
-            consulta += "INNER JOIN producto ON (producto.id_producto = stock.id_producto) WHERE NIT_farmacia = '" + NIT + "' ";
+            String consulta = "SELECT producto.nombre_producto, stock.proveedor, stock.cant_entrante, stock.cant_restante,stock.estado,stock.comentario  FROM stock ";
+            consulta += "INNER JOIN producto ON (producto.id_producto = stock.id_producto) WHERE nombre_producto LIKE '"+nombreP +"%' AND NIT_farmacia = '" + NIT + "'";
 
             ResultSet registros = manipularBD.executeQuery(consulta);
             registros.next();
             if (registros.getRow() == 1) {
-                String nombre_productos = registros.getString("nombre_producto");
-                String proveedor = registros.getString("proveedor");
-                String cant_entrante = registros.getString("cant_entrante");
-                String cant_restante = registros.getString("cant_restante");
-                String estado = registros.getString("estado");
-                String comentario = registros.getString("comentario");
-                encontrado = new Stock1(id_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
+                int i = 0;
+                do{                
+                    String nombre_productos = registros.getString("nombre_producto");
+                    String proveedor = registros.getString("proveedor");
+                    String cant_entrante = registros.getString("cant_entrante");
+                    String cant_restante = registros.getString("cant_restante");
+                    String estado = registros.getString("estado");
+                    String comentario = registros.getString("comentario");
+                    encontrado [i]= new Stock1(nombre_productos, proveedor, cant_entrante, cant_restante, estado, comentario);
+                    i++;
+                }while(registros.next());
                 return encontrado;
             }
         } catch (SQLException ex) {
@@ -283,7 +287,7 @@ public class BaseDatosValeria {
             return null;
         }
         return null;
-    }*/
+    }
 
     public boolean actualizarProductoEditar(String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
         boolean respuesta = false;
