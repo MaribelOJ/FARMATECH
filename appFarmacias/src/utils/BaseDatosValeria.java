@@ -292,48 +292,38 @@ public class BaseDatosValeria {
 
 
     
-    public boolean actualizarProductoEditar(String nit,String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
+    public boolean actualizarProductoEditar(String id_producto, String nombres, ImageIcon medicamento, String volumen, String precio, String fecha, String ingredientes, String usos) {
 
         boolean respuesta = false;
         try {
             
-            String consulta = "UPDATE producto INNER JOIN stock ON (producto.id_producto = stock.id_producto ";
-            consulta += "SET nombre_producto='" + nombres + "', medicamento='" + medicamento + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "'";
-            consulta +="WHERE id_producto='" + id_producto  + "'AND NIT_farmacia='" + nit+"' ";
+            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', medicamento='" + medicamento + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "'";
+            consulta +="WHERE id_producto='" + id_producto+"' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
             if (resp_consulta == 1) {
                 respuesta = true;
             }
-
+            return respuesta;
         } catch (SQLException ex) {
             System.out.println("--> Error Update: " + ex.getMessage());
         }
-        if (respuesta) {
-            System.out.println("Editado con exito");
-        } else {
-            System.out.println("No se pudo Editar");
-        }
+
         return respuesta;
     }
 
-    public boolean actualizarProductoEditar(String nit,String id_producto, String nombres, String volumen, String precio, String fecha, String ingredientes, String usos) {
+    public boolean actualizarProductoEditar(String id_producto, String nombres, String volumen, String precio, String fecha, String ingredientes, String usos) {
         boolean respuesta = false;
         try {
-            String consulta = "UPDATE producto INNER JOIN stock ON (producto.id_producto = stock.id_producto ";
-            consulta += "SET nombre_producto='" + nombres + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "'";
-            consulta +="WHERE id_producto='" + id_producto  + "'AND NIT_farmacia='" + nit+"' ";
+            String consulta = "UPDATE producto SET nombre_producto='" + nombres + "', volumen='" + volumen + "', precio_unitario='" + precio + "', fecha_vencimiento='" + fecha + "', ingredientes='" + ingredientes + "', usos='" + usos + "'";
+            consulta +="WHERE id_producto='" + id_producto+"' ";
             int resp_consulta = manipularBD.executeUpdate(consulta);
             if (resp_consulta == 1) {
                 respuesta = true;
             }
-
+            
+            return respuesta;
         } catch (SQLException ex) {
             System.out.println("--> Error Update: " + ex.getMessage());
-        }
-        if (respuesta) {
-            System.out.println("Editado con exito");
-        } else {
-            System.out.println("No se pudo Editar");
         }
         return respuesta;
     }

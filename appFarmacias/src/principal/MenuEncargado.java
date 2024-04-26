@@ -372,7 +372,11 @@ public class MenuEncargado extends javax.swing.JFrame {
         repaint();
         revalidate();
     }//GEN-LAST:event_btn_añadir_prod_stockActionPerformed
-
+    
+    public void btn_editar_prodActionPerformed(){
+        btn_editar_prodActionPerformed(null);
+    }
+    
     private void btn_editar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_prodActionPerformed
         EditarProducto nuevo = new EditarProducto(id_usuario,this);
 

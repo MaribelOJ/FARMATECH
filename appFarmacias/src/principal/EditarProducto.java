@@ -24,6 +24,8 @@ public class EditarProducto extends javax.swing.JPanel {
         this.bdvaleria =menu.bdvaleria;
         this.id_usuario = id_usuario;
         this.NIT = menu.NIT_farmacia;
+        this.imagenTemporal = null;
+        this.menu = menu;
         initComponents();
     }
 
@@ -49,7 +51,6 @@ public class EditarProducto extends javax.swing.JPanel {
         Usos = new javax.swing.JLabel();
         campo_usos = new javax.swing.JTextField();
         btn_editar = new javax.swing.JButton();
-        btn_volver = new javax.swing.JButton();
         btn_subirImagen = new javax.swing.JButton();
         contenedor_editar = new javax.swing.JPanel();
         imagenLabel = new javax.swing.JLabel();
@@ -120,11 +121,6 @@ public class EditarProducto extends javax.swing.JPanel {
             }
         });
 
-        btn_volver.setBackground(new java.awt.Color(0, 0, 0));
-        btn_volver.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btn_volver.setForeground(new java.awt.Color(255, 255, 255));
-        btn_volver.setText("VOLVER");
-
         btn_subirImagen.setBackground(new java.awt.Color(144, 177, 239));
         btn_subirImagen.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btn_subirImagen.setForeground(new java.awt.Color(255, 255, 255));
@@ -180,18 +176,12 @@ public class EditarProducto extends javax.swing.JPanel {
                         .addComponent(campo_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addComponent(contenedor_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
-                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel_menuLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_subirImagen))
-                    .addGroup(jPanel_menuLayout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(162, 162, 162)
-                        .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 79, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(166, 166, 166)
+                .addComponent(btn_subirImagen)
                 .addGap(128, 128, 128))
         );
         jPanel_menuLayout.setVerticalGroup(
@@ -225,12 +215,10 @@ public class EditarProducto extends javax.swing.JPanel {
                             .addComponent(Usos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(contenedor_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(80, 80, 80)
-                .addComponent(btn_subirImagen)
-                .addGap(34, 34, 34)
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_subirImagen)
                     .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -341,19 +329,22 @@ public class EditarProducto extends javax.swing.JPanel {
         String fecha = campo_fecha.getText();
         String ingredientes = campo_ingredientes.getText();
         String usos = campo_usos.getText();
+        
         boolean proceso=false;
         if (nombres.equals("") || volumen.equals("") || precio.equals("") || fecha.equals("") || ingredientes.equals("") || usos.equals("")) {
             Alerta ventana = new Alerta("Todos los campos son Obligatorios.");
         } else {
             if (imagenTemporal != null) {
-                 proceso = bdvaleria.actualizarProductoEditar(NIT,id_producto, nombres, imagenTemporal, volumen, precio, fecha, ingredientes, usos);
+                 proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, imagenTemporal, volumen, precio, fecha, ingredientes, usos);
 
             } else {
-                 proceso = bdvaleria.actualizarProductoEditar(NIT,id_producto, nombres, volumen, precio, fecha, ingredientes, usos);
+                proceso = bdvaleria.actualizarProductoEditar(id_producto, nombres, volumen, precio, fecha, ingredientes, usos);
             }
 
             if (proceso) {
-                System.out.println("Producto " + nombres + " editado con exito.");
+                this.menu.btn_editar_prodActionPerformed();
+                Confirmacion rep = new Confirmacion("Producto " + nombres + " editado");
+                
             } else {
                 Alerta ventana = new Alerta("Error al editar a la persona");
             }
@@ -390,7 +381,6 @@ public class EditarProducto extends javax.swing.JPanel {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_subirImagen;
-    private javax.swing.JButton btn_volver;
     private javax.swing.JTextField campo_fecha;
     private javax.swing.JTextField campo_ingredientes;
     private javax.swing.JTextField campo_nombre;
