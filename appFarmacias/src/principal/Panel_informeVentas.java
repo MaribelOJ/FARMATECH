@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -581,17 +582,19 @@ public class Panel_informeVentas extends javax.swing.JPanel {
                     }
                     String ganancia="";
                     String perdida="";
-
+                    DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
                     if(gananciasyPerdidas[0] == null){
                         ganancia="$0.00";
                     }else{
-                        ganancia="$"+gananciasyPerdidas[0];
+                        String profit =formatoDinero.format(Double.parseDouble(gananciasyPerdidas[0]));                        
+                        ganancia="$"+profit;
                     }
 
                     if(gananciasyPerdidas[1] == null){
                         perdida = "$0.00";
                     }else{
-                        perdida = "$"+gananciasyPerdidas[1];
+                        String loss =formatoDinero.format(Double.parseDouble(gananciasyPerdidas[1]));
+                        perdida = "$"+loss;
                     }
 
                     valor_ganancias.setText(ganancia);

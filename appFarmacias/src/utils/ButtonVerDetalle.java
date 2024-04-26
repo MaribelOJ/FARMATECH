@@ -28,8 +28,4 @@ public class ButtonVerDetalle extends DefaultCellEditor {
         }
         return super.getTableCellEditorComponent(table, value, isSelected, row, column);
     }
-
-    public Object getCellEditorValue() {
-        return clickedValue;
-    }
 }

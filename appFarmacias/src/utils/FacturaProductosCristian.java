@@ -1,30 +1,23 @@
 package utils;
 
-public class FacturaProductos {
-    String idProducto;
-    String producto;
-    String precioUnitario;
-    String cantidad;
-    String suma_total;
-    String total;
+public class FacturaProductosCristian {
 
-    public FacturaProductos(String idProducto, String producto, String precioUnitario, String cantidad, String suma_total,String total) {
-        this.idProducto = idProducto;
+    private String producto;
+    private String precioUnitario;
+    private String cantidad;
+    private String total;
+    private String iva;
+    private String sub_total;
+
+    public FacturaProductosCristian( String producto, String precioUnitario, String cantidad, String total, String iva, String sub_total) {
+
         this.producto = producto;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
-        this.suma_total = suma_total;
         this.total = total;
+        this.iva = iva;
+        this.sub_total = sub_total;
     }
-
-    public String getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(String idProducto) {
-        this.idProducto = idProducto;
-    }
-   
     
     public String getProducto() {
         return producto;
@@ -45,28 +38,35 @@ public class FacturaProductos {
     public String getCantidad() {
         return cantidad;
     }
+    public String getSub_total(){
+        return sub_total;
+    }
+    
+    public void setSub_total(String sub_total){
+        this.sub_total = sub_total;
+    }
 
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
     }
-
-    public String getSuma_total() {
-        return suma_total;
+    
+    public String getIva(){
+        return iva;
     }
-
-    public void setSuma_total(String suma_total) {
-        this.suma_total = suma_total;
+    
+    public void setIva(String iva){
+        this.iva=iva;
     }
-
+    
     public String getTotal() {
         return total;
     }
 
     public void setTotal(String total) {
         this.total = total;
-    }
+    } 
     
-    
+  
     
     
 }

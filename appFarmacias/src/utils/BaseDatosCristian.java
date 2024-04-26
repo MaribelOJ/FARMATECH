@@ -40,40 +40,44 @@ public class BaseDatosCristian {
             System.out.println(ex.getMessage());
         }
     }
-    public HistorialVentas[] obtenerHistorialVentas() {
-    try {
-        HistorialVentas[] arreglo = new HistorialVentas[100];
-        String consulta = "SELECT factura.numReferencia, producto.nombre_producto, factura.fecha, factura.id_cliente, factura.nombre_cliente, factura.total"  
-                    +"FROM factura INNER JOIN facturaproducto ON factura.numReferencia = facturaproducto.numReferencia"
-                    +"INNER JOIN producto ON facturaproducto.id_producto = producto.id_producto ";
+    
+    
+    public HistorialVentas[] obtenerHistorialVentas(String NIT) {
+        try {
+            HistorialVentas[] arreglo = new HistorialVentas[100];
+            String consulta = "SELECT numReferencia, fecha, id_cliente, nombre_cliente, total \n" +
+                           "FROM factura WHERE NIT_farmacia = '"+NIT+"'";
         
-        ResultSet registros = manipularDB.executeQuery(consulta);
-        int i = 0;
-        if(registros.getRow() == 1){
-         while (registros.next()) {
-            String numReferencia = registros.getString("numReferencia");
-            String nombre_producto = registros.getString("nombre_producto");
-            String fecha = registros.getString("fecha");
-            String id_cliente = registros.getString("id_cliente");
-            String nombre_cliente = registros.getString("nombre_cliente");
-            String total = registros.getString("total");
+            ResultSet registros = manipularDB.executeQuery(consulta);
+            registros.next();
+            int i = 0;
+            if(registros.getRow() == 1){
+                 do{ 
+                    String numReferencia = registros.getString("numReferencia");
+                    String fecha = registros.getString("fecha");
+                    String id_cliente = registros.getString("id_cliente");
+                    String nombre_cliente = registros.getString("nombre_cliente");
+                    String total = registros.getString("total");
 
-            arreglo[i] = new HistorialVentas(numReferencia, nombre_producto, fecha, id_cliente, nombre_cliente, total);
-            i++;
-            System.out.println(" "+arreglo[i]);
-        }   
-        }
-        return arreglo;
+                   arreglo[i] = new HistorialVentas(numReferencia, fecha, id_cliente, nombre_cliente, total);
+                   i++;
+                }while((registros.next()));   
+                 return arreglo;
+            }else{
+                return arreglo;
+            }
         } catch (SQLException ex) {
             System.out.println("Error al ejecutar la consulta: " + ex.getMessage());
             return new HistorialVentas[0];
         }
     }
+    
+    
     public Producto buscarProducto(String id_producto){
         Producto ubicado = null;
         
         try {
-            String consulta = "SELECT * FROM producto WHERE id_producto= id_producto";
+            String consulta = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,facturaproducto.sumatotal FROM producto INNER JOIN ";
             ResultSet registros = manipularDB.executeQuery(consulta);
             registros.next();
             
@@ -137,7 +141,7 @@ public class BaseDatosCristian {
                         medicamento = new ImageIcon(bytes, id_producto).getImage();
                     }
                     
-                   arreglo [i] = new ProductosCristian(id_producto, nombre_producto, volumen, precio_unitario, fecha_vencimiento, ingredientes, usos, usos);
+                   arreglo [i] = new ProductosCristian(id_producto, nombre_producto, volumen, precio_unitario);
                    i++;
                 }while(registros.next());
                     return arreglo;
@@ -150,4 +154,41 @@ public class BaseDatosCristian {
             return null;
         }
     }  
+    public FacturaProductosCristian [] Detalle(String numReferencia){
+        FacturaProductosCristian lista[] = new FacturaProductosCristian[100];
+        
+        try {
+            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,facturaproducto.suma_total, factura.iva, factura.total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto" 
+                               + " INNER JOIN factura ON facturaproducto.numReferencia = factura.numreferencia WHERE factura.numReferencia = '"+ numReferencia+"'";
+            ResultSet registros = manipularDB.executeQuery(consulta1);
+            registros.next();
+            
+            if(registros.getRow()==1){
+                int i= 0;
+                do{ 
+                    
+                    String nombre_producto = registros.getString("nombre_producto");
+                    String precio_unitario = registros.getString("precio_unitario");
+                    String cantidad = registros.getString("cantidad");
+                    String sub_total = registros.getString("suma_total");
+                    String iva = registros.getString("iva");
+                    String total = registros.getString("total");
+                    
+                    
+                    lista[i] = new FacturaProductosCristian ( nombre_producto, precio_unitario, cantidad, total, iva, sub_total);
+                    
+                   i++;
+                }while(registros.next());      
+            }
+
+            return lista;
+        } catch (SQLException ex) {
+            System.out.println("Error al ejecutar el SELECT: ");
+            System.out.println(ex.getMessage());
+        }
+        
+        return lista;
+        
+    }
+    
 }

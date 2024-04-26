@@ -22,6 +22,7 @@ public class ActualizarProveedor extends javax.swing.JPanel {
         Campo_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         jPanel_menu = new javax.swing.JPanel();
+        Label_nit = new javax.swing.JLabel();
         campo_nit = new javax.swing.JTextField();
         campo_nombre = new javax.swing.JTextField();
         campo_direccion = new javax.swing.JTextField();
@@ -31,6 +32,12 @@ public class ActualizarProveedor extends javax.swing.JPanel {
         campo_Estado = new javax.swing.JTextField();
         btn_actualizar = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
+        Label_nit1 = new javax.swing.JLabel();
+        Label_nit2 = new javax.swing.JLabel();
+        Label_nit3 = new javax.swing.JLabel();
+        Label_nit4 = new javax.swing.JLabel();
+        Label_nit5 = new javax.swing.JLabel();
+        Label_nit6 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -52,26 +59,23 @@ public class ActualizarProveedor extends javax.swing.JPanel {
 
         jPanel_menu.setBackground(new java.awt.Color(79, 108, 210));
 
+        Label_nit.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
+        Label_nit.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit.setText("Nombre:");
+
         campo_nit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_nit.setText("NIT:");
 
         campo_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_nombre.setText("Nombre:");
 
         campo_direccion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_direccion.setText("Dirección:");
 
         campo_telefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_telefono.setText("Telefono:");
 
         campo_correo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_correo.setText("Correo:");
 
         campoPersona.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campoPersona.setText("persona_contacto");
 
         campo_Estado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        campo_Estado.setText("Estado:");
 
         btn_actualizar.setBackground(new java.awt.Color(44, 45, 233));
         btn_actualizar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -93,6 +97,30 @@ public class ActualizarProveedor extends javax.swing.JPanel {
             }
         });
 
+        Label_nit1.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
+        Label_nit1.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit1.setText("Direccion:");
+
+        Label_nit2.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
+        Label_nit2.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit2.setText("Telefono:");
+
+        Label_nit3.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
+        Label_nit3.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit3.setText("Correo:");
+
+        Label_nit4.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
+        Label_nit4.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit4.setText("Nit:");
+
+        Label_nit5.setFont(new java.awt.Font("Arial", 1, 19)); // NOI18N
+        Label_nit5.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit5.setText("Estado:");
+
+        Label_nit6.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        Label_nit6.setForeground(new java.awt.Color(255, 255, 255));
+        Label_nit6.setText("Persona Contacto");
+
         javax.swing.GroupLayout jPanel_menuLayout = new javax.swing.GroupLayout(jPanel_menu);
         jPanel_menu.setLayout(jPanel_menuLayout);
         jPanel_menuLayout.setHorizontalGroup(
@@ -100,44 +128,93 @@ public class ActualizarProveedor extends javax.swing.JPanel {
             .addGroup(jPanel_menuLayout.createSequentialGroup()
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_menuLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campo_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel_menuLayout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(88, 88, 88)
-                        .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_menuLayout.createSequentialGroup()
+                        .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
+                                        .addComponent(Label_nit3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
+                                        .addComponent(Label_nit4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(32, 32, 32))))
+                            .addGroup(jPanel_menuLayout.createSequentialGroup()
+                                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel_menuLayout.createSequentialGroup()
+                                        .addGap(54, 54, 54)
+                                        .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(Label_nit1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Label_nit2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(Label_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Label_nit5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campo_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_menuLayout.createSequentialGroup()
+                    .addGap(45, 45, 45)
+                    .addComponent(Label_nit6, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(392, Short.MAX_VALUE)))
         );
         jPanel_menuLayout.setVerticalGroup(
             jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_menuLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(campo_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel_menuLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(campo_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Label_nit4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_nit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(campo_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_nit1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_nit2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(campo_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(campo_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campo_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_nit3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(campoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(campo_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campo_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_nit5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(86, 86, 86))
+            .addGroup(jPanel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_menuLayout.createSequentialGroup()
+                    .addGap(320, 320, 320)
+                    .addComponent(Label_nit6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(210, 210, 210)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -157,7 +234,7 @@ public class ActualizarProveedor extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(101, 101, 101)))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,6 +344,13 @@ public class ActualizarProveedor extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Campo_buscar;
+    private javax.swing.JLabel Label_nit;
+    private javax.swing.JLabel Label_nit1;
+    private javax.swing.JLabel Label_nit2;
+    private javax.swing.JLabel Label_nit3;
+    private javax.swing.JLabel Label_nit4;
+    private javax.swing.JLabel Label_nit5;
+    private javax.swing.JLabel Label_nit6;
     private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_volver;

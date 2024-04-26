@@ -3,6 +3,7 @@ package principal;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
@@ -193,22 +194,27 @@ public class Panel_detalleFacturas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     public void imprimirDetalle(){
+        DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
         modelo.setRowCount(0);
-        String txt ="";
+        String sumaTotal ="";
         
         for (int i=0; i< listaProductos.length && listaProductos[i]!=null; i++) {
             
             String producto = listaProductos[i].getProducto();
             String precio = listaProductos[i].getPrecioUnitario();
             String cantidad = listaProductos[i].getCantidad();
-            txt ="Total: " + listaProductos[i].getTotal();
+            String txt = listaProductos[i].getTotal();
             
-            Object dato[] = new Object[]{ producto,precio,cantidad};
+            sumaTotal =formatoDinero.format(Double.parseDouble(txt));           
+            String valorU = formatoDinero.format(Double.parseDouble(precio));
+            
+            
+            Object dato[] = new Object[]{ producto,valorU,cantidad};
             modelo.addRow(dato);
             
         }
         
-        etq_total.setText(txt);
+        etq_total.setText("Total: $"+sumaTotal);
     }
     
     private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed

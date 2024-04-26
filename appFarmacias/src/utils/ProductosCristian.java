@@ -13,8 +13,10 @@ public class ProductosCristian {
     private String ingredientes;
     private String usos;
     private Image medicamento;
+    private String cantidad;
+    private String suma_total;
     
-    public ProductosCristian(String id_producto, String nombre_producto, String volumen, String precio_unitario, String fecha_vencimiento, String ingredientes, String usos, String medicamentos) {
+    public ProductosCristian(String id_producto, String nombre_producto, String volumen, String precio_unitario) {
         this.id_producto = id_producto;
         this.nombre_producto = nombre_producto;
         this.medicamento = medicamento;
@@ -23,6 +25,8 @@ public class ProductosCristian {
         this.fecha_vencimiento = fecha_vencimiento;
         this.ingredientes = ingredientes;
         this.usos = usos;
+        this.cantidad = cantidad;
+        this.suma_total = suma_total;
         
         
     }
@@ -89,5 +93,21 @@ public class ProductosCristian {
 
     public void setUsos(String usos) {
         this.usos = usos;
+    }
+    
+    public String getCantidad(){
+        return cantidad;
+    }
+    
+    public void setCantidad(String cantidad){
+        this.cantidad = cantidad;
+    }
+    
+    public String getSuma_total(){
+        return suma_total;
+    }
+    
+    public void setSuma_total(String suma_total){
+        this.suma_total = suma_total;
     }
 }

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -196,6 +197,7 @@ public class VentasDesdeAdmin extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_volverActionPerformed
     
     public void imprimirFacturas(){
+        DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
         modelo.setRowCount(0);
         
         for (int i=0; i< ListaFacturas.length && ListaFacturas[i]!=null; i++) {
@@ -208,9 +210,10 @@ public class VentasDesdeAdmin extends javax.swing.JPanel {
             JButton btnDetalle = new JButton("Ver"); 
             btnDetalle.setBackground(Color.decode("#90B1EF"));
             btnDetalle.setForeground(Color.WHITE);
-                        
+            
+            String sumaTotal =formatoDinero.format(Double.parseDouble(total));                       
 
-            Object dato[] = new Object[]{ numReferencia,fecha,id_cliente,total, btnDetalle };
+            Object dato[] = new Object[]{ numReferencia,fecha,id_cliente,sumaTotal, btnDetalle };
             modelo.addRow(dato);
             
             btnDetalle.addActionListener(new ActionListener() {
