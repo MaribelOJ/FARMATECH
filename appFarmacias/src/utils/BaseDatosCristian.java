@@ -45,7 +45,7 @@ public class BaseDatosCristian {
     public HistorialVentas[] obtenerHistorialVentas(String NIT) {
         try {
             HistorialVentas[] arreglo = new HistorialVentas[100];
-            String consulta = "SELECT numReferencia, fecha, id_cliente, nombre_cliente, total \n" +
+            String consulta = "SELECT numReferencia, fecha, id_cliente, nombre_cliente,iva, total \n" +
                            "FROM factura WHERE NIT_farmacia = '"+NIT+"'";
         
             ResultSet registros = manipularDB.executeQuery(consulta);
@@ -57,9 +57,10 @@ public class BaseDatosCristian {
                     String fecha = registros.getString("fecha");
                     String id_cliente = registros.getString("id_cliente");
                     String nombre_cliente = registros.getString("nombre_cliente");
+                    String iva = registros.getString("iva");
                     String total = registros.getString("total");
 
-                   arreglo[i] = new HistorialVentas(numReferencia, fecha, id_cliente, nombre_cliente, total);
+                   arreglo[i] = new HistorialVentas(numReferencia, fecha, id_cliente, nombre_cliente,iva, total);
                    i++;
                 }while((registros.next()));   
                  return arreglo;
@@ -158,7 +159,7 @@ public class BaseDatosCristian {
         FacturaProductosCristian lista[] = new FacturaProductosCristian[100];
         
         try {
-            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,facturaproducto.suma_total, factura.iva, factura.total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto" 
+            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,facturaproducto.suma_total, factura.iva, factura.sub_total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto" 
                                + " INNER JOIN factura ON facturaproducto.numReferencia = factura.numreferencia WHERE factura.numReferencia = '"+ numReferencia+"'";
             ResultSet registros = manipularDB.executeQuery(consulta1);
             registros.next();
@@ -172,7 +173,7 @@ public class BaseDatosCristian {
                     String cantidad = registros.getString("cantidad");
                     String sub_total = registros.getString("suma_total");
                     String iva = registros.getString("iva");
-                    String total = registros.getString("total");
+                    String total = registros.getString("sub_total");
                     
                     
                     lista[i] = new FacturaProductosCristian ( nombre_producto, precio_unitario, cantidad, total, iva, sub_total);

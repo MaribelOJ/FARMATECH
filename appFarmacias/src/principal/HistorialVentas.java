@@ -46,14 +46,15 @@ public class HistorialVentas extends javax.swing.JPanel {
 
         model = (DefaultTableModel) HistorialDatos.getModel();
         
-        HistorialDatos.getColumnModel().getColumn(4).setCellEditor(new ButtonEditorDetalle(new JCheckBox()));
-        HistorialDatos.getColumnModel().getColumn(4).setCellRenderer(new ButtonRendererDetalle());
+        HistorialDatos.getColumnModel().getColumn(5).setCellEditor(new ButtonEditorDetalle(new JCheckBox()));
+        HistorialDatos.getColumnModel().getColumn(5).setCellRenderer(new ButtonRendererDetalle());
         
         HistorialDatos.getColumnModel().getColumn(0).setPreferredWidth(100);
         HistorialDatos.getColumnModel().getColumn(1).setPreferredWidth(100);
         HistorialDatos.getColumnModel().getColumn(2).setPreferredWidth(100);
-        HistorialDatos.getColumnModel().getColumn(3).setPreferredWidth(150);
-        HistorialDatos.getColumnModel().getColumn(4).setPreferredWidth(40);
+        HistorialDatos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        HistorialDatos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        HistorialDatos.getColumnModel().getColumn(5).setPreferredWidth(50);
     
         HistorialDatos.getTableHeader().setReorderingAllowed(false);
         HistorialDatos.getTableHeader().setResizingAllowed(false);
@@ -80,6 +81,7 @@ public class HistorialVentas extends javax.swing.JPanel {
             String NumReferencia = lista[i].getNumReferencia();
             String Fecha = lista[i].getFecha();
             String Id_cliente = lista[i].getId_cliente();
+            String Iva =lista[i].getIva();
             String Total = lista[i].getTotal();
             
             JButton btnDetalle = new JButton();
@@ -89,9 +91,10 @@ public class HistorialVentas extends javax.swing.JPanel {
             btnDetalle.setIcon(new ImageIcon(VerDetalle));
             
             String sumaTotal =formatoDinero.format(Double.parseDouble(Total));
+            String valorIva =formatoDinero.format(Double.parseDouble(Iva));
             
             
-            Object historial[] = new Object[]{ NumReferencia, Fecha, Id_cliente,  sumaTotal, btnDetalle};
+            Object historial[] = new Object[]{ NumReferencia, Fecha, Id_cliente,valorIva,sumaTotal, btnDetalle};
             model.addRow(historial);
             
             btnDetalle.addActionListener(new ActionListener(){
@@ -126,20 +129,20 @@ public class HistorialVentas extends javax.swing.JPanel {
 
         HistorialDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "NumReferencia", "Fecha", "Id_cliente", "Total", "Ver"
+                "NumReferencia", "Fecha", "Id_cliente", "Iva", "Total Factura", "Ver"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -157,24 +160,22 @@ public class HistorialVentas extends javax.swing.JPanel {
         cont_principalLayout.setHorizontalGroup(
             cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(cont_principalLayout.createSequentialGroup()
-                        .addGap(205, 205, 205)
-                        .addComponent(jLabel1))
-                    .addGroup(cont_principalLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(223, 223, 223))
+            .addGroup(cont_principalLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         cont_principalLayout.setVerticalGroup(
             cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cont_principalLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jLabel1)
-                .addGap(200, 200, 200)
+                .addGap(194, 194, 194)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addGap(209, 209, 209))
+                .addGap(215, 215, 215))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

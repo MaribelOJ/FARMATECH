@@ -8,14 +8,16 @@ public class HistorialVentas {
     private String fecha;
     private String id_cliente;
     private String nombre_cliente;
+    private String iva;
     private String total;
     
     
-    public HistorialVentas( String numReferencia, String fecha, String id_cliente, String nombre_cliente, String total){
+    public HistorialVentas( String numReferencia, String fecha, String id_cliente, String nombre_cliente,String iva, String total){
        this.numReferencia = numReferencia;
        this.fecha = fecha;
        this.id_cliente = id_cliente;
        this.nombre_cliente = nombre_cliente;
+       this.iva = iva;
        this.total = total; 
     }
 
@@ -50,6 +52,14 @@ public class HistorialVentas {
     
     public void setNombre_cliente(String nombre_cliente){
         this.nombre_cliente = nombre_cliente;
+    }
+
+    public String getIva() {
+        return iva;
+    }
+
+    public void setIva(String iva) {
+        this.iva = iva;
     }
     
     public String getTotal(){
