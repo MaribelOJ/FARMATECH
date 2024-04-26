@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,12 +33,14 @@ public class Panel_factura_final extends javax.swing.JPanel {
     
     private String nombreUsuario;
     private String nombreCliente;
+    DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
     
     public Panel_factura_final(MenuEncargado menu, String nombreCliente, String nombreUsuario) {
         initComponents();
         this.bdmiguel = new BaseDatosMiguel();
         this.nombreUsuario = nombreUsuario;
         this.nombreCliente = nombreCliente;
+        
         initAlternComponents();
        
        
@@ -438,9 +441,10 @@ public class Panel_factura_final extends javax.swing.JPanel {
                     etq_subtotal.setText("" + contador_subtotal);
                     etq_iva.setText("" + iva);
                     etq_total.setText("" + total);
-
+                    
+                    
                     // Agregar el producto a la tabla
-                    imprimirtabla(nombreProducto, cantidad, subtotal);
+                    imprimirtabla(nombreProducto, cantidad,subtotal);
                 } else {
                     Alerta ventana = new Alerta("Producto no encontrado.");
 
@@ -517,7 +521,10 @@ public class Panel_factura_final extends javax.swing.JPanel {
        Image icono_Editar = getToolkit().createImage(ClassLoader.getSystemResource("imagenes/icono_editar.png"));
        icono_Editar = icono_Editar.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
        btnEditar.setIcon(new ImageIcon(icono_Editar));
-
+       
+       
+       //String valorIva =formatoDinero.format(Double.parseDouble(test01));
+       
        Object[] rowData = {nombreProducto, cantidad, bdmiguel.obtenerPrecioUnitario(nombreProducto), subtotal, btnEditar, btnEliminar};
        model.addRow(rowData);
 
@@ -560,6 +567,7 @@ public class Panel_factura_final extends javax.swing.JPanel {
     
     public void actualizarTotales() {
         // Calcular subtotal
+        
         int subtotal = 0;
         for (int i = 0; i < tabla_productos.getRowCount(); i++) {
             subtotal += (int) tabla_productos.getValueAt(i, 3);
@@ -575,11 +583,15 @@ public class Panel_factura_final extends javax.swing.JPanel {
         String test = String.valueOf(subtotal);
         String test01 = String.valueOf(iva);
         String test02 = String.valueOf(total);
+        
+        String sumaParcial =formatoDinero.format(Double.parseDouble(test));
+        String valorIva =formatoDinero.format(Double.parseDouble(test01));
+        String sumaTotal =formatoDinero.format(Double.parseDouble(test02));
 
         // Actualizar etiquetas
-        etq_subtotal.setText(test);
-        etq_iva.setText(test01);
-        etq_total.setText(test02);
+        etq_subtotal.setText(sumaParcial);
+        etq_iva.setText(valorIva);
+        etq_total.setText(sumaTotal);
         
         habilitarBotonGenerarFactura();
     }
