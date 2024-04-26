@@ -8,14 +8,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.BaseDatos;
 import utils.BaseDatosCristian;
+import utils.ButtonEditorDetalle;
 import utils.ButtonEditor;
 import utils.ButtonRenderer;
 import utils.ButtonRenderer;
 import utils.ButtonEditor;
-import utils.ButtonRenderDetalle;
+import utils.ButtonRendererDetalle;
 
 
 
@@ -41,15 +44,30 @@ public class HistorialVentas extends javax.swing.JPanel {
     public void InitAlternComponents(){
         model = (DefaultTableModel) HistorialDatos.getModel();
         
-        HistorialDatos.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox()));
-        HistorialDatos.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderDetalle());
+        HistorialDatos.getColumnModel().getColumn(4).setCellEditor(new ButtonEditorDetalle(new JCheckBox()));
+        HistorialDatos.getColumnModel().getColumn(4).setCellRenderer(new ButtonRendererDetalle());
         
-        HistorialDatos.getColumnModel().getColumn(0).setPreferredWidth(150);
-        HistorialDatos.getColumnModel().getColumn(1).setPreferredWidth(180);
-        HistorialDatos.getColumnModel().getColumn(2).setPreferredWidth(270);
-        HistorialDatos.getColumnModel().getColumn(3).setPreferredWidth(290);
-        HistorialDatos.getColumnModel().getColumn(4).setPreferredWidth(250);
+        HistorialDatos.getColumnModel().getColumn(0).setPreferredWidth(100);
+        HistorialDatos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        HistorialDatos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        HistorialDatos.getColumnModel().getColumn(3).setPreferredWidth(150);
+        HistorialDatos.getColumnModel().getColumn(4).setPreferredWidth(40);
+    
+        HistorialDatos.getTableHeader().setReorderingAllowed(false);
+        HistorialDatos.getTableHeader().setResizingAllowed(false);
+
+        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
+        centerRender.setHorizontalAlignment(SwingConstants.CENTER);
+        HistorialDatos.getColumnModel().getColumn(0).setCellRenderer(centerRender);
+        HistorialDatos.getColumnModel().getColumn(3).setCellRenderer(centerRender);
+    
+        HistorialDatos.setRowHeight(25);
     }
+
+        
+        
+        
+    
     
     public void imprimirHistorial(){
         utils.HistorialVentas lista[] = bdC.obtenerHistorialVentas(Nit_farmacia);
@@ -64,7 +82,7 @@ public class HistorialVentas extends javax.swing.JPanel {
             JButton btnDetalle = new JButton();
             btnDetalle.setBackground(Color.white);
             Image VerDetalle = getToolkit().createImage( ClassLoader.getSystemResource("imagenes/VerDetalle.png"));
-            VerDetalle = VerDetalle.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+            VerDetalle = VerDetalle.getScaledInstance(60, 20, Image.SCALE_SMOOTH);
             btnDetalle.setIcon(new ImageIcon(VerDetalle));
             
             
@@ -133,24 +151,25 @@ public class HistorialVentas extends javax.swing.JPanel {
         cont_principal.setLayout(cont_principalLayout);
         cont_principalLayout.setHorizontalGroup(
             cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cont_principalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cont_principalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cont_principalLayout.createSequentialGroup()
-                        .addGap(133, 133, 133)
+                        .addGap(205, 205, 205)
                         .addComponent(jLabel1))
                     .addGroup(cont_principalLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addGap(23, 23, 23)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
         cont_principalLayout.setVerticalGroup(
             cont_principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cont_principalLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(200, 200, 200)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addGap(209, 209, 209))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
