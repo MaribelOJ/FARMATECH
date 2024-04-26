@@ -6,19 +6,15 @@ public class FacturaProductosCristian {
     private String precioUnitario;
     private String cantidad;
     private String total;
-    private String fecha;
-    private String hora;
     private String iva;
     private String sub_total;
 
-    public FacturaProductosCristian( String producto, String precioUnitario, String cantidad, String total, String fecha, String hora, String iva, String sub_total) {
+    public FacturaProductosCristian( String producto, String precioUnitario, String cantidad, String total, String iva, String sub_total) {
 
         this.producto = producto;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
         this.total = total;
-        this.fecha = fecha;
-        this.hora = hora;
         this.iva = iva;
         this.sub_total = sub_total;
     }
@@ -37,21 +33,6 @@ public class FacturaProductosCristian {
 
     public void setPrecioUnitario(String precioUnitario) {
         this.precioUnitario = precioUnitario;
-    }
-      public String getFecha(){
-        return fecha;
-    }
-    
-    public void setFecha(String fecha){
-        this.fecha = fecha;
-    }
-    
-    public String getHora(){
-        return hora;
-    }
-    
-    public void setHora(String hora){
-        this.hora = hora;
     }
 
     public String getCantidad() {

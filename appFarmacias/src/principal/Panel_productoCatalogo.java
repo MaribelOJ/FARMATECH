@@ -3,6 +3,7 @@ package principal;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import utils.BaseDatos_Maribel;
 import utils.Catalogo;
@@ -118,6 +119,7 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     public void initAlternComponents(){
+        DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
         
         Image foto = listaCatalogo[indice].getFoto();
         foto = foto.getScaledInstance(200, 200, Image.SCALE_SMOOTH);        
@@ -125,7 +127,9 @@ public class Panel_productoCatalogo extends javax.swing.JPanel {
 
         etq_cant.setText("Stock: "+listaCatalogo[indice].getCant_restante());
         etq_nombre.setText(listaCatalogo[indice].getNombre_producto()+ " "+ listaCatalogo[indice].getVolumen());
-        etq_precio.setText("$"+listaCatalogo[indice].getPrecio_unitario());
+        
+        String precioU =formatoDinero.format(Double.parseDouble(listaCatalogo[indice].getPrecio_unitario()));
+        etq_precio.setText("$"+precioU);
     }
 
     

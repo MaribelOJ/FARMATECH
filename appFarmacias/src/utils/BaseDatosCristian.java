@@ -158,8 +158,8 @@ public class BaseDatosCristian {
         FacturaProductosCristian lista[] = new FacturaProductosCristian[100];
         
         try {
-            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, factura.fecha, factura.hora, facturaproducto.cantidad,factura.sub_total, factura.iva, factura.total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto INNER JOIN factura ON factura.numReferencia = facturaproducto.numReferencia " 
-                               + "WHERE factura.numReferencia = '"+ numReferencia+"'";
+            String consulta1 = "SELECT producto.nombre_producto, producto.precio_unitario, facturaproducto.cantidad,factura.sub_total, factura.iva, factura.total FROM producto INNER JOIN facturaproducto ON producto.id_producto = facturaproducto.id_producto" 
+                               + " INNER JOIN factura ON facturaproducto.numReferencia = factura.numreferencia WHERE factura.numReferencia = '"+ numReferencia+"'";
             ResultSet registros = manipularDB.executeQuery(consulta1);
             registros.next();
             
@@ -169,15 +169,13 @@ public class BaseDatosCristian {
                     
                     String nombre_producto = registros.getString("nombre_producto");
                     String precio_unitario = registros.getString("precio_unitario");
-                    String fecha = registros.getString("fecha");
-                    String hora = registros.getString("hora");
                     String cantidad = registros.getString("cantidad");
                     String sub_total = registros.getString("sub_total");
                     String iva = registros.getString("iva");
                     String total = registros.getString("total");
                     
                     
-                    lista[i] = new FacturaProductosCristian ( nombre_producto, precio_unitario, cantidad, total, fecha, hora, iva, sub_total);
+                    lista[i] = new FacturaProductosCristian ( nombre_producto, precio_unitario, cantidad, total, iva, sub_total);
                     
                    i++;
                 }while(registros.next());      

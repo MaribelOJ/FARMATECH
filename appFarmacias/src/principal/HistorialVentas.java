@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -71,6 +72,7 @@ public class HistorialVentas extends javax.swing.JPanel {
     
     
     public void imprimirHistorial(){
+        DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
         utils.HistorialVentas lista[] = bdC.obtenerHistorialVentas(Nit_farmacia);
         model.setRowCount(0);
         
@@ -86,8 +88,10 @@ public class HistorialVentas extends javax.swing.JPanel {
             VerDetalle = VerDetalle.getScaledInstance(60, 20, Image.SCALE_SMOOTH);
             btnDetalle.setIcon(new ImageIcon(VerDetalle));
             
+            String sumaTotal =formatoDinero.format(Double.parseDouble(Total));
             
-            Object historial[] = new Object[]{ NumReferencia, Fecha, Id_cliente,  Total, btnDetalle};
+            
+            Object historial[] = new Object[]{ NumReferencia, Fecha, Id_cliente,  sumaTotal, btnDetalle};
             model.addRow(historial);
             
             btnDetalle.addActionListener(new ActionListener(){

@@ -1,6 +1,7 @@
 
 package principal;
 
+import java.text.DecimalFormat;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,20 +36,20 @@ public class VerDetalle extends javax.swing.JPanel {
 
         tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "PRODUCTO", "PRECIO", "FECHA", "HORA", "CANTIDAD", "SUB_TOTAL", "IVA", "TOTAL"
+                "PRODUCTO", "PRECIO", "CANTIDAD", "SUB_TOTAL", "IVA", "TOTAL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -95,12 +96,9 @@ public class VerDetalle extends javax.swing.JPanel {
         
         tablaDetalle.getColumnModel().getColumn(0).setPreferredWidth(100);
         tablaDetalle.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tablaDetalle.getColumnModel().getColumn(2).setPreferredWidth(100);
         tablaDetalle.getColumnModel().getColumn(3).setPreferredWidth(100);
         tablaDetalle.getColumnModel().getColumn(4).setPreferredWidth(100);
         tablaDetalle.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tablaDetalle.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tablaDetalle.getColumnModel().getColumn(7).setPreferredWidth(100);
     
         tablaDetalle.getTableHeader().setReorderingAllowed(false);
         tablaDetalle.getTableHeader().setResizingAllowed(false);
@@ -115,26 +113,23 @@ public class VerDetalle extends javax.swing.JPanel {
     }
     
     public void imprimirDetalle(){
-        
+        DecimalFormat formatoDinero = new DecimalFormat("#,###.##");
         model.setRowCount(0);
         
         for (int i = 0; i < listaDetalle.length && listaDetalle[i] != null; i++) {
             String NumReferencia = listaDetalle[i].getProducto();
             String Precio = listaDetalle[i].getPrecioUnitario();
-            String Fecha = listaDetalle[i].getFecha();
-            String Hora = listaDetalle[i].getHora();
             String cantidad = listaDetalle[i].getCantidad();
             String sub_total = listaDetalle[i].getSub_total();
             String IVA = listaDetalle[i].getIva();
             String Total = listaDetalle[i].getTotal();
             
-            Object historial[] = new Object[]{ NumReferencia, Precio,Fecha, Hora, cantidad,sub_total,IVA,Total};
+            String sumaParcial =formatoDinero.format(Double.parseDouble(sub_total));
+            String sumaTotal =formatoDinero.format(Double.parseDouble(Total));
+            String valorU = formatoDinero.format(Double.parseDouble(Precio));
+            Object historial[] = new Object[]{ NumReferencia, valorU,cantidad,sumaParcial,IVA,sumaTotal};
             model.addRow(historial);
         }
-        
-        
-                      
-          
 
     }
 
